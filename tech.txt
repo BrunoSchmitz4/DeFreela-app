@@ -1,0 +1,8 @@
+Tecnologias usadas no ecossistema:
+
+- Bibliotecas:
+1. React Js;
+2. React Router DOM (Rotas né)
+3. Animate.CSS (deixa bunitin)
+4. React MEMO ( Otimização renderização usando memorized)
+5. Axios - para Rest API (Cliente HTTP baseado em Promisses para JS)
