@@ -1,6 +1,6 @@
-import styles from './Content.module.css';
+import styles from './Layout.module.css';
 
-function Content( { children }) {
+function Layout( { children }) {
     return (
         <section className={styles.contentContainer}>
             { children }
@@ -8,4 +8,4 @@ function Content( { children }) {
     )
 }
 
-export default Content;
+export default Layout;
