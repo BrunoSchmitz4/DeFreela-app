@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# DeFreela - Front-end
+O DeFreela é uma plataforma inovadora projetada para simplificar a colaboração entre profissionais freelancers e empresas. Nosso objetivo é facilitar a criação e a gestão de contratos de trabalho de forma segura e eficiente, garantindo transparência e agilidade para ambas as partes. Este repositório contém a aplicação Front-end do projeto.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**🚀 Tecnologias e Ferramentas**
+- React JS: Biblioteca JavaScript para a construção de interfaces de usuário reativas.
+- React Router DOM: Gerenciador de rotas para navegação entre as páginas da aplicação.
+- React MEMO: Técnica de otimização de performance que evita renderizações desnecessárias de componentes.
+- Animate.CSS: Biblioteca de animações que adiciona transições e efeitos visuais atraentes à interface.
+- Axios: Cliente HTTP baseado em Promisses, utilizado para comunicação com a API REST do Back-end.
+- JSX: Uma extensão de sintaxe do JavaScript que permite escrever código HTML dentro dos arquivos JS.
 
-## Available Scripts
+**🛠️ Como Executar o Projeto**
+Siga os passos abaixo para ter uma cópia do projeto em sua máquina local e rodar para fins de desenvolvimento e teste.
 
-In the project directory, you can run:
+Pré-requisitos
+Certifique-se de ter o Node.js e o npm (ou Yarn) instalados.
 
-### `npm start`
+Instalação
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Clone o repositório em sua máquina:
+> Bash
+`git clone https://github.com/BrunoSchmitz4/DeFreela-app.git`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Navegue até o diretório do projeto:
+> Bash
+`cd seu-repositorio-front-end`
 
-### `npm test`
+Instale as dependências:
+> Bash
+`npm install`
+# ou
+`yarn install`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Crie um arquivo .env na raiz do projeto e configure a URL da API do Back-end (substitua pelo endereço correto da sua API):
 
-### `npm run build`
+REACT_APP_API_URL=http://localhost:3001/api
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Rodando a Aplicação**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Inicie o servidor de desenvolvimento:
+> Bash
+`npm start `
+# ou
+`yarn start `
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+> A aplicação será executada em http://localhost:3000 e recarregará automaticamente a cada alteração.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**📝 Licença**
+> Distribuído sob a licença MIT. Veja o arquivo LICENSE para mais informações.
