@@ -28,7 +28,7 @@ Navegue até o diretório do projeto:
 Instale as dependências:
 > Bash
 `npm install`
-# ou
+ ou
 `yarn install`
 
 Crie um arquivo .env na raiz do projeto e configure a URL da API do Back-end (substitua pelo endereço correto da sua API):
@@ -40,7 +40,7 @@ REACT_APP_API_URL=http://localhost:3001/api
 Inicie o servidor de desenvolvimento:
 > Bash
 `npm start `
-# ou
+ ou
 `yarn start `
 
 > A aplicação será executada em http://localhost:3000 e recarregará automaticamente a cada alteração.
