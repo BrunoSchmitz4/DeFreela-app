@@ -5,7 +5,6 @@
     justify-content: center;
     height: 100vh;
     text-align: center;
-    background-color: #f8f8f8;
     color: #333;
 }
 
@@ -13,4 +12,5 @@
 
     font-size: 3rem;
     margin-bottom: 1rem;
-    color: #e74c3c;}
+    color: #e74c3c;
+}

@@ -3,10 +3,12 @@ import Header from '../../components/Header';
 
 function BasePage() {
     return (
-        <main>
+        <>
             <Header />
-            <Outlet />
-        </main>
+            <main>
+                <Outlet />
+            </main>
+        </>
     )
 }
 

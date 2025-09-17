@@ -1,7 +1,6 @@
 import Content from "../../components/Layout"
-import Header from "../../components/Header"
 
-function Main() {
+function Home() {
     return (
         <>
             <Content>
@@ -11,4 +10,4 @@ function Main() {
     )
 }
 
-export default Main
+export default Home;

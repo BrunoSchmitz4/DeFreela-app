@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NotFound from "./pages/NotFound";
-import Main from "./pages/Main";
+import Home from "./pages/Home";
 import Contract from "./pages/Contract";
 import BasePage from "./pages/BasePage";
 
@@ -9,7 +9,7 @@ function AppRoutes() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={ <BasePage /> }>
-                    <Route index element={ <Main /> } />
+                    <Route index element={ <Home /> } />
                     <Route path="/contracts" element={ <Contract /> } />
                     <Route path="*" element={ <NotFound /> } />
                 </Route>
