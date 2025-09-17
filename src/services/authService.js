@@ -1,4 +1,4 @@
-import api from ''
+import api from './api'
 // Aqui será o import da API (vou usar um mockzin pra fins de testes)
 
 

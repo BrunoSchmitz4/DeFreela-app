@@ -1,0 +1,27 @@
+src/
+    assets/ Imagens, ícones, fontes e logo
+    components/ Componentes atômicos reutilizáveis
+        Header/ Cabeçalho global
+        PrivateRoute/ Wrapper de rotas privadas (pra fins de segurança)
+        ProjectCard/ Card de projetos
+        RouterLink/ Botão de navegação de rotas
+    context/ Onde fica o React Context API. Serve pra mantermos os estados globais (como usuário logado e o tema da aplicação)
+        authContext.js mantem o estado do usuário logado
+        themeContext.js (vai que queiramos um darkMode) mantem o estado do tema da aplicação
+    hooks/
+    pages/
+        Auth/
+        BasePage/
+        Contract/
+        Home/
+        NotFound/
+        Profile/
+        Projects/
+    services/
+        api.js
+        authService.js
+    store/
+    utils/
+    index.css
+    index.js
+    routes.js
