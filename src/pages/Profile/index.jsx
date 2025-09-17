@@ -1,8 +1,8 @@
-function Auth() {
+function Profile() {
     return (
         <>
         </>
     )
 }
 
-export default Auth;
+export default Profile;

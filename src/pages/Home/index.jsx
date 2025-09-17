@@ -1,11 +1,7 @@
-import Content from "../../components/Layout"
-
 function Home() {
     return (
         <>
-            <Content>
-                <h2>Conteúdo da página inicial</h2>
-            </Content>
+          <h2>Essa é a Home</h2>  
         </>
     )
 }
