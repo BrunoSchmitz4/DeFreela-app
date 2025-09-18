@@ -8,13 +8,13 @@ src/
     context/ Onde fica o React Context API. Serve pra mantermos os estados globais (como usuário logado e o tema da aplicação)
         authContext.js mantem o estado do usuário logado
         themeContext.js (vai que queiramos um darkMode) mantem o estado do tema da aplicação
-    hooks/
+    hooks/ Onde fica os hooks customizados (são as lógicas repetitivas de React que não faz sentido criar um componente pra elas)
     pages/
-        Auth/
-        BasePage/
-        Contract/
-        Home/
-        NotFound/
+        Auth/ Tela de Login
+        BasePage/ Layout Wrapperddas rotas principais
+        Contract/ Página de geração de contratos
+        Home/ Página inicial
+        NotFound/ Rota que garante retorno para a rota Home caso o usuário navegue para uma inexistente
         Profile/
         Projects/
     services/
