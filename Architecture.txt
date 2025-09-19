@@ -15,13 +15,13 @@ src/
         Contract/ Página de geração de contratos
         Home/ Página inicial
         NotFound/ Rota que garante retorno para a rota Home caso o usuário navegue para uma inexistente
-        Profile/
-        Projects/
-    services/
-        api.js
-        authService.js
-    store/
-    utils/
+        Profile/ Tela de Perfil do usuário
+        Projects/ Tela de listagem de projetos/freelas (tanto de freelancers quanto de empresas)
+    services/ (Aqui faremos as requisições externas com API e Axios)
+        api.js aqui faremos a configuração central do cliente Axios
+        authService.js funções específicas de autenticação (login, registro etc) obs: aqui provavelmente faremos um service de project e contract.
+    store/ Espaço para uso de Redux ou Zustant (pode ser removido caso a gente fique apenas com o context)
+    utils/ Funções e helpers não dependentes do Reat como formatar datas, mascarar CPF/CNPJ, validação de email etc (ver com o Felipe sobre regras de negócio que se apliquem)
     index.css
     index.js
     routes.js
