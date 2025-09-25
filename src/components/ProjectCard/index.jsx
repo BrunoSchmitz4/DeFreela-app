@@ -2,7 +2,7 @@ import styles from './ProjectCard.module.css'
 import { Link } from 'react-router';
 
 // Relacionado à um projeto, ao clicar, ele pegará o id do projeto e carregará as informações do projeto
-function ProjectCard() {
+function ProjectCard(projectCardTagList = [], projectCardTitle = "Título do projeto") {
     return (
         <>
             <Link to="/contracts/">
