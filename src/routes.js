@@ -5,7 +5,7 @@ import Contract from "./pages/Contract";
 import BasePage from "./pages/BasePage";
 import Profile from "./pages/Profile";
 import Projects from "./pages/Projects";
-import PrivateRoute from "./components/PrivateRoute";
+// import PrivateRoute from "./components/PrivateRoute";
 
 function AppRoutes() {
     return (
@@ -16,10 +16,10 @@ function AppRoutes() {
                     {/* Rotas públicas */}
                     <Route index element={ <Home /> } />
 
-                    {/* Rotas privadas */}
-                    <Route path="/contracts" element={ <PrivateRoute><Contract /></PrivateRoute> } />
-                    <Route path="/Profile" element={ <PrivateRoute><Profile /></PrivateRoute> } />
-                    <Route path="/projects" element={ <PrivateRoute><Projects /></PrivateRoute> } />
+                    {/* Rotas privadas (Quando tivermos a API para fazer o auth do usuário logado, irei encapsular essas tags marotas*/}
+                    <Route path="/contracts" element={ <Contract /> } />
+                    <Route path="/Profile" element={ <Profile /> } />
+                    <Route path="/projects" element={ <Projects /> } />
 
                     {/* Rota Fallback */}
                     <Route path="*" element={ <NotFound /> } />
