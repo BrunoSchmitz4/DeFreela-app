@@ -2,6 +2,7 @@
     color: gray;
     text-decoration: none;
     width: 80px;
+    text-align: center;
 }
 
 .routerlinkDefault:hover {
