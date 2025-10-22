@@ -5,6 +5,7 @@ import Contract from "./pages/Contract";
 import BasePage from "./pages/BasePage";
 import Profile from "./pages/Profile";
 import Projects from "./pages/Projects";
+import Login from "./pages/Auth/Login";
 // import PrivateRoute from "./components/PrivateRoute";
 
 function AppRoutes() {
@@ -24,6 +25,7 @@ function AppRoutes() {
                     {/* Rota Fallback */}
                     <Route path="*" element={ <NotFound /> } />
                 </Route>
+                    <Route path="/login" element={ <Login /> } />
             </Routes>
         </BrowserRouter>
     )

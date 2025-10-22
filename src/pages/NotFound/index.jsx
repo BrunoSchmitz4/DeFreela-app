@@ -1,6 +1,8 @@
 import RouterLink from '../../components/RouterLink';
 import styles from './NotFound.module.css';
 
+// Aqui preciso fazer o seguinte:
+// Caso o usuário estiver logado, o início será a home, caso contrário, login
 function NotFound() {
     return (
         <div className={styles.notfoundContainer}>
