@@ -9,6 +9,11 @@ function Projects() {
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
 
+//   useEffect(() => {
+//   api.get("/projects").then(res => setProjects(res.data));
+// }, []);
+
+
   useEffect(() => {
     // Aqui depois chamaremos a API do backend (Spring Boot)
     // Exemplo: api.get("/projects")
