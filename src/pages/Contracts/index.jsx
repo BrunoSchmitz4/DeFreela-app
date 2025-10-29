@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Button from "../../components/Button";
-import styles from "./Contract.module.css";
+import Button from '../../components/ui/Button';
+import styles from "./Contracts.module.css";
 
 function Contract() {
   const [contracts, setContracts] = useState([]);

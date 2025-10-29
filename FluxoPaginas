@@ -1,0 +1,106 @@
+🧭 Fluxo e Estrutura das Páginas Principais
+📄 1. Página de Projetos (/projects)
+
+Objetivo:
+Gerenciar todos os projetos criados ou dos quais o usuário participa (como contratante ou freelancer).
+
+Principais funcionalidades:
+
+Listagem de projetos: Exibe todos os projetos visíveis ao usuário (mock local ou carregados da API).
+
+Filtros e busca: O usuário pode filtrar projetos por status (Abertos, Em andamento, Finalizados) e buscar pelo nome do projeto.
+
+Criação de projetos: Um botão “Novo Projeto” abre um modal (CreateProjectModal) onde o contratante pode criar um novo projeto, informando título, descrição e valor.
+
+Visualização de projeto: Ao clicar em um card (ProjectCard), o usuário é redirecionado para a página de detalhes do contrato correspondente (/contracts/:id).
+
+Fluxo esperado (usuário contratante):
+
+Clica em “Novo Projeto” → abre modal.
+
+Preenche dados → confirma criação.
+
+Projeto é adicionado à listagem.
+
+Pode acompanhar status ou contratar freelancers para esse projeto.
+
+Fluxo esperado (usuário freelancer):
+
+Visualiza lista de projetos abertos.
+
+Filtra por área de interesse ou busca por palavra-chave.
+
+Clica em um projeto → acessa a página do contrato.
+
+Pode enviar proposta (futuro recurso via back-end).
+
+=====
+
+📄 2. Página de Contratos (/contracts)
+
+Objetivo:
+Gerenciar os contratos firmados entre contratantes e freelancers.
+Cada contrato representa o acordo formal sobre um projeto.
+
+Principais funcionalidades:
+
+Listagem de contratos: Exibe todos os contratos associados ao usuário logado (como contratante ou freelancer).
+
+Detalhes do contrato: Ao clicar em um card, o usuário é levado para a página /contracts/:id, que mostra detalhes completos do contrato — incluindo informações do projeto, valores acordados, prazo e status.
+
+Criação automática de contrato: Quando um freelancer é selecionado para um projeto, um contrato é gerado automaticamente (futuramente com IA e integração com a API).
+
+Status do contrato: Pode variar entre Em negociação, Ativo, Concluído, Cancelado.
+
+Fluxo esperado:
+
+O contratante cria um projeto (via /projects).
+
+O freelancer se candidata.
+
+Quando há aceite, o sistema gera o contrato automaticamente.
+
+Ambas as partes podem acompanhar o progresso pela página /contracts.
+
+Futuras melhorias:
+
+Geração automática de documento contratual com IA.
+
+Opção de assinatura digital.
+
+Histórico de mensagens e interações no contrato.
+
+=====
+
+👤 3. Página de Perfil (/profile)
+
+Objetivo:
+Exibir e gerenciar as informações pessoais e profissionais do usuário logado.
+
+Principais funcionalidades:
+
+Informações básicas: Nome completo, cargo/função (ex: Desenvolvedor Frontend, Designer, DevOps), descrição pessoal, e-mail de contato e foto de perfil.
+
+Lista de projetos/contratos relacionados: Exibe projetos dos quais o usuário participa — seja como contratante (projetos criados) ou como freelancer (projetos em que trabalha).
+
+Edição de perfil: (a implementar) permitirá editar dados pessoais, adicionar habilidades e atualizar foto.
+
+Acesso rápido aos contratos: Links diretos para contratos em andamento ou finalizados.
+
+Fluxo esperado:
+
+Usuário acessa /profile.
+
+Visualiza seus dados e histórico de projetos.
+
+(Futuro) Pode editar suas informações e atualizar habilidades.
+
+(Futuro) IA poderá sugerir oportunidades de projetos compatíveis com o perfil.
+
+=====
+Integração entre as páginas
+
+Origem	        Ação                            Destino	            Descrição
+/projects	    Clicar em um card	            /contracts/:id	    Abre o contrato vinculado ao projeto
+/contracts	    Abrir um contrato ativo	        /profile	        Visualiza informações do freelancer ou contratante
+/profile	    Clicar em um projeto listado	/projects/:id	    Redireciona para detalhes do projeto

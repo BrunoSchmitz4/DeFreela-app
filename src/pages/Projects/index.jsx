@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ProjectCard from "../../components/ProjectCard";
-import Button from "../../components/Button";
-import Input from "../../components/Input";
+import Button from '../../components/ui/Button';
+import Input from '../../components/ui/Input';
+import CreateProjectModal from "../../components/CreateProjectModal";
 import styles from "./Projects.module.css";
 
 function Projects() {
   const [projects, setProjects] = useState([]);
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
-
-//   useEffect(() => {
-//   api.get("/projects").then(res => setProjects(res.data));
-// }, []);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    // Aqui depois chamaremos a API do backend (Spring Boot)
-    // Exemplo: api.get("/projects")
+    // Mock inicial - depois virá da API
     const mockProjects = [
       { id: 1, title: "Landing Page para Startup", status: "open", price: 500 },
       { id: 2, title: "App de Delivery em React Native", status: "in_progress", price: 1500 },
@@ -24,6 +20,10 @@ function Projects() {
     ];
     setProjects(mockProjects);
   }, []);
+
+  const handleCreateProject = (newProject) => {
+    setProjects((prev) => [newProject, ...prev]);
+  };
 
   const filteredProjects = projects.filter(project => {
     const matchesStatus = filter === "all" || project.status === filter;
@@ -51,7 +51,9 @@ function Projects() {
             <option value="in_progress">Em andamento</option>
             <option value="closed">Finalizados</option>
           </select>
-          <Button variant="primary">Novo Projeto</Button>
+          <Button variant="primary" onClick={() => setIsModalOpen(true)}>
+            Novo Projeto
+          </Button>
         </div>
       </header>
 
@@ -64,6 +66,12 @@ function Projects() {
           <p>Nenhum projeto encontrado.</p>
         )}
       </section>
+
+      <CreateProjectModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onCreate={handleCreateProject}
+      />
     </div>
   );
 }
