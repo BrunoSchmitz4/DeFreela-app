@@ -1,0 +1,31 @@
+.homeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  background-color: var(--white);
+  min-height: calc(100vh - 80px);
+  text-align: center;
+  color: var(--dark-blue);
+}
+
+.homeTitle {
+  font-size: 2rem;
+  color: var(--mid-blue);
+  margin-bottom: 12px;
+}
+
+.homeSubtitle {
+  font-size: 1rem;
+  color: var(--light-blue);
+  margin-bottom: 32px;
+}
+
+.homeInputs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 400px;
+}

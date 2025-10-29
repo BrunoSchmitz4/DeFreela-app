@@ -1,17 +1,97 @@
+:root {
+  --white: #ffffff;
+  --dark-blue: #00171f;
+  --mid-blue: #003459;
+  --light-blue: #007ea7;
+  --aqua: #00a8e8;
+}
+
 .headerContainer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center;
-    box-shadow: 1px 2px 10px gray;
-    width: 100%;
+  width: 100%;
+  background-color: var(--white);
+  box-shadow: 0 2px 8px rgba(0, 23, 31, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.headerTitle {
+  font-size: 2rem;
+  color: var(--mid-blue);
+  font-weight: 700;
+  margin: 0;
 }
 
 .headerNavPages {
-    display: flex;
+  display: none;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: var(--white);
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  border-top: 1px solid #eee;
+  box-shadow: 0 4px 10px rgba(0, 23, 31, 0.1);
+}
+
+.headerNavPages a {
+  color: var(--dark-blue);
+  text-decoration: none;
+  padding: 14px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.headerNavPages a:hover {
+  color: var(--aqua);
+}
+
+
+.menuButton {
+  font-size: 1.6rem;
+  background: none;
+  border: none;
+  color: var(--mid-blue);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.menuButton:hover {
+  color: var(--aqua);
+}
+
+
+.navOpen {
+  display: flex;
+}
+
+
+@media (min-width: 768px) {
+  .menuButton {
+    display: none;
+  }
+
+  .headerNavPages {
+    display: flex !important;
     flex-direction: row;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    padding: 12px;
+    gap: 20px;
+    position: static;
+    background: none;
+    box-shadow: none;
+    border-top: none;
+  }
+
+  .headerNavPages a {
+    padding: 8px 0;
+  }
 }
