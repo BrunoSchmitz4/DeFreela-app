@@ -12,9 +12,8 @@ function Home() {
         <>
           <h2>Essa é a Home</h2>
           <p>Demonstração provisória de elementos</p>
-          <ProjectCard />
           <Button variant="secondary" children={"Sou o botão secundário"} disabled type={"reset"}/>
-          <Button variant="primary" children={"Já eu... o primário"} fullWidth={true} type={"submit"} onClick={() => navigate("/projects")}/>
+          <Button variant="primary" children={"Já eu... o primário"} type={"submit"} onClick={() => navigate("/projects")}/>
             {/* Vou precisar ajustar esse carinha >:( */}
           <Modal title={"Modal teste da silva :D"}><p>Eu sou um modal bem bonitinho, não acha?</p></Modal>
           <Input type="text" placeholder={"Como posso te chamar?"} error={"Esse campo não pode ficar vazio, viu?"}/>

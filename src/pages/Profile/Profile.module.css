@@ -1,0 +1,85 @@
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1.5rem;
+  color: #fff;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(80, 125, 209, 0.2);
+
+}
+
+.userPhotoContainer {
+  margin-bottom: 1rem;
+}
+
+.userPhoto {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #00b7ff;
+  object-fit: cover;
+}
+
+.userName {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #00b7ff;
+}
+
+.userRole {
+  font-size: 1rem;
+  color: #ccc;
+  margin-bottom: 0.5rem;
+}
+
+.userDescription {
+  font-size: 0.95rem;
+  color: #aaa;
+  margin-bottom: 0.8rem;
+}
+
+.userEmail {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.userProjects h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+  color: #00b7ff;
+}
+
+.projectList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .userInfo {
+    flex-direction: row;
+    text-align: left;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  .userPhotoContainer {
+    margin-bottom: 0;
+  }
+
+  .projectList {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+}

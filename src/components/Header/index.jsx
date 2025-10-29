@@ -8,8 +8,8 @@ function Header() {
             <nav className={styles.headerNavPages}>
                 <RouterLink Route={"/"} Title={"Home"}/>
                 <RouterLink Route={"/contracts"} Title={"Contratos"}/>
-                <RouterLink Route={"/Profile"} Title={"Projetos"}/>
-                <RouterLink Route={"/projects"} Title={"Perfil"}/>
+                <RouterLink Route={"/projects"} Title={"Projetos"}/>
+                <RouterLink Route={"/profile"} Title={"Perfil"}/>
             </nav>
         </header>
     )

@@ -6,3 +6,15 @@ Tecnologias usadas no ecossistema:
 3. Animate.CSS (deixa bunitin)
 4. React MEMO ( Otimização renderização usando memorized)
 5. Axios - para Rest API (Cliente HTTP baseado em Promisses para JS)
+
+
+
+# O que um Contrato deveria ter?
+- ID;
+- Nome;
+- Descrição;
+- Valor;
+- Prazo;
+- Contratante;
+- Freelancer;
+- Lista de TAGS;
