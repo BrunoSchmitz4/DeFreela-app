@@ -1,28 +1,209 @@
 const projects = [
+  // Projetos do Frelancer 1 (ID: 1)
   {
     id: 1,
     title: "Website para Portfólio Pessoal",
     description: "Criação de um portfólio moderno e responsivo em React.",
     value: 1200,
     deadline: "15 dias",
-    tags: ["React", "CSS", "Frontend"]
+    tags: ["React", "CSS", "Frontend"],
+    ownerId: 2,
+    frelancerId: 1
   },
   {
     id: 2,
+    title: "Landing Page para Startup SaaS",
+    description: "Desenvolvimento de LP com foco em conversão e SEO.",
+    value: 800,
+    deadline: "10 dias",
+    tags: ["HTML", "CSS", "Marketing"],
+    ownerId: 3,
+    frelancerId: 1
+  },
+  {
+    id: 3,
+    title: "Refatoração de Componentes Legados",
+    description: "Atualização de componentes de classe para Hooks em React.",
+    value: 2500,
+    deadline: "25 dias",
+    tags: ["React", "JavaScript", "Refactoring"],
+    ownerId: 2,
+    frelancerId: 1
+  },
+  {
+    id: 4,
+    title: "Integração com Gateway de Pagamento",
+    description: "Implementação da API Stripe para pagamentos.",
+    value: 1800,
+    deadline: "18 dias",
+    tags: ["Node.js", "API", "Pagamentos"],
+    ownerId: 3,
+    frelancerId: 1
+  },
+  {
+    id: 5,
+    title: "Protótipo de Aplicativo Mobile (UI/UX)",
+    description: "Criação de mockups e fluxos de usuário no Figma.",
+    value: 950,
+    deadline: "7 dias",
+    tags: ["Figma", "UI/UX", "Mobile"],
+    ownerId: 2,
+    frelancerId: 1
+  },
+  {
+    id: 6,
     title: "API para Sistema de Contratos",
     description: "Desenvolver backend com autenticação e CRUD de projetos.",
     value: 3000,
     deadline: "30 dias",
-    tags: ["Node.js", "Express", "JWT"]
+    tags: ["Node.js", "Express", "JWT"],
+    ownerId: 2,
+    frelancerId: 1
+  },
+
+  // Projetos do Frelancer 2 (ID: 2)
+  {
+    id: 7,
+    title: "Desenvolvimento de Dashboard Analítico",
+    description: "Visualização de dados com gráficos interativos (Chart.js).",
+    value: 3500,
+    deadline: "40 dias",
+    tags: ["React", "DataViz", "API"],
+    ownerId: 1,
+    frelancerId: 2
   },
   {
-    id: 3,
-    title: "Landing Page para Startup",
-    description: "Landing moderna com integração ao Mailchimp.",
-    value: 800,
+    id: 8,
+    title: "Configuração de CI/CD com GitHub Actions",
+    description: "Pipeline de deploy automatizado para Vercel/Netlify.",
+    value: 1100,
+    deadline: "8 dias",
+    tags: ["DevOps", "CI/CD", "AWS"],
+    ownerId: 3,
+    frelancerId: 2
+  },
+  {
+    id: 9,
+    title: "Migração de Banco de Dados MySQL para PostgreSQL",
+    description: "Mapeamento e execução da migração de dados.",
+    value: 2200,
+    deadline: "20 dias",
+    tags: ["SQL", "Database", "Backend"],
+    ownerId: 1,
+    frelancerId: 2
+  },
+  {
+    id: 10,
+    title: "Otimização de Performance (Core Web Vitals)",
+    description: "Análise e ajustes para melhorar o Lighthouse score.",
+    value: 1900,
+    deadline: "14 dias",
+    tags: ["SEO", "Performance", "Frontend"],
+    ownerId: 3,
+    frelancerId: 2
+  },
+  {
+    id: 11,
+    title: "Criação de E-mail Marketing Responsivo",
+    description: "Templates de e-mail para campanhas de nutrição.",
+    value: 600,
+    deadline: "5 dias",
+    tags: ["HTML", "Email", "Marketing"],
+    ownerId: 1,
+    frelancerId: 2
+  },
+  {
+    id: 12,
+    title: "Sistema de Avaliação de Usuários (Estrelas)",
+    description: "Componente de rating interativo com armazenamento em DB.",
+    value: 1000,
+    deadline: "12 dias",
+    tags: ["React", "UX", "Backend"],
+    ownerId: 3,
+    frelancerId: 2
+  },
+  {
+    id: 13,
+    title: "Criação de um Chatbot de Suporte",
+    description: "Implementação de um chatbot simples no site principal.",
+    value: 1600,
+    deadline: "15 dias",
+    tags: ["JavaScript", "Chatbot", "API"],
+    ownerId: 1,
+    frelancerId: 2
+  },
+
+  // Projetos do Frelancer 3 (ID: 3)
+  {
+    id: 14,
+    title: "Manutenção e Debug de Código Existente",
+    description: "Correção de bugs críticos e pequenos ajustes no frontend.",
+    value: 700,
+    deadline: "7 dias",
+    tags: ["JavaScript", "Bugfix", "Manutenção"],
+    ownerId: 2,
+    frelancerId: 3
+  },
+  {
+    id: 15,
+    title: "Construção de Tema Wordpress Personalizado",
+    description: "Desenvolvimento de um tema a partir do zero em PHP e WP.",
+    value: 4500,
+    deadline: "45 dias",
+    tags: ["Wordpress", "PHP", "CMS"],
+    ownerId: 1,
+    frelancerId: 3
+  },
+  {
+    id: 16,
+    title: "API de Terceiros: Integração de Clima",
+    description: "Consumo de API externa para exibição de previsão do tempo.",
+    value: 500,
+    deadline: "3 dias",
+    tags: ["API", "Frontend", "Axios"],
+    ownerId: 2,
+    frelancerId: 3
+  },
+  {
+    id: 17,
+    title: "Criação de Micro-serviço de Notificações",
+    description: "Desenvolvimento de serviço para envio de SMS e E-mail.",
+    value: 3200,
+    deadline: "35 dias",
+    tags: ["Backend", "Microservices", "Node.js"],
+    ownerId: 1,
+    frelancerId: 3
+  },
+  {
+    id: 18,
+    title: "Wireframing para Novo Módulo do Sistema",
+    description: "Desenho e prototipagem de uma nova seção da aplicação.",
+    value: 850,
+    deadline: "6 dias",
+    tags: ["Wireframe", "UX", "Figma"],
+    ownerId: 2,
+    frelancerId: 3
+  },
+  {
+    id: 19,
+    title: "Atualização de Dependências (NPM/Yarn)",
+    description: "Revisão e atualização de todas as bibliotecas do projeto.",
+    value: 1000,
     deadline: "10 dias",
-    tags: ["HTML", "CSS", "Marketing"]
-  }
+    tags: ["NPM", "Manutenção", "Dependências"],
+    ownerId: 1,
+    frelancerId: 3
+  },
+  {
+    id: 20,
+    title: "Desenvolvimento de Sistema de Busca Avançada",
+    description: "Implementação de busca por filtros e tags, com indexação.",
+    value: 2800,
+    deadline: "28 dias",
+    tags: ["Backend", "Search", "Database"],
+    ownerId: 2,
+    frelancerId: 3
+  },
 ];
 
 export default projects;

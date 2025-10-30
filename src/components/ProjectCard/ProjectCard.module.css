@@ -1,20 +1,26 @@
+:root {
+  --white: #ffffff;
+  --dark-blue: #00171f;
+  --mid-blue: #003459;
+  --light-blue: #007ea7;
+  --aqua: #00a8e8;
+}
+
 .projectCardContainer {
-  background-color: #1e1e1e;
-  color: #fff;
+  background-color: var(--white);
+  border: 1px solid #e5e5e5;
   border-radius: 12px;
-  padding: 1rem;
-  margin: 0.75rem 0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 23, 31, 0.08);
+  transition: 0.3s ease;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  width: 90vw;
+  gap: 8px;
 }
 
 .projectCardContainer:hover {
-  transform: scale(1.02);
-  box-shadow: 0 4px 12px rgba(80, 125, 209, 0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 23, 31, 0.12);
 }
 
 .projectCardTitle {
