@@ -19,7 +19,13 @@ function Profile() {
   return (
     <div className={styles.profileContainer}>
       <UserInfo user={user} />
-      <UserProjects projects={projects.filter(project => project.frelancerId === user.idUser)} />
+      {projects.filter(project => project.frelancerId === user.idUser).length > 0 ? (
+        <UserProjects
+          projects={projects.filter(project => project.frelancerId === user.idUser)}
+        />
+      ) : (
+        <p className={styles.noProjectsMessage}>Nenhum projeto associado a este usuário.</p>
+      )}
     </div>
   );
 }
