@@ -1,5 +1,4 @@
 const projects = [
-  // Projetos do Frelancer 1 (ID: 1)
   {
     id: 1,
     title: "Website para Portfólio Pessoal",
@@ -8,7 +7,8 @@ const projects = [
     deadline: "15 dias",
     tags: ["React", "CSS", "Frontend"],
     ownerId: 2,
-    frelancerId: 1
+    frelancerId: 1,
+    status: "Concluído",
   },
   {
     id: 2,
@@ -18,7 +18,8 @@ const projects = [
     deadline: "10 dias",
     tags: ["HTML", "CSS", "Marketing"],
     ownerId: 3,
-    frelancerId: 1
+    frelancerId: 1,
+    status: "Em andamento",
   },
   {
     id: 3,
@@ -28,7 +29,8 @@ const projects = [
     deadline: "25 dias",
     tags: ["React", "JavaScript", "Refactoring"],
     ownerId: 2,
-    frelancerId: 1
+    frelancerId: 1,
+    status: "Em andamento",
   },
   {
     id: 4,
@@ -38,7 +40,8 @@ const projects = [
     deadline: "18 dias",
     tags: ["Node.js", "API", "Pagamentos"],
     ownerId: 3,
-    frelancerId: 1
+    frelancerId: 1,
+    status: "Concluído",
   },
   {
     id: 5,
@@ -48,7 +51,8 @@ const projects = [
     deadline: "7 dias",
     tags: ["Figma", "UI/UX", "Mobile"],
     ownerId: 2,
-    frelancerId: 1
+    frelancerId: 1,
+    status: "Em aberto",
   },
   {
     id: 6,
@@ -58,10 +62,9 @@ const projects = [
     deadline: "30 dias",
     tags: ["Node.js", "Express", "JWT"],
     ownerId: 2,
-    frelancerId: 1
+    frelancerId: 1,
+    status: "Em andamento",
   },
-
-  // Projetos do Frelancer 2 (ID: 2)
   {
     id: 7,
     title: "Desenvolvimento de Dashboard Analítico",
@@ -70,7 +73,8 @@ const projects = [
     deadline: "40 dias",
     tags: ["React", "DataViz", "API"],
     ownerId: 1,
-    frelancerId: 2
+    frelancerId: 2,
+    status: "Em andamento",
   },
   {
     id: 8,
@@ -80,7 +84,8 @@ const projects = [
     deadline: "8 dias",
     tags: ["DevOps", "CI/CD", "AWS"],
     ownerId: 3,
-    frelancerId: 2
+    frelancerId: 2,
+    status: "Concluído",
   },
   {
     id: 9,
@@ -90,7 +95,8 @@ const projects = [
     deadline: "20 dias",
     tags: ["SQL", "Database", "Backend"],
     ownerId: 1,
-    frelancerId: 2
+    frelancerId: 2,
+    status: "Em aberto",
   },
   {
     id: 10,
@@ -100,7 +106,8 @@ const projects = [
     deadline: "14 dias",
     tags: ["SEO", "Performance", "Frontend"],
     ownerId: 3,
-    frelancerId: 2
+    frelancerId: 2,
+    status: "Em andamento",
   },
   {
     id: 11,
@@ -110,7 +117,8 @@ const projects = [
     deadline: "5 dias",
     tags: ["HTML", "Email", "Marketing"],
     ownerId: 1,
-    frelancerId: 2
+    frelancerId: 2,
+    status: "Concluído",
   },
   {
     id: 12,
@@ -120,7 +128,8 @@ const projects = [
     deadline: "12 dias",
     tags: ["React", "UX", "Backend"],
     ownerId: 3,
-    frelancerId: 2
+    frelancerId: 2,
+    status: "Em andamento",
   },
   {
     id: 13,
@@ -130,10 +139,9 @@ const projects = [
     deadline: "15 dias",
     tags: ["JavaScript", "Chatbot", "API"],
     ownerId: 1,
-    frelancerId: 2
+    frelancerId: 2,
+    status: "Em aberto",
   },
-
-  // Projetos do Frelancer 3 (ID: 3)
   {
     id: 14,
     title: "Manutenção e Debug de Código Existente",
@@ -142,7 +150,8 @@ const projects = [
     deadline: "7 dias",
     tags: ["JavaScript", "Bugfix", "Manutenção"],
     ownerId: 2,
-    frelancerId: 3
+    frelancerId: 3,
+    status: "Concluído",
   },
   {
     id: 15,
@@ -152,7 +161,8 @@ const projects = [
     deadline: "45 dias",
     tags: ["Wordpress", "PHP", "CMS"],
     ownerId: 1,
-    frelancerId: 3
+    frelancerId: 3,
+    status: "Em andamento",
   },
   {
     id: 16,
@@ -162,7 +172,8 @@ const projects = [
     deadline: "3 dias",
     tags: ["API", "Frontend", "Axios"],
     ownerId: 2,
-    frelancerId: 3
+    frelancerId: 3,
+    status: "Concluído",
   },
   {
     id: 17,
@@ -172,7 +183,8 @@ const projects = [
     deadline: "35 dias",
     tags: ["Backend", "Microservices", "Node.js"],
     ownerId: 1,
-    frelancerId: 3
+    frelancerId: 3,
+    status: "Em aberto",
   },
   {
     id: 18,
@@ -182,7 +194,8 @@ const projects = [
     deadline: "6 dias",
     tags: ["Wireframe", "UX", "Figma"],
     ownerId: 2,
-    frelancerId: 3
+    frelancerId: 3,
+    status: "Em andamento",
   },
   {
     id: 19,
@@ -192,7 +205,8 @@ const projects = [
     deadline: "10 dias",
     tags: ["NPM", "Manutenção", "Dependências"],
     ownerId: 1,
-    frelancerId: 3
+    frelancerId: 3,
+    status: "Concluído",
   },
   {
     id: 20,
@@ -202,7 +216,8 @@ const projects = [
     deadline: "28 dias",
     tags: ["Backend", "Search", "Database"],
     ownerId: 2,
-    frelancerId: 3
+    frelancerId: 3,
+    status: "Em andamento",
   },
 ];
 

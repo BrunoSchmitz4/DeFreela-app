@@ -4,6 +4,7 @@ import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
 import CreateProjectModal from "../../components/CreateProjectModal";
 import styles from "./Projects.module.css";
+import ProjectsMock from '../../mocks/projects';
 
 function Projects() {
   const [projects, setProjects] = useState([]);
@@ -11,15 +12,7 @@ function Projects() {
   const [search, setSearch] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    // Mock inicial - depois virá da API
-    const mockProjects = [
-      { id: 1, title: "Landing Page para Startup", status: "open", price: 500 },
-      { id: 2, title: "App de Delivery em React Native", status: "in_progress", price: 1500 },
-      { id: 3, title: "API REST em Java Spring Boot", status: "closed", price: 1200 },
-    ];
-    setProjects(mockProjects);
-  }, []);
+  useEffect(() => { setProjects(ProjectsMock) }, []);
 
   const handleCreateProject = (newProject) => {
     setProjects((prev) => [newProject, ...prev]);
@@ -57,10 +50,10 @@ function Projects() {
         </div>
       </header>
 
-      <section className={styles.list}>
+      <section className={styles.projectCardList}>
         {filteredProjects.length ? (
           filteredProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+            <ProjectCard key={project.id} contract={project} />
           ))
         ) : (
           <p>Nenhum projeto encontrado.</p>
