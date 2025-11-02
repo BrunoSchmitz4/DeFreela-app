@@ -26,13 +26,18 @@ function Profile() {
   return (
     <div className={styles.profileContainer}>
       <UserInfo user={user} />
-      {projects.filter(project => project.frelancerId === user.idUser).length > 0 ? (
-        <UserProjects
-          projects={projects.filter(project => project.frelancerId === user.idUser)}
-        />
-      ) : (
-        <p className={styles.noProjectsMessage}>Nenhum projeto associado a este usuário.</p>
-      )}
+      <section className={styles.profileProjects}>
+        <h2>Visão geral dos projetos envolvidos</h2>
+        {userContracts.map((project) => (
+          <ProjectCard key={project.id} contract={project}/>
+        ))}
+      </section>
+      <section className={styles.profileProjects}>
+        <h2>Visão geral dos projetos criados</h2>
+        {userProjects.map((project) => (
+          <ProjectCard key={project.id} contract={project}/>
+        ))}
+      </section>
     </div>
   );
 }
