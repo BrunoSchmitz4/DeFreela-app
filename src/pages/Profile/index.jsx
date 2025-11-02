@@ -2,10 +2,12 @@ import styles from "./Profile.module.css";
 import UserInfo from "./UserInfo";
 import UserProjects from "./UserProjects";
 import projects from "../../mocks/projects";
+import ProjectCard from "../../components/ProjectCard";
 
 function Profile() {
 
    // Mock temporário (depois vem do useAuth)
+   // Ele vai simular que estamos logados no usuário abaixo
   const user = {
     idUser: 1,
     name: "Bruno Ferreira",
@@ -15,6 +17,11 @@ function Profile() {
     email: "bruno.ferreira@example.com",
     photo: "https://avatars.githubusercontent.com/u/583231?v=4",
   };
+
+  // Projetos aceitos pelo usuário freelancer
+  const userContracts = projects.filter(project => project.frelancerId === user.idUser);
+  // Projetos criados pelo usuário contratante
+  const userProjects = projects.filter(project => project.ownerId === user.idUser);
 
   return (
     <div className={styles.profileContainer}>

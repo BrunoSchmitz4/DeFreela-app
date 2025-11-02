@@ -22,7 +22,8 @@
   
   text-decoration: none;
   color: inherit;
-
+  max-width: 320px;
+  min-height: 160px;
   /* width: 300px;
   height: 360px; */
 }
