@@ -3,6 +3,7 @@ import UserInfo from "./UserInfo";
 import UserProjects from "./UserProjects";
 import projects from "../../mocks/projects";
 import ProjectCard from "../../components/ProjectCard";
+import CardList from "../../components/CardList";
 
 function Profile() {
 
@@ -28,15 +29,15 @@ function Profile() {
       <UserInfo user={user} />
       <section className={styles.profileProjects}>
         <h2>Visão geral dos projetos envolvidos</h2>
-        {userContracts.map((project) => (
-          <ProjectCard key={project.id} contract={project}/>
-        ))}
+        <CardList renderItem={userContracts.map((project) => (
+          <ProjectCard key={project.id} project={project}/>
+        ))}/>
       </section>
       <section className={styles.profileProjects}>
         <h2>Visão geral dos projetos criados</h2>
-        {userProjects.map((project) => (
-          <ProjectCard key={project.id} contract={project}/>
-        ))}
+        <CardList renderItem={userProjects.map((project) => (
+          <ProjectCard key={project.id} project={project}/>
+        ))}/>
       </section>
     </div>
   );

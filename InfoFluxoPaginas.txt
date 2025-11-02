@@ -1,4 +1,24 @@
 🧭 Fluxo e Estrutura das Páginas Principais
+
+Nossa página precisa atender à estes casos de uso:
+UC01. Como usuário contratante, eu gostaria de poder manter um projeto;
+UC02. Como usuário contratante, eu gostaria de poder atualizar as informações do projeto;
+UC03. Como usuário contratante, eu gostaria de poder visualizar meus projetos;
+UC04. Como usuário contratante, eu gostaria de poder cancelar meus projetos;
+UC05. Como usuário contratante, eu gostaria de poder excluir meus projetos cancelados;
+UC06. Como usuário contratante, eu gostaria de poder pesquisar por freelancers;
+UC07. Como usuário contratante, eu gostaria de poder visualizar o perfil de freelancers;
+UC08. Como usuário freelancer, eu gostaria de poder pesquisar por um projeto;
+UC09. Como usuário freelancer, eu gostaria de poder marcar como interessado em projetos;
+UC10. Como usuário freelancer, eu gostaria de poder desmarcar como interessado em projetos;
+UC11. Como usuário freelancer, eu gostaria de poder cancelar contrato de freelancer em um projeto;
+
+Páginas e subpáginas:
+/Home
+/Projetos > Buscar Projetos | Meus Trabalhos
+/Freelancer > Buscar Freelancers | Meus Projetos 
+/Perfil
+
 📄 1. Página de Projetos (/projects)
 
 Objetivo:

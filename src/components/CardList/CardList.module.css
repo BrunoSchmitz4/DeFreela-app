@@ -1,0 +1,11 @@
+.dataListComponent {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    justify-content: space-around;
+    padding: 4px;
+    gap: 4px;
+}

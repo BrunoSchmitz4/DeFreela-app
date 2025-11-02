@@ -53,7 +53,7 @@ function Projects() {
       <section className={styles.projectCardList}>
         {filteredProjects.length ? (
           filteredProjects.map((project) => (
-            <ProjectCard key={project.id} contract={project} />
+            <ProjectCard key={project.id} project={project} />
           ))
         ) : (
           <p>Nenhum projeto encontrado.</p>

@@ -4,11 +4,11 @@ import ProjectCard from "../../components/ProjectCard";
 import ProjectsMock from "../../mocks/projects";
 
 function Contract() {
-  const [contracts, setContracts] = useState([]);
+  const [projects, setProjects] = useState([]);
 
   useEffect(() => {
     // Depois chamaremos: api.get("/contracts")
-    setContracts(ProjectsMock);
+    setProjects(ProjectsMock);
   }, []);
 
   return (
@@ -16,8 +16,8 @@ function Contract() {
       <h1>Contratos</h1>
 
       <section className={styles.projectCardList}>
-        {contracts.map((contracts) => (
-          <ProjectCard key={contracts.id} contract={contracts}/>
+        {projects.map((projects) => (
+          <ProjectCard key={projects.id} project={projects}/>
         ))}
       </section>
     </div>

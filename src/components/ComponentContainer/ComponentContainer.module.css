@@ -1,0 +1,11 @@
+.componentContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    justify-content: space-evenly;
+    gap: 10px;
+    padding: 10px;
+    height: max-content;
+}
