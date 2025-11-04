@@ -15,9 +15,14 @@ UC11. Como usuário freelancer, eu gostaria de poder cancelar contrato de freela
 
 Páginas e subpáginas:
 /Home
-/Projetos > Buscar Projetos | Meus Trabalhos
-/Freelancer > Buscar Freelancers | Meus Projetos 
+/Projetos > Buscar Projetos | Meus Projetos 
+/Freelancer > Buscar Freelancers | Meus Trabalhos
 /Perfil
+
+Buscar projetos: Onde o usuário pode buscar projetos para ofertar um contrato
+Meus projetos: Onde o usuário pode gerenciar os projetos criados por ele
+Buscar Freelancers: Onde o usuário pode buscar por freelancers para ofertar um contrato
+Meus trabalhos: Onde o usuário pode 
 
 📄 1. Página de Projetos (/projects)
 

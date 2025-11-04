@@ -1,11 +1,18 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NotFound from "./pages/NotFound";
 import Home from "./pages/Home";
-import Contracts from "./pages/Contracts";
 import BasePage from "./pages/BasePage";
 import Profile from "./pages/Profile";
-import Projects from "./pages/Projects";
 import Login from "./pages/Auth/Login";
+
+import Contracts from "./pages/Freelancer";
+
+
+import Projects from "./pages/Projects";
+import SearchProjects from "./pages/Projects/SearchProjects";
+import MyProjects from "./pages/Projects/MyProjects";
+import SearchFreelancer from "./pages/Freelancer/SearchFreelancer";
+import MyJobs from "./pages/Freelancer/MyJobs";
 // import PrivateRoute from "./components/PrivateRoute";
 
 function AppRoutes() {
@@ -18,9 +25,15 @@ function AppRoutes() {
                     <Route index element={ <Home /> } />
 
                     {/* Rotas privadas (Quando tivermos a API para fazer o auth do usuário logado, irei encapsular essas tags marotas*/}
-                    <Route path="/contracts" element={ <Contracts /> } />
                     <Route path="/Profile" element={ <Profile /> } />
-                    <Route path="/projects" element={ <Projects /> } />
+                    <Route path="/freelancers" element={ <Contracts /> } >
+                        <Route path="/freelancers/searchFreelancers" element={ <SearchFreelancer /> }/>
+                        <Route path="/freelancers/myJobs" element={ <MyJobs />  }/>
+                    </Route>
+                    <Route path="/projects" element={ <Projects /> } >
+                        <Route path="/projects/searchProjects" element={ <SearchProjects />  }/>
+                        <Route path="/projects/myProjects" element={ <MyProjects />  }/>
+                    </Route>
 
                     {/* Rota Fallback */}
                     <Route path="*" element={ <NotFound /> } />

@@ -1,9 +1,20 @@
 import { useState } from "react";
 import RouterLink from "../RouterLink";
 import styles from "./Header.module.css";
+import DropdownButton from "../DropdownButton";
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const freelancersRoutes = [
+    { label: 'Buscar Freelancers', path: '/freelancers/searchFreelancers' },
+    { label: 'meus trabalhos', path: '/freelancers/myJobs' },
+  ]
+
+  const projectsRoutes = [
+    { label: 'Buscar Projetos', path: '/projects/searchProjects' },
+    { label: 'Meus Projetos', path: '/projects/myProjects' },
+  ]
 
   return (
     <header className={styles.headerContainer}>
@@ -24,8 +35,10 @@ function Header() {
           }`}
         >
           <RouterLink Route={"/"} Title={"Home"} />
-          <RouterLink Route={"/contracts"} Title={"Contratos"} />
-          <RouterLink Route={"/projects"} Title={"Projetos"} />
+          <DropdownButton routes={freelancersRoutes}/>
+          <DropdownButton routes={projectsRoutes}/>
+          {/* <RouterLink Route={"/freelancers"} Title={"Freelancers"} />
+          <RouterLink Route={"/projects"} Title={"Projetos"} /> */}
           <RouterLink Route={"/profile"} Title={"Perfil"} />
         </nav>
       </div>
