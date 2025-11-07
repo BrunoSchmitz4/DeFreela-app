@@ -35,8 +35,13 @@ function Header() {
           }`}
         >
           <RouterLink Route={"/"} Title={"Home"} />
-          <DropdownButton routes={freelancersRoutes}/>
-          <DropdownButton routes={projectsRoutes}/>
+          <RouterLink Route={"/projects/searchProjects"} Title={"Buscar Projetos"} />
+          <RouterLink Route={"/projects/myProjects"} Title={"Meus Projetos"} />
+          <RouterLink Route={"/freelancers/searchFreelancers"} Title={"Buscar Freelancers"} />
+          <RouterLink Route={"/freelancers/myJobs"} Title={"Meus Trabalhos"} />
+
+          {/* <DropdownButton routes={freelancersRoutes}/>
+          <DropdownButton routes={projectsRoutes}/> */}
           {/* <RouterLink Route={"/freelancers"} Title={"Freelancers"} />
           <RouterLink Route={"/projects"} Title={"Projetos"} /> */}
           <RouterLink Route={"/profile"} Title={"Perfil"} />
