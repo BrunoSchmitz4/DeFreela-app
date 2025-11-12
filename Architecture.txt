@@ -11,7 +11,7 @@ src/
     hooks/ Onde fica os hooks customizados (são as lógicas repetitivas de React que não faz sentido criar um componente pra elas)
     pages/
         Auth/ Tela de Login
-        BasePage/ Layout Wrapperddas rotas principais
+        BasePage/ Layout Wrapper das rotas principais
         Contract/ Página de geração de contratos
         Home/ Página inicial
         NotFound/ Rota que garante retorno para a rota Home caso o usuário navegue para uma inexistente
@@ -21,7 +21,7 @@ src/
         api.js aqui faremos a configuração central do cliente Axios
         authService.js funções específicas de autenticação (login, registro etc) obs: aqui provavelmente faremos um service de project e contract.
     store/ Espaço para uso de Redux ou Zustant (pode ser removido caso a gente fique apenas com o context)
-    utils/ Funções e helpers não dependentes do Reat como formatar datas, mascarar CPF/CNPJ, validação de email etc (ver com o Felipe sobre regras de negócio que se apliquem)
+    utils/ Funções e helpers não dependentes do React como formatar datas, mascarar CPF/CNPJ, validação de email etc (ver com o Felipe sobre regras de negócio que se apliquem)
     index.css
     index.js
     routes.js

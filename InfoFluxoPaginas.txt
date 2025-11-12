@@ -13,6 +13,14 @@ UC09. Como usuário freelancer, eu gostaria de poder marcar como interessado em 
 UC10. Como usuário freelancer, eu gostaria de poder desmarcar como interessado em projetos;
 UC11. Como usuário freelancer, eu gostaria de poder cancelar contrato de freelancer em um projeto;
 
+| Página                         | Hook / Serviço usado | Casos de Uso |
+| ------------------------------ | -------------------- | ------------ |
+| /projects/myProjects           | useProjects()        | UC01–UC05    |
+| /projects/searchProjects       | useProjects()        | UC08         |
+| /freelancers/searchFreelancers | useFreelancers()     | UC06–UC07    |
+| /freelancers/myJobs            | useContracts()       | UC09–UC11    |
+
+
 Páginas e subpáginas:
 /Home
 /Projetos > Buscar Projetos | Meus Projetos 
@@ -22,7 +30,7 @@ Páginas e subpáginas:
 Buscar projetos: Onde o usuário pode buscar projetos para ofertar um contrato
 Meus projetos: Onde o usuário pode gerenciar os projetos criados por ele
 Buscar Freelancers: Onde o usuário pode buscar por freelancers para ofertar um contrato
-Meus trabalhos: Onde o usuário pode 
+Meus trabalhos: Onde o usuário pode gerenciar os projetos em que está trabalhando
 
 📄 1. Página de Projetos (/projects)
 

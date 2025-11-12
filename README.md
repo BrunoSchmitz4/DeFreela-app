@@ -9,6 +9,10 @@ O DeFreela é uma plataforma inovadora projetada para simplificar a colaboraçã
 - Axios: Cliente HTTP baseado em Promisses, utilizado para comunicação com a API REST do Back-end.
 - JSX: Uma extensão de sintaxe do JavaScript que permite escrever código HTML dentro dos arquivos JS.
 
+**💻 Tecnologias usadas no Front-End**
+
+**💻 Tecnologias usadas no Back-End**
+
 **🛠️ Como Executar o Projeto**
 Siga os passos abaixo para ter uma cópia do projeto em sua máquina local e rodar para fins de desenvolvimento e teste.
 
