@@ -1,58 +1,63 @@
 import { useParams } from "react-router-dom";
+import { useState } from "react";
 import styles from "./Profile.module.css";
+
 import UserInfo from "./UserInfo";
 import CardList from "../../components/CardList";
 import ProjectCard from "../../components/ProjectCard";
+import Tabs from "../../components/Tabs";
+
 import freelancers from "../../mocks/freelancers";
 import projects from "../../mocks/projects";
 
 export default function Profile() {
   const { id } = useParams();
+  const [activeTab, setActiveTab] = useState("Sobre");
 
+  // Mock do usuário logado
   const loggedUser = {
     idUser: 1,
     name: "Bruno Ferreira",
-    role: "contratante",
     description:
       "Apaixonado por tecnologia e desenvolvimento web, com foco em React e UI/UX.",
     email: "bruno.ferreira@example.com",
     photo: "https://avatars.githubusercontent.com/u/583231?v=4",
+    skills: ["React", "UI/UX", "Front-end"],
+    rating: 4.9
   };
-
 
   const isMyProfile = !id || Number(id) === loggedUser.idUser;
 
+  // Se for outro perfil, buscamos nos freelancers
   const freelancerData = freelancers.find((f) => f.id === Number(id));
 
+  // Normalizador universal
   const normalizeUser = (user) => {
     if (!user) return null;
 
     return {
       idUser: user.idUser ?? user.id,
       name: user.name,
-      role: user.role ?? "freelancer",
       description: user.description ?? user.bio ?? "",
       email: user.email ?? "email_indisponivel@example.com",
-      photo: user.photo ?? user.avatar ?? "",
+      photo: user.photo ?? user.avatar,
       skills: user.skills ?? [],
       rating: user.rating ?? null,
     };
   };
 
-
   const rawUser = isMyProfile ? loggedUser : freelancerData;
   const profileUser = normalizeUser(rawUser);
 
-  if (!profileUser) {
-    return <p style={{ padding: 20 }}>Usuário não encontrado.</p>;
-  }
+  if (!profileUser) return <p>Usuário não encontrado.</p>;
 
-  const userOwnedProjects =
-    profileUser.role === "contratante"
-      ? projects.filter((p) => p.ownerId === profileUser.idUser)
-      : [];
+  // Projetos criados
+  const ownedProjects = projects.filter(
+    (p) => p.ownerId === profileUser.idUser
+  );
 
-  const userFreelancerJobs = projects.filter(
+  // Projetos como freelancer
+  const freelancerJobs = projects.filter(
     (p) =>
       p.freelancerId === profileUser.idUser ||
       p.frelancerId === profileUser.idUser
@@ -60,36 +65,49 @@ export default function Profile() {
 
   return (
     <div className={styles.profileContainer}>
-      <UserInfo user={profileUser} />
+      <UserInfo 
+        user={profileUser} 
+        isMyProfile={isMyProfile} 
+      />
 
-      {/* Se for freelancer */}
-      {profileUser.role === "freelancer" && (
+      <Tabs
+        tabs={["Sobre", "Projetos", "Trabalhos"]}
+        activeTab={activeTab}
+        onChange={setActiveTab}
+      />
+
+      {activeTab === "Sobre" && (
         <section className={styles.profileSection}>
-          <h2>Projetos em que está trabalhando</h2>
+          <p>{profileUser.description}</p>
+        </section>
+      )}
 
-          {userFreelancerJobs.length === 0 ? (
-            <p>Nenhum trabalho encontrado.</p>
+      {activeTab === "Projetos" && (
+        <section className={styles.profileSection}>
+          <h2>Projetos Criados</h2>
+
+          {ownedProjects.length === 0 ? (
+            <p>Este usuário ainda não criou projetos.</p>
           ) : (
             <CardList
-              renderItem={userFreelancerJobs.map((project) => (
-                <ProjectCard key={project.id} project={project} />
+              renderItem={ownedProjects.map((p) => (
+                <ProjectCard key={p.id} project={p} />
               ))}
             />
           )}
         </section>
       )}
 
-      {/* Se for contratante */}
-      {profileUser.role === "contratante" && (
+      {activeTab === "Trabalhos" && (
         <section className={styles.profileSection}>
-          <h2>Projetos criados</h2>
+          <h2>Trabalhos como Freelancer</h2>
 
-          {userOwnedProjects.length === 0 ? (
-            <p>Você ainda não criou nenhum projeto.</p>
+          {freelancerJobs.length === 0 ? (
+            <p>Este usuário ainda não está trabalhando em nenhum projeto.</p>
           ) : (
             <CardList
-              renderItem={userOwnedProjects.map((project) => (
-                <ProjectCard key={project.id} project={project} />
+              renderItem={freelancerJobs.map((p) => (
+                <ProjectCard key={p.id} project={p} />
               ))}
             />
           )}
