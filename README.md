@@ -9,29 +9,87 @@ O DeFreela é uma plataforma inovadora projetada para simplificar a colaboraçã
 - Axios: Cliente HTTP baseado em Promisses, utilizado para comunicação com a API REST do Back-end.
 - JSX: Uma extensão de sintaxe do JavaScript que permite escrever código HTML dentro dos arquivos JS.
 
-**💻 Tecnologias usadas no Front-End**
+### Arquitetura
+- Estrutura modular baseada em componentes (Atomic-like)  
+- Hooks customizados  
+- Mocks simulando a API  
+- Pastas separadas por responsabilidade  
+- Base preparada para escalabilidade futura  
 
-**💻 Tecnologias usadas no Back-End**
 
-**🛠️ Como Executar o Projeto**
-Siga os passos abaixo para ter uma cópia do projeto em sua máquina local e rodar para fins de desenvolvimento e teste.
+### Detalhes importantes
+- Todo usuário é **freelancer e contratante** ao mesmo tempo.  
+- O perfil é universal e acessível via **/profile/:id**.  
+- MyProjects e MyJobs são independentes.  
+- ProjectDetails substitui o antigo /contracts.  
 
-Pré-requisitos
-Certifique-se de ter o Node.js e o npm (ou Yarn) instalados.
+---
 
-Instalação
+### Fluxo de Interação do Usuário
+Usuário Contratante
+- Criar projeto
+- Editar projeto
+- Cancelar/excluir projeto
+- Buscar freelancers
+- Acessar perfis
 
-Clone o repositório em sua máquina:
-> Bash
-`git clone https://github.com/BrunoSchmitz4/DeFreela-app.git`
+Usuário Freelancer
+- Buscar projetos
+- Marcar/desmarcar interesse
+- Gerenciar trabalhos
+- Acessar perfis
 
-Navegue até o diretório do projeto:
-> Bash
-`cd seu-repositorio-front-end`
+Ambos
+- Possuem página de perfil com abas
+- Projetos criados e trabalhos aceitos
+- Detalhes de projetos acessíveis via cards
 
-Instale as dependências:
-> Bash
-`npm install`
+---
+
+## 🧠 Estado Atual
+
+- ✔ Estrutura modular completa  
+- ✔ Hooks e contexts funcionando  
+- ✔ Simulação com mocks realistas  
+- ✔ Páginas e subpáginas implementadas  
+- ✔ Preparado para integração com a API  
+
+### Próximos passos
+- Autenticação real  
+- Rotas privadas  
+- Integração total com Spring Boot  
+- Edição de perfil  
+- Persistência real de interesse em projetos  
+
+---
+
+## 🛠️ Como Executar o Projeto
+
+### Pré-requisitos
+- Node.js  
+- NPM ou Yarn  
+
+### Instalação
+
+```bash
+git clone https://github.com/BrunoSchmitz4/DeFreela-app.git
+cd DeFreela-app
+npm install
+
+---
+
+**## 🛠️ Como Executar o Projeto**
+
+### Pré-requisitos
+- Node.js  
+- NPM ou Yarn  
+
+### Instalação
+
+```bash
+git clone https://github.com/BrunoSchmitz4/DeFreela-app.git
+cd DeFreela-app
+npm install
  ou
 `yarn install`
 
