@@ -75,7 +75,7 @@ Ambos
 git clone https://github.com/BrunoSchmitz4/DeFreela-app.git
 cd DeFreela-app
 npm install
-
+```
 ---
 
 **## 🛠️ Como Executar o Projeto**
@@ -91,7 +91,8 @@ git clone https://github.com/BrunoSchmitz4/DeFreela-app.git
 cd DeFreela-app
 npm install
  ou
-`yarn install`
+yarn install
+```
 
 Crie um arquivo .env na raiz do projeto e configure a URL da API do Back-end (substitua pelo endereço correto da sua API):
 
