@@ -5,15 +5,13 @@ import BasePage from "./pages/BasePage";
 import Profile from "./pages/Profile";
 import Login from "./pages/Auth/Login";
 
-import Contracts from "./pages/Freelancer";
-
-
 import Projects from "./pages/Projects";
 import SearchProjects from "./pages/Projects/SearchProjects";
 import MyProjects from "./pages/Projects/MyProjects";
 import SearchFreelancer from "./pages/Freelancer/SearchFreelancer";
 import MyJobs from "./pages/Freelancer/MyJobs";
 import ProjectDetails from "./pages/Projects/ProjectDetails";
+import Freelancer from "./pages/Freelancer";
 // import PrivateRoute from "./components/PrivateRoute";
 
 function AppRoutes() {
@@ -27,7 +25,9 @@ function AppRoutes() {
 
                     {/* Rotas privadas (Quando tivermos a API para fazer o auth do usuário logado, irei encapsular essas tags marotas*/}
                     <Route path="/Profile" element={ <Profile /> } />
-                    <Route path="/freelancers" element={ <Contracts /> } >
+                    <Route path="/profile/:id" element={<Profile />} />
+
+                    <Route path="/freelancers" element={ <Freelancer /> } >
                         <Route path="/freelancers/searchFreelancers" element={ <SearchFreelancer /> }/>
                         <Route path="/freelancers/myJobs" element={ <MyJobs />  }/>
                     </Route>

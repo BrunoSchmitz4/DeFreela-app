@@ -1,3 +1,4 @@
+// src/components/FreelancerCard/index.jsx
 import styles from "./FreelancerCard.module.css";
 import Button from "../ui/Button";
 import { Link } from "react-router-dom";
@@ -24,7 +25,8 @@ export default function FreelancerCard({ freelancer, onAction, actionLabel }) {
       </div>
 
       <div className={styles.actions}>
-        <Link to={`/freelancers/${freelancer.id}`}>
+        {/* aponta para /profile/:id */}
+        <Link to={`/profile/${freelancer.id}`}>
           <Button variant="secondary">Ver Perfil</Button>
         </Link>
 

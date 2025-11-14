@@ -1,7 +1,7 @@
 // src/mocks/freelancers.js
 const mockFreelancers = [
   {
-    id: 1,
+    id: 2,
     name: "João Martins",
     skills: ["React", "Node.js", "UI Design"],
     rating: 4.8,
@@ -10,7 +10,7 @@ const mockFreelancers = [
     avatar: "https://i.pravatar.cc/150?img=3",
   },
   {
-    id: 2,
+    id: 3,
     name: "Mariana Costa",
     skills: ["Java", "Spring Boot", "SQL"],
     rating: 4.9,
@@ -19,7 +19,7 @@ const mockFreelancers = [
     avatar: "https://i.pravatar.cc/150?img=5",
   },
   {
-    id: 3,
+    id: 4,
     name: "Rafael Andrade",
     skills: ["Flutter", "Firebase", "UI/UX"],
     rating: 4.6,
