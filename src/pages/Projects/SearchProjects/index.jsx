@@ -1,80 +1,86 @@
-import { useEffect, useState } from "react";
+// src/pages/Projects/SearchProjects.jsx
+import { useState } from "react";
+import { useProjectsContext } from "../../../context/projectContext";
+import { useContracts } from "../../../hooks/useContracts";
 import ProjectCard from "../../../components/ProjectCard";
-import Button from '../../../components/ui/Button';
-import Input from '../../../components/ui/Input';
-import CreateProjectModal from "../../../components/CreateProjectModal";
-import styles from './SearchProjects.module.css'
-import ProjectsMock from '../../../mocks/projects';
-import ComponentContainer from "../../../components/ComponentContainer";
+import CardList from "../../../components/CardList";
+import styles from "./SearchProjects.module.css";
 
-function SearchProjects() {
-  const [projects, setProjects] = useState([]);
-  const [filter, setFilter] = useState("all");
-  const [search, setSearch] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+export default function SearchProjects() {
+const { projects, loading } = useProjectsContext();
+  const { interests, markInterest, unmarkInterest } = useContracts();
 
-  useEffect(() => {
-    setProjects(ProjectsMock);
-  }, []);
+  const [query, setQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
 
-  const handleCreateProject = (newProject) => {
-    setProjects((prev) => [newProject, ...prev]);
-  };
+  if (loading) return <p>Carregando projetos...</p>;
 
-  const filteredProjects = projects.filter((project) => {
-    const matchesStatus = filter === "all" || project.status === filter;
-    const matchesSearch = project.title
-      .toLowerCase()
-      .includes(search.toLowerCase());
-    return matchesStatus && matchesSearch;
+  const filtered = projects.filter((p) => {
+    const q = query.toLowerCase();
+    const matchesQuery =
+      p.title.toLowerCase().includes(q) ||
+      p.description.toLowerCase().includes(q);
+
+    const matchesStatus = statusFilter ? p.status === statusFilter : true;
+
+    return matchesQuery && matchesStatus;
+  });
+
+  const projectCards = filtered.map((p) => {
+    const isInterested = interests.some((i) => i.projectId === p.id);
+
+    return (
+      <div key={p.id} className={styles.wrapperCardWithActions}>
+        <ProjectCard project={p} />
+
+        <div className={styles.cardActions}>
+          <button
+            style={{
+              backgroundColor: isInterested ? "#ff5252" : "var(--light-blue)",
+              color: "white",
+            }}
+            onClick={() =>
+              isInterested
+                ? unmarkInterest(p.id, 1)
+                : markInterest(p.id, 1)
+            }
+          >
+            {isInterested ? "Remover Interesse" : "Tenho Interesse"}
+          </button>
+        </div>
+      </div>
+    );
   });
 
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <ComponentContainer>
-            <h1>Projetos</h1>
-        </ComponentContainer>
-        <ComponentContainer>
+        <h1>Buscar Projetos</h1>
         <div className={styles.filters}>
+          <input
+            type="text"
+            placeholder="Buscar por nome ou tecnologia..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+
           <select
             className={styles.select}
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
           >
-            <option value="all">Todos</option>
-            <option value="open">Abertos</option>
-            <option value="in_progress">Em andamento</option>
-            <option value="closed">Finalizados</option>
+            <option value="">Todos os status</option>
+            <option value="ativo">Ativos</option>
+            <option value="cancelado">Cancelados</option>
           </select>
-          <Button variant="primary" onClick={() => setIsModalOpen(true)}>
-            Novo Projeto
-          </Button>
-            w<Input placeholder="Buscar projeto..."
-            value={search} onChange={(e) => setSearch(e.target.value)}/>
         </div>
-
-        </ComponentContainer>
-
       </header>
 
-      <section className={styles.projectCardList}>
-        {filteredProjects.length ? (
-          filteredProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))
-        ) : (
-          <p>Nenhum projeto encontrado.</p>
-        )}
-      </section>
-
-      <CreateProjectModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onCreate={handleCreateProject}
-      />
+      {filtered.length === 0 ? (
+        <p>Nenhum projeto encontrado.</p>
+      ) : (
+        <CardList renderItem={projectCards} />
+      )}
     </div>
   );
 }
-
-export default SearchProjects;

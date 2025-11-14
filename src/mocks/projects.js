@@ -7,7 +7,7 @@ const projects = [
     deadline: "15 dias",
     tags: ["React", "CSS", "Frontend"],
     ownerId: 2,
-    frelancerId: 1,
+    frelancerId: 0,
     status: "Concluído",
   },
   {
@@ -51,7 +51,7 @@ const projects = [
     deadline: "7 dias",
     tags: ["Figma", "UI/UX", "Mobile"],
     ownerId: 2,
-    frelancerId: 1,
+    frelancerId: 0,
     status: "Em aberto",
   },
   {
@@ -62,7 +62,7 @@ const projects = [
     deadline: "30 dias",
     tags: ["Node.js", "Express", "JWT"],
     ownerId: 2,
-    frelancerId: 1,
+    frelancerId: 0,
     status: "Em andamento",
   },
   {
@@ -84,7 +84,7 @@ const projects = [
     deadline: "8 dias",
     tags: ["DevOps", "CI/CD", "AWS"],
     ownerId: 3,
-    frelancerId: 2,
+    frelancerId: 0,
     status: "Concluído",
   },
   {
@@ -95,7 +95,7 @@ const projects = [
     deadline: "20 dias",
     tags: ["SQL", "Database", "Backend"],
     ownerId: 1,
-    frelancerId: 2,
+    frelancerId: 0,
     status: "Em aberto",
   },
   {
@@ -106,7 +106,7 @@ const projects = [
     deadline: "14 dias",
     tags: ["SEO", "Performance", "Frontend"],
     ownerId: 3,
-    frelancerId: 2,
+    frelancerId: 0,
     status: "Em andamento",
   },
   {
@@ -128,7 +128,7 @@ const projects = [
     deadline: "12 dias",
     tags: ["React", "UX", "Backend"],
     ownerId: 3,
-    frelancerId: 2,
+    frelancerId: 0,
     status: "Em andamento",
   },
   {
@@ -150,7 +150,7 @@ const projects = [
     deadline: "7 dias",
     tags: ["JavaScript", "Bugfix", "Manutenção"],
     ownerId: 2,
-    frelancerId: 3,
+    frelancerId: 0,
     status: "Concluído",
   },
   {
@@ -172,7 +172,7 @@ const projects = [
     deadline: "3 dias",
     tags: ["API", "Frontend", "Axios"],
     ownerId: 2,
-    frelancerId: 3,
+    frelancerId: 0,
     status: "Concluído",
   },
   {
@@ -216,7 +216,7 @@ const projects = [
     deadline: "28 dias",
     tags: ["Backend", "Search", "Database"],
     ownerId: 2,
-    frelancerId: 3,
+    frelancerId: 0,
     status: "Em andamento",
   },
 ];

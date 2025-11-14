@@ -13,6 +13,7 @@ import SearchProjects from "./pages/Projects/SearchProjects";
 import MyProjects from "./pages/Projects/MyProjects";
 import SearchFreelancer from "./pages/Freelancer/SearchFreelancer";
 import MyJobs from "./pages/Freelancer/MyJobs";
+import ProjectDetails from "./pages/Projects/ProjectDetails";
 // import PrivateRoute from "./components/PrivateRoute";
 
 function AppRoutes() {
@@ -33,6 +34,7 @@ function AppRoutes() {
                     <Route path="/projects" element={ <Projects /> } >
                         <Route path="/projects/searchProjects" element={ <SearchProjects />  }/>
                         <Route path="/projects/myProjects" element={ <MyProjects />  }/>
+                        <Route path="/projects/:id" element={<ProjectDetails />} />
                     </Route>
 
                     {/* Rota Fallback */}
