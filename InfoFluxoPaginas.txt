@@ -1,139 +1,165 @@
-🧭 Fluxo e Estrutura das Páginas Principais
+🧭 Fluxo e Estrutura das Páginas Principais (Atualizado)
 
-Nossa página precisa atender à estes casos de uso:
-UC01. Como usuário contratante, eu gostaria de poder manter um projeto;
-UC02. Como usuário contratante, eu gostaria de poder atualizar as informações do projeto;
-UC03. Como usuário contratante, eu gostaria de poder visualizar meus projetos;
-UC04. Como usuário contratante, eu gostaria de poder cancelar meus projetos;
-UC05. Como usuário contratante, eu gostaria de poder excluir meus projetos cancelados;
-UC06. Como usuário contratante, eu gostaria de poder pesquisar por freelancers;
-UC07. Como usuário contratante, eu gostaria de poder visualizar o perfil de freelancers;
-UC08. Como usuário freelancer, eu gostaria de poder pesquisar por um projeto;
-UC09. Como usuário freelancer, eu gostaria de poder marcar como interessado em projetos;
-UC10. Como usuário freelancer, eu gostaria de poder desmarcar como interessado em projetos;
-UC11. Como usuário freelancer, eu gostaria de poder cancelar contrato de freelancer em um projeto;
+Este documento descreve como cada página do sistema se relaciona com os casos de uso e com os hooks/contexts criados.
+O DeFreela utiliza a lógica de que todo usuário é tanto contratante quanto freelancer, podendo criar projetos e trabalhar em projetos simultaneamente.
 
-| Página                         | Hook / Serviço usado | Casos de Uso |
-| ------------------------------ | -------------------- | ------------ |
-| /projects/myProjects           | useProjects()        | UC01–UC05    |
-| /projects/searchProjects       | useProjects()        | UC08         |
-| /freelancers/searchFreelancers | useFreelancers()     | UC06–UC07    |
-| /freelancers/myJobs            | useContracts()       | UC09–UC11    |
+📌 Casos de Uso — Atualizados
+
+UC01 — Criar projeto
+UC02 — Atualizar projeto
+UC03 — Visualizar projetos criados
+UC04 — Cancelar projeto
+UC05 — Excluir projeto cancelado
+UC06 — Buscar freelancers
+UC07 — Visualizar perfil de freelancers
+UC08 — Buscar projetos disponíveis
+UC09 — Marcar interesse em projetos
+UC10 — Retirar interesse em projetos
+UC11 — Cancelar participação como freelancer em um projeto
 
 
-Páginas e subpáginas:
+📊 Mapeamento atualizado: Página → Hook / Context → Casos de Uso
+
+| Página                         | Hook / Context usado                       | Casos de Uso    |
+| ------------------------------ | -------------------------------------------| --------------- |
+| /projects/myProjects           | useProjects()                              | UC01–UC05       |
+| /projects/searchProjects       | useProjects()                              | UC08            |
+| /projects/:id (detalhes)       | useProjects()                              | UC02, UC09–UC11 |
+| /freelancers/searchFreelancers | useFreelancers()                           | UC06–UC07       |
+| /freelancers/myJobs            | useFreelancers() + useProjects()           | UC09–UC11       |
+| /profile/:id                   | useAuth(), useProjects(), useFreelancers() | UC07, UC11      |
+
+📂 Estrutura das Páginas e Subpáginas
 /Home
-/Projetos > Buscar Projetos | Meus Projetos 
-/Freelancer > Buscar Freelancers | Meus Trabalhos
-/Perfil
 
-Buscar projetos: Onde o usuário pode buscar projetos para ofertar um contrato
-Meus projetos: Onde o usuário pode gerenciar os projetos criados por ele
-Buscar Freelancers: Onde o usuário pode buscar por freelancers para ofertar um contrato
-Meus trabalhos: Onde o usuário pode gerenciar os projetos em que está trabalhando
+Página inicial com navegação para as principais funcionalidades.
 
-📄 1. Página de Projetos (/projects)
+🗂 1. Módulo Projetos — /projects
 
-Objetivo:
-Gerenciar todos os projetos criados ou dos quais o usuário participa (como contratante ou freelancer).
+O módulo de Projetos atende contratantes e freelancers.
 
-Principais funcionalidades:
+Subpáginas:
 
-Listagem de projetos: Exibe todos os projetos visíveis ao usuário (mock local ou carregados da API).
-
-Filtros e busca: O usuário pode filtrar projetos por status (Abertos, Em andamento, Finalizados) e buscar pelo nome do projeto.
-
-Criação de projetos: Um botão “Novo Projeto” abre um modal (CreateProjectModal) onde o contratante pode criar um novo projeto, informando título, descrição e valor.
-
-Visualização de projeto: Ao clicar em um card (ProjectCard), o usuário é redirecionado para a página de detalhes do contrato correspondente (/contracts/:id).
-
-Fluxo esperado (usuário contratante):
-
-Clica em “Novo Projeto” → abre modal.
-
-Preenche dados → confirma criação.
-
-Projeto é adicionado à listagem.
-
-Pode acompanhar status ou contratar freelancers para esse projeto.
-
-Fluxo esperado (usuário freelancer):
-
-Visualiza lista de projetos abertos.
-
-Filtra por área de interesse ou busca por palavra-chave.
-
-Clica em um projeto → acessa a página do contrato.
-
-Pode enviar proposta (futuro recurso via back-end).
-
-=====
-
-📄 2. Página de Contratos (/contracts)
+✔ /projects/searchProjects
 
 Objetivo:
-Gerenciar os contratos firmados entre contratantes e freelancers.
-Cada contrato representa o acordo formal sobre um projeto.
+Freelancers buscam projetos para trabalhar.
 
-Principais funcionalidades:
+Funcionalidades:
 
-Listagem de contratos: Exibe todos os contratos associados ao usuário logado (como contratante ou freelancer).
+Buscar por nome, skill ou tecnologia
 
-Detalhes do contrato: Ao clicar em um card, o usuário é levado para a página /contracts/:id, que mostra detalhes completos do contrato — incluindo informações do projeto, valores acordados, prazo e status.
+Filtrar por status
 
-Criação automática de contrato: Quando um freelancer é selecionado para um projeto, um contrato é gerado automaticamente (futuramente com IA e integração com a API).
+Abrir ProjectDetails
 
-Status do contrato: Pode variar entre Em negociação, Ativo, Concluído, Cancelado.
+Marcar/desmarcar interesse (UC09–UC10)
 
-Fluxo esperado:
+Ver perfil do criador (UC07)
 
-O contratante cria um projeto (via /projects).
-
-O freelancer se candidata.
-
-Quando há aceite, o sistema gera o contrato automaticamente.
-
-Ambas as partes podem acompanhar o progresso pela página /contracts.
-
-Futuras melhorias:
-
-Geração automática de documento contratual com IA.
-
-Opção de assinatura digital.
-
-Histórico de mensagens e interações no contrato.
-
-=====
-
-👤 3. Página de Perfil (/profile)
+✔ /projects/myProjects
 
 Objetivo:
-Exibir e gerenciar as informações pessoais e profissionais do usuário logado.
+Contratante gerencia os projetos criados.
 
-Principais funcionalidades:
+Funcionalidades:
 
-Informações básicas: Nome completo, cargo/função (ex: Desenvolvedor Frontend, Designer, DevOps), descrição pessoal, e-mail de contato e foto de perfil.
+Criar projeto (UC01)
 
-Lista de projetos/contratos relacionados: Exibe projetos dos quais o usuário participa — seja como contratante (projetos criados) ou como freelancer (projetos em que trabalha).
+Atualizar (UC02)
 
-Edição de perfil: (a implementar) permitirá editar dados pessoais, adicionar habilidades e atualizar foto.
+Cancelar (UC04)
 
-Acesso rápido aos contratos: Links diretos para contratos em andamento ou finalizados.
+Excluir cancelado (UC05)
 
-Fluxo esperado:
+Abrir detalhes (ProjectDetails)
 
-Usuário acessa /profile.
+✔ /projects/:id — ProjectDetails
 
-Visualiza seus dados e histórico de projetos.
+Página substituta do antigo módulo /contracts.
 
-(Futuro) Pode editar suas informações e atualizar habilidades.
+Objetivo:
+Centralizar informações completas sobre um projeto.
 
-(Futuro) IA poderá sugerir oportunidades de projetos compatíveis com o perfil.
+Funcionalidades:
 
-=====
-Integração entre as páginas
+Mostrar descrição, valor, tags, status
 
-Origem	        Ação                            Destino	            Descrição
-/projects	    Clicar em um card	            /contracts/:id	    Abre o contrato vinculado ao projeto
-/contracts	    Abrir um contrato ativo	        /profile	        Visualiza informações do freelancer ou contratante
-/profile	    Clicar em um projeto listado	/projects/:id	    Redireciona para detalhes do projeto
+Editar projeto (UC02)
+
+Cancelar (UC04)
+
+Excluir (UC05)
+
+Mostrar freelancers interessados
+
+Permitir freelancer marcar/desmarcar interesse (UC09–UC10)
+
+Permitir freelancer cancelar trabalho (UC11)
+
+Link para perfil do contratante ou dos freelancers
+
+🧑‍💻 2. Módulo Freelancers — /freelancers
+✔ /freelancers/searchFreelancers
+
+Objetivo:
+Contratante encontrar freelancers para contratar.
+
+Funcionalidades:
+
+Buscar freelancer
+
+Filtrar por skills
+
+Abrir perfil do freelancer (UC07)
+
+✔ /freelancers/myJobs
+
+Objetivo:
+Freelancer vê os projetos em que está trabalhando.
+
+Funcionalidades:
+
+Listar trabalhos ativos
+
+Abrir detalhes do projeto
+
+Cancelar participação como freelancer (UC11)
+
+👤 3. Página de Perfil — /profile/:id
+
+É agora uma página unificada, usada para visualizar:
+
+o próprio usuário
+
+qualquer freelancer
+
+qualquer contratante
+
+A página possui abas internas:
+✔ Sobre
+✔ Projetos Criados
+✔ Trabalhos como Freelancer
+
+Funcionalidades:
+
+Exibir nome, foto, bio, skills e rating
+
+Listar projetos criados
+
+Listar projetos como freelancer
+
+Ir para detalhes de qualquer projeto
+
+Botão Editar Perfil se for o próprio usuário
+
+Permitir acesso rápido ao histórico profissional
+
+| Origem                         | Ação                     | Destino       | Explicação                           |
+| ------------------------------ | ------------------------ | ------------- | ------------------------------------ |
+| /projects/searchProjects       | Clicar em card           | /projects/:id | Ver detalhes do projeto              |
+| /projects/myProjects           | Clicar em card           | /projects/:id | Ver detalhes do próprio projeto      |
+| /projects/:id                  | Clicar em freelancer     | /profile/:id  | Ver perfil do freelancer interessado |
+| /freelancers/searchFreelancers | Clicar em FreelancerCard | /profile/:id  | Ver perfil                           |
+| /freelancers/myJobs            | Clicar em card           | /projects/:id | Ver projeto em andamento             |
+| /profile/:id                   | Clicar em projeto        | /projects/:id | Ver detalhes do projeto listado      |

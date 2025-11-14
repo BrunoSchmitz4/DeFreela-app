@@ -21,7 +21,7 @@ Mock Data — usado em /mocks/ para simular retorno da API.
 
 Context API — base preparada em /context/authContext.jsx para autenticação global.
 
-Estrutura do Diretório src/
+Estrutura do projeto/
 src/
 ├── assets/                 # Recursos estáticos (imagens, ícones, etc)
 ├── components/             # Componentes reutilizáveis e genéricos
@@ -29,35 +29,50 @@ src/
 │   ├── ComponentContainer/ # Containers reutilizáveis para layout
 │   ├── CreateProjectModal/ # Modal para criação de novos projetos
 │   ├── DropdownButton/     # Botão dropdown para ações contextuais
+│   ├── FreelancerCards/    # Card individual de freelancer
 │   ├── Header/             # Cabeçalho global da aplicação
 │   ├── PrivateRoute/       # Wrapper para proteger rotas privadas (futuro)
 │   ├── ProjectCard/        # Card individual de projeto
-│   ├── RouterLink/         # Link personalizado para navegação SPA
+│   ├── RouterLink/         # Link personalizado para navegação entre páginas (SPA)
+│   ├── Tabs/               # Link personalizado para navegação entre conteúdos da página
 │   └── ui/                 # Componentes de interface base (UI Primitives)
 │       ├── Button/
 │       ├── Input/
 │       └── Modal/
 │
 ├── context/
-│   └── authContext.jsx     # Contexto de autenticação (login, logout, usuário)
+│   ├── authContext         # Contexto de autenticação (login, logout, usuário)
+│   ├── freelancerContext   # Contexto de freelancers
+│   └── project             # Contexto de projetos
 │
 ├── hooks/                  # Custom Hooks reutilizáveis (ainda em desenvolvimento)
+│   ├── useContracts        # Hook de contratos (deprecatedo)
+│   ├── useFreelancers      # Hook de freelancers
+│   └── useProjects         # Hook de projetos
 │
 ├── mocks/
-│   └── projects.js         # Simulação de dados de projetos (mock API local)
+│   ├── freelancers         # Mock de freelancers
+│   └── projects            # Mock de projetos
 │
 ├── pages/                  # Páginas principais (camada View)
 │   ├── Auth/               # Login e autenticação
 │   ├── BasePage/           # Layout base contendo Header e Outlet
-│   ├── Freelancer/         # Página de freelancers (Contratos e busca)
+│   ├── Freelancer/         # Página de freelancers
+│       ├── MyJobs            # SubPágina de Trabalhos do usuário
+│       └── SearchFreelancer  # Subpágina de busca de freelancers
 │   ├── Home/               # Página inicial com overview e botões de navegação
 │   ├── NotFound/           # Página 404
-│   ├── Profile/            # Página de perfil do usuário logado
-│   └── Projects/           # Gerenciamento de projetos (listagem, filtros, modal)
-│
+│   ├── Profile/            # Página de perfil do usuário logado e de exibição de perfil de outros usuários
+│   └── Projects/           # Página de Projetos
+│       ├── MyProjects        # SubPágina de Projetos do usuário
+│       ├── ProjectDetails    # SubPágina de detalhes do projeto
+│       └── SearchProjects    # Subpágina de busca de projetos
 ├── services/
-│   ├── api.js              # Instância Axios configurada
-│   └── authService.js      # Serviço de autenticação (login, logout)
+│   ├── api                 # Instância Axios configurada
+│   ├── authService         # Servieec de autenticação (login, logout)
+│   ├── contractService     # Service de contratos
+│   ├── freelancerService   # Service de freelancers
+│   └── projectService      # Service de projetos
 │
 ├── store/                  # (Reservado para uso futuro com Redux ou Zustand)
 │
@@ -73,47 +88,42 @@ src/
 
 As rotas são controladas via react-router-dom e seguem um layout-base compartilhado (BasePage) que contém o cabeçalho principal.
 
-<BrowserRouter>
-  <Routes>
-    <Route path="/" element={<BasePage />}>
-      <Route index element={<Home />} />
+        <BrowserRouter>
+            <Routes>
+                {/* Rota de Layout base */}
+                <Route path="/" element={ <BasePage /> }>
+                    {/* Rotas públicas */}
+                    <Route index element={ <Home /> } />
 
-      {/* Rotas privadas (futuro: encapsuladas por PrivateRoute) */}
-      <Route path="/profile" element={<Profile />} />
+                    {/* Rotas privadas (Quando tivermos a API para fazer o auth do usuário logado, irei encapsular essas tags marotas*/}
+                    <Route path="/Profile" element={ <Profile /> } />
+                    <Route path="/profile/:id" element={<Profile />} />
 
-      <Route path="/freelancers" element={<Contracts />}>
-        <Route path="/freelancers/searchFreelancers" element={<SearchFreelancer />}/>
-        <Route path="/freelancers/myJobs" element={<MyJobs />}/>
-      </Route>
+                    <Route path="/freelancers" element={ <Freelancer /> } >
+                        <Route path="/freelancers/searchFreelancers" element={ <SearchFreelancer /> }/>
+                        <Route path="/freelancers/myJobs" element={ <MyJobs />  }/>
+                    </Route>
+                    <Route path="/projects" element={ <Projects /> } >
+                        <Route path="/projects/searchProjects" element={ <SearchProjects />  }/>
+                        <Route path="/projects/myProjects" element={ <MyProjects />  }/>
+                        <Route path="/projects/:id" element={<ProjectDetails />} />
+                    </Route>
 
-      <Route path="/projects" element={<Projects />}>
-        <Route path="/projects/searchProjects" element={<SearchProjects />}/>
-        <Route path="/projects/myProjects" element={<MyProjects />}/>
-      </Route>
+                    {/* Rota Fallback */}
+                    <Route path="*" element={ <NotFound /> } />
+                </Route>
+                    <Route path="/login" element={ <Login /> } />
+            </Routes>
+        </BrowserRouter>
 
-      {/* Fallback */}
-      <Route path="*" element={<NotFound />} />
-    </Route>
-
-    {/* Rota pública isolada */}
-    <Route path="/login" element={<Login />} />
-  </Routes>
-</BrowserRouter>
+Página	Hook / Context	Casos de Uso
+/projects/myProjects	useProjects()	UC01–UC05
+/projects/searchProjects	useProjects()	UC08
+/freelancers/searchFreelancers	useFreelancers()	UC06–UC07
+/freelancers/myJobs	useFreelancers()	UC09–UC11
+/profile/:id	useAuth + useContexts	exibe visão geral completa
 
 Esse fluxo garante uma navegação fluida, com o Header fixo e renderização condicional do conteúdo conforme o Outlet do React Router.
-
-🧱 Componentes Base
-
-Button — Suporta variantes (primary, secondary, danger, etc.), responsivo e com feedback visual.
-
-Input — Campos reutilizáveis (text, number, checkbox), com suporte a mensagens de erro.
-
-Modal — Janela overlay genérica, reutilizada em CreateProjectModal.
-
-DropdownButton — Para menus contextuais de ações rápidas.
-
-CardList / ProjectCard — Organização de dados visuais (projetos, contratos).
-
 🧠 Estado Atual
 
 ✅ Front-end pronto para integração real com a API
