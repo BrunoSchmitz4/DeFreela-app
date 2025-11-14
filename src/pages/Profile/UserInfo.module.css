@@ -1,0 +1,46 @@
+.userInfoContainer {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+
+.info {
+  flex: 1;
+}
+
+.description {
+  margin-top: 6px;
+  color: #444;
+}
+
+.rating {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #ffb300; /* amarelo bonito */
+}
+
+.skills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.skills li {
+  background: var(--aqua);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+}
+
+.editButton {
+  margin-top: 14px;
+}

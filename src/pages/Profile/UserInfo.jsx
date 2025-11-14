@@ -1,21 +1,38 @@
-import styles from "./Profile.module.css";
+import styles from "./UserInfo.module.css";
+import Button from "../../components/ui/Button";
 
-function UserInfo({ user }) {
+export default function UserInfo({ user, isMyProfile }) {
   return (
-    <section className={styles.userInfo}>
-      <div className={styles.userPhotoContainer}>
-        <img src={user.photo} alt={user.name} className={styles.userPhoto} />
+    <div className={styles.userInfoContainer}>
+      <img src={user.photo} alt={user.name} className={styles.avatar} />
+
+      <div className={styles.info}>
+        <h1>{user.name}</h1>
+
+        <p className={styles.description}>{user.description}</p>
+
+        {user.role === "freelancer" && (
+          <>
+            <p className={styles.rating}>
+              ⭐ {user.rating ?? "N/A"}
+            </p>
+
+            {user.skills?.length > 0 && (
+              <ul className={styles.skills}>
+                {user.skills.map((skill, i) => (
+                  <li key={i}>{skill}</li>
+                ))}
+              </ul>
+            )}
+          </>
+        )}
+
+        {isMyProfile && (
+          <Button variant="secondary" className={styles.editButton}>
+            Editar Perfil
+          </Button>
+        )}
       </div>
-      <div className={styles.userDetails}>
-        <h2 className={styles.userName}>{user.name}</h2>
-        <p className={styles.userRole}>{user.role}</p>
-        <p className={styles.userDescription}>{user.description}</p>
-        <p className={styles.userEmail}>
-          <strong>Email:</strong> {user.email}
-        </p>
-      </div>
-    </section>
+    </div>
   );
 }
-
-export default UserInfo;
