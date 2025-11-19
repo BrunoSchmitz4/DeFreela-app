@@ -1,29 +1,38 @@
-// Aqui a gente quer garantir que as telas protegidas (passadas como children) sejam vistas somente para usuários logados
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+
 import { useAuth } from "../../context/authContext";
+import AuthLoadingScreen from "../ui/AuthLoadingScreen";
+import { useEffect, useState } from "react";
 
-function PrivateRoute({ children }) {
-  const { isAuthenticated, loading } = useAuth();
+function PrivateRoute() {
+  const {
+    isAuthenticated,
+    loading,
+    setRedirectAfterLogin,
+  } = useAuth();
 
+  const location = useLocation();
+  const [shouldRedirect, setShouldRedirect] = useState(false);
 
-  // Verifica se o usuário tá logado
+  // Quando usuário NÃO está autenticado, marcamos a rota original
+  useEffect(() => {
+    if (!loading && !isAuthenticated) {
+      setRedirectAfterLogin(location.pathname);
+      setShouldRedirect(true);
+    }
+  }, [loading, isAuthenticated, location.pathname, setRedirectAfterLogin]);
+
+  // Enquanto carrega sessão
   if (loading) {
-    return (
-      <div style={{ padding: "2rem", textAlign: "center" }}>
-        <h3>Carregando...</h3>
-      </div>
-    );
+    return <AuthLoadingScreen />;
   }
 
-  // Se não estiver logado, redireciona pra login
-  if (!isAuthenticated) {
+  // Se precisamos redirecionar
+  if (shouldRedirect) {
     return <Navigate to="/login" replace />;
   }
-  
-  // Se estiver usando children diretamente
-  if (children) return children;
 
-  // Se estiver usando como wrapper para rotas aninhadas
+  // Se está autenticado → deixa entrar
   return <Outlet />;
 }
 

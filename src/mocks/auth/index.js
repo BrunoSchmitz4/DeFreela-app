@@ -14,13 +14,12 @@ const fakeToken = "123abcTOKEN";
 export async function mockLogin(email, password) {
   await delay(800);
 
-  // "email": "john@example.com",
   if (email !== mockUser.email || password !== "123456") {
     throw new Error("Credenciais inválidas.");
   }
 
   return {
-    user: mockUser,
+    data: mockUser,
     token: fakeToken
   };
 }
@@ -32,8 +31,11 @@ export async function mockGetProfile(token) {
     throw new Error("Token inválido ou expirado.");
   }
 
-  return mockUser;
+  return {
+    data: mockUser
+  };
 }
+
 
 export async function mockLogout() {
   await delay(300);

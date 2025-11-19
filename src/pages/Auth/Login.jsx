@@ -10,7 +10,7 @@ import styles from "./Login.module.css";
 
 function Login() {
   const navigate = useNavigate();
-  const { handleLogin, loading, isAuthenticated } = useAuth();
+  const { handleLogin, loading, isAuthenticated, redirectAfterLogin } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,7 +37,7 @@ function Login() {
     }
 
     // REDIRECIONA APÓS LOGIN
-    navigate("/projects/myProjects");
+    navigate(redirectAfterLogin || "/projects/myProjects");
   }
 
   return (
