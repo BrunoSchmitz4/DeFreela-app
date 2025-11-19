@@ -7,7 +7,7 @@ import Button from "../../../components/ui/Button";
 
 export default function MyJobs() {
   const { interests, unmarkInterest, cancelContract } = useContracts();
-  const { createProject, loading, error } = useProjectsContext();
+  const { loading } = useProjectsContext();
 
   // Busca os projetos que o freelancer marcou interesse
   const interestedProjects = interests.map((i) =>
