@@ -14,6 +14,7 @@ const fakeToken = "123abcTOKEN";
 export async function mockLogin(email, password) {
   await delay(800);
 
+  // "email": "john@example.com",
   if (email !== mockUser.email || password !== "123456") {
     throw new Error("Credenciais inválidas.");
   }
