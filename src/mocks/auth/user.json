@@ -1,0 +1,8 @@
+{
+  "id": 1,
+  "name": "John Doe",
+  "email": "john@example.com",
+  "bio": "Desenvolvedor full-stack entusiasta de projetos freelance.",
+  "skills": ["React", "Node.js", "CSS"],
+  "avatar": "https://i.pravatar.cc/150?img=3"
+}
