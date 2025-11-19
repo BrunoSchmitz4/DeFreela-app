@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 4rem 1rem;
+}
+
+.box {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: var(--shadow-md);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+h1 span {
+  color: var(--primary);
+}
+
+.subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.footer {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.footer a {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.modalActions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}

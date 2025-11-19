@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
 
@@ -17,9 +17,8 @@ function Login() {
   const [localError, setLocalError] = useState(false);
 
   // Se já estiver logado, manda pro dashboard automaticamente
-  if (isAuthenticated) {
-    navigate("/projects/myProjects");
-  }
+  useEffect(() => { if (isAuthenticated) navigate("/projects/myProjects") }, [isAuthenticated, navigate])
+
 
   async function onSubmit(e) {
     e.preventDefault();

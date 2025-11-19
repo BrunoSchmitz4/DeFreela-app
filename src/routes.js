@@ -14,6 +14,7 @@ import ProjectDetails from "./pages/Projects/ProjectDetails";
 import Freelancer from "./pages/Freelancer";
 
 import PrivateRoute from "./components/PrivateRoute";
+import Register from "./pages/Auth/Register";
 
 function AppRoutes() {
     return (
@@ -49,6 +50,7 @@ function AppRoutes() {
                     <Route path="*" element={ <NotFound /> } />
                 </Route>
                     <Route path="/login" element={ <Login /> } />
+                    <Route path="/auth/register" element={<Register />} />
             </Routes>
         </BrowserRouter>
     )

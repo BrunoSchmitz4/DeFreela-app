@@ -39,3 +39,25 @@ export async function mockLogout() {
   await delay(300);
   return true;
 }
+
+// MOCK: registro de usuário
+export async function mockRegister(name, email, password) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // exemplo básico: email repetido
+      if (email === "user@email.com") {
+        return reject({ message: "Email já cadastrado!" });
+      }
+
+      // sucesso
+      resolve({
+        message: "Usuário registrado com sucesso!",
+        user: {
+          id: Date.now(),
+          name,
+          email
+        }
+      });
+    }, 700);
+  });
+}

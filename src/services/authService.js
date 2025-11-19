@@ -1,5 +1,5 @@
 // Aqui será o import da API (vou usar um mockzin pra fins de testes)
-import { mockLogin, mockGetProfile, mockLogout } from '../mocks/auth';
+import { mockLogin, mockGetProfile, mockLogout, mockRegister } from '../mocks/auth';
 
 
 // Quando a API real existir, vou trocar por isso:
@@ -32,4 +32,8 @@ export async function getProfile(token) {
 
 export async function logout() {
   return await mockLogout();
+}
+
+export async function register(name, email, password) {
+  return await mockRegister(name, email, password);
 }
