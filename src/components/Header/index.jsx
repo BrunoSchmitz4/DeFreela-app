@@ -1,20 +1,12 @@
 import { useState } from "react";
+import { useAuth } from "../../context/authContext";
 import RouterLink from "../RouterLink";
+import Button from "../ui/Button";
 import styles from "./Header.module.css";
-import DropdownButton from "../DropdownButton";
 
 function Header() {
+  const { user, isAuthenticated, handleLogout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
-
-  const freelancersRoutes = [
-    { label: 'Buscar Freelancers', path: '/freelancers/searchFreelancers' },
-    { label: 'meus trabalhos', path: '/freelancers/myJobs' },
-  ]
-
-  const projectsRoutes = [
-    { label: 'Buscar Projetos', path: '/projects/searchProjects' },
-    { label: 'Meus Projetos', path: '/projects/myProjects' },
-  ]
 
   return (
     <header className={styles.headerContainer}>
@@ -39,12 +31,18 @@ function Header() {
           <RouterLink Route={"/projects/myProjects"} Title={"Meus Projetos"} />
           <RouterLink Route={"/freelancers/searchFreelancers"} Title={"Buscar Freelancers"} />
           <RouterLink Route={"/freelancers/myJobs"} Title={"Meus Trabalhos"} />
-
-          {/* <DropdownButton routes={freelancersRoutes}/>
-          <DropdownButton routes={projectsRoutes}/> */}
-          {/* <RouterLink Route={"/freelancers"} Title={"Freelancers"} />
-          <RouterLink Route={"/projects"} Title={"Projetos"} /> */}
           <RouterLink Route={"/profile"} Title={"Perfil"} />
+
+          {/* --- Condicional autenticado/deslogado --- */}
+          
+          { !isAuthenticated && ( <RouterLink Route={"/login"} Title={"Entrar"} />) }
+
+          { isAuthenticated && ( 
+            <div className={styles.userSection}>
+              <span className={styles.username}> Olá, {user?.name?.split(" ")[0]}! </span>
+            </div>
+          )}
+          <Button  onClick={handleLogout}>Sair</Button>
         </nav>
       </div>
     </header>

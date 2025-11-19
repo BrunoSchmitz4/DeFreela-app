@@ -1,47 +1,58 @@
 import { useState } from "react";
+import { useAuth } from "../../context/authContext";
+import { useNavigate } from "react-router-dom";
+
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 import Modal from "../../components/ui/Modal";
+
 import styles from "./Login.module.css";
-import { login } from "../../services/authService"; // futuramente com axios
 
 function Login() {
+  const navigate = useNavigate();
+  const { handleLogin, loading, isAuthenticated } = useAuth();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [errorModal, setErrorModal] = useState(false);
+  const [localError, setLocalError] = useState(false);
 
-  async function handleLogin(e) {
+  // Se já estiver logado, manda pro dashboard automaticamente
+  if (isAuthenticated) {
+    navigate("/projects/myProjects");
+  }
+
+  async function onSubmit(e) {
     e.preventDefault();
 
-    // validações simples
     if (!email || !password) {
-      setErrorModal(true);
+      setLocalError(true);
       return;
     }
 
-    try {
-      setLoading(true);
-      await login(email, password); // mock por enquanto
-      alert("Login bem-sucedido!"); // depois redireciona
-    } catch (err) {
-      setErrorModal(true);
-    } finally {
-      setLoading(false);
+    const result = await handleLogin(email, password);
+
+    if (result.error) {
+      // erro global vindo do context
+      setLocalError(true);
+      return;
     }
+
+    // REDIRECIONA APÓS LOGIN
+    navigate("/projects/myProjects");
   }
 
   return (
     <div className={styles.container}>
       <div className={styles.box}>
-        <h1>Bem-vindo ao <span>DeFreela</span></h1>
+        <h1>
+          Bem-vindo ao <span>DeFreela</span>
+        </h1>
         <p className={styles.subtitle}>Conecte-se para gerenciar seus projetos</p>
 
-        <form onSubmit={handleLogin} className={styles.form}>
+        <form onSubmit={onSubmit} className={styles.form}>
           <Input
             label="Email"
             type="email"
-            name="email"
             placeholder="exemplo@email.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -50,7 +61,6 @@ function Login() {
           <Input
             label="Senha"
             type="password"
-            name="password"
             placeholder="••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -66,15 +76,15 @@ function Login() {
         </p>
       </div>
 
-      {/* Modal de erro */}
+      {/* Modal para erros de login */}
       <Modal
-        isOpen={errorModal}
-        onClose={() => setErrorModal(false)}
-        title="Erro de Login"
+        isOpen={localError}
+        onClose={() => setLocalError(false)}
+        title="Erro ao entrar"
       >
         <p>Email ou senha inválidos. Tente novamente.</p>
         <div className={styles.modalActions}>
-          <Button onClick={() => setErrorModal(false)}>Fechar</Button>
+          <Button onClick={() => setLocalError(false)}>Fechar</Button>
         </div>
       </Modal>
     </div>
