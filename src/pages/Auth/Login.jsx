@@ -7,6 +7,7 @@ import Button from "../../components/ui/Button";
 import Modal from "../../components/ui/Modal";
 
 import styles from "./Login.module.css";
+import RouterLink from "../../components/RouterLink";
 
 function Login() {
   const navigate = useNavigate();
@@ -70,8 +71,8 @@ function Login() {
           </Button>
         </form>
 
-        <p className={styles.footer}>
-          Novo por aqui? <a href="/auth/register">Crie sua conta</a>
+        <p className={styles.footer}> Ainda não possúi uma conta?
+          <RouterLink Route={"/auth/register"} Title={"Crei sua conta"}/>
         </p>
       </div>
 

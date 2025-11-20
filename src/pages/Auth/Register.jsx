@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
@@ -6,6 +6,7 @@ import Modal from "../../components/ui/Modal";
 
 import styles from "./Register.module.css";
 import { useAuth } from "../../context/authContext";
+import RouterLink from "../../components/RouterLink";
 
 function Register() {
   const navigate = useNavigate();
@@ -18,9 +19,12 @@ function Register() {
   const [errorModal, setErrorModal] = useState(false);
 
   // se já autenticado, manda para dashboard (segurança extra)
-  if (isAuthenticated) {
-    navigate("/projects/myProjects");
-  }
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/projects/myProjects");
+    }
+  }, [isAuthenticated, navigate])
+
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -60,7 +64,7 @@ return (
           </Button>
         </form>
 
-        <p className={styles.footer}>Já possui conta? <a href="/login">Entrar</a></p>
+        <p className={styles.footer}>Já possui conta?<RouterLink Route={"/login"} Title={"Entrar"}/></p>
       </div>
 
       <Modal isOpen={errorModal} onClose={() => setErrorModal(false)} title="Erro">

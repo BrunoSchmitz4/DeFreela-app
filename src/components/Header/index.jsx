@@ -33,17 +33,24 @@ function Header() {
           <RouterLink Route={"/freelancers/myJobs"} Title={"Meus Trabalhos"} />
           <RouterLink Route={"/profile"} Title={"Perfil"} />
 
-          {!isAuthenticated && ( <RouterLink Route={"/login"} Title={"Entrar"} /> )}
-
-          {isAuthenticated && (
-            <div className={styles.userInfo}>
-              <span className={styles.username}>
-                Olá, {user?.name?.split(" ")[0]}!
-              </span>
-
-            </div>
+          {/* ENTRAR só aparece se não estiver logado */}
+          {!isAuthenticated && (
+            <RouterLink Route={"/login"} Title={"Entrar"} />
           )}
-          <Button onClick={handleLogout} children={"Sair"}/>
+
+          {/* BLOCO DO USUÁRIO LOGADO */}
+          {isAuthenticated && (
+            <>
+              <div className={styles.userInfo}>
+                <span className={styles.username}>
+                  Olá, {user?.name?.split(" ")[0]}!
+                </span>
+              </div>
+
+              {/* O botão SAIR agora só aparece quando autenticado */}
+              <Button onClick={handleLogout}>Sair</Button>
+            </>
+          )}
         </nav>
       </div>
     </header>

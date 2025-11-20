@@ -12,35 +12,15 @@ export function makeServer({ environment = "development" } = {}) {
       token: Model,
     },
 
-    timing: 600, // delay padrão das respostas
+    // delay para UX mais real
+    timing: 600,
 
     seeds(server) {
-      // PERSISTÊNCIA REAL DO TOKEN (correção do bug de sessão)
-      const storedToken = window.localStorage.getItem("token");
+      // limpa absolutamente todo o estado anterior
+      // Corrige problemas de hot reload mantendo sessão antiga
+      server.db.emptyData();
 
-      if (storedToken) {
-        // Recria o token dentro do Mirage (para sobreviver ao reload)
-        server.create("token", {
-          id: storedToken,
-          token: storedToken,
-          userId: 1,
-        });
-      }
-
-      // Se não existe token, cria um token inicial e sincroniza com o localStorage
-      if (!storedToken) {
-        const initialToken = `token_${Date.now()}_initial`;
-
-        server.create("token", {
-          id: initialToken,
-          token: initialToken,
-          userId: 1,
-        });
-
-        window.localStorage.setItem("token", initialToken);
-      }
-
-      // SEED DO USUÁRIO PADRÃO
+      // Usuário inicial
       server.create("user", {
         id: 1,
         name: "John Doe",
@@ -50,7 +30,7 @@ export function makeServer({ environment = "development" } = {}) {
         avatar: "https://i.pravatar.cc/150?img=3",
       });
 
-      // PROJETOS DE EXEMPLO
+      // Projetos de exemplo
       server.create("project", {
         id: 11,
         title: "Landing Page para startup",
@@ -75,7 +55,7 @@ export function makeServer({ environment = "development" } = {}) {
         assignedFreelancer: null,
       });
 
-      // FREELANCERS DE EXEMPLO
+      // Freelancers
       server.create("freelancer", {
         id: 101,
         name: "Ana Lima",
@@ -93,13 +73,21 @@ export function makeServer({ environment = "development" } = {}) {
         skills: ["Unity", "C#", "Shader"],
         avatar: "https://i.pravatar.cc/150?img=6",
       });
+
+      // Token inicial válido para o John
+      const fakeToken = `token_${Date.now()}_initial`;
+      server.create("token", {
+        id: fakeToken,
+        token: fakeToken,
+        userId: 1,
+      });
     },
 
     routes() {
       this.namespace = "api";
       this.timing = 600;
 
-      // Utilitário para extrair token do header
+      // Helper para pegar token do header
       const getTokenFromRequest = (request) => {
         const auth = request.requestHeaders["Authorization"];
         if (auth && auth.startsWith("Bearer ")) {
@@ -108,21 +96,20 @@ export function makeServer({ environment = "development" } = {}) {
         return request.queryParams.token || null;
       };
 
-      // 🔐 AUTH
+      // AUTH
       this.post("/auth/login", (schema, request) => {
         const { email, password } = JSON.parse(request.requestBody);
 
         const user = schema.users.findBy({ email: email?.toLowerCase() });
-
         if (!user || password !== "123456") {
           return new Response(401, {}, { error: "Credenciais inválidas." });
         }
 
-        const token = `token_${Date.now()}_${Math.floor(Math.random() * 9999)}`;
-        schema.tokens.create({ id: token, token, userId: user.id });
+        const token = `token_${Date.now()}_${Math.floor(
+          Math.random() * 9999
+        )}`;
 
-        // Persistência do token no navegador
-        window.localStorage.setItem("token", token);
+        schema.tokens.create({ id: token, token, userId: user.id });
 
         return { data: user.attrs, token };
       });
@@ -143,50 +130,62 @@ export function makeServer({ environment = "development" } = {}) {
           avatar: `https://i.pravatar.cc/150?u=${Date.now()}`,
         });
 
-        const token = `token_${Date.now()}_${Math.floor(Math.random() * 9999)}`;
+        const token = `token_${Date.now()}_${Math.floor(
+          Math.random() * 9999
+        )}`;
 
         schema.tokens.create({ id: token, token, userId: newUser.id });
-
-        window.localStorage.setItem("token", token);
 
         return { data: newUser.attrs, token };
       });
 
+      // /auth/me
       this.get("/auth/me", (schema, request) => {
         const token = getTokenFromRequest(request);
-        if (!token) return new Response(401, {}, { error: "Token ausente." });
+
+        // 🔥 Token inválido ou ausente
+        if (!token || token === "undefined" || token === "null") {
+          return new Response(401, {}, { error: "Token ausente." });
+        }
 
         const record = schema.tokens.find(token);
-        if (!record) return new Response(401, {}, { error: "Token inválido ou expirado." });
+
+        if (!record) {
+          return new Response(401, {}, { error: "Token inválido ou expirado." });
+        }
 
         const user = schema.users.find(record.userId);
-        if (!user) return new Response(404, {}, { error: "Usuário não encontrado." });
+
+        if (!user) {
+          return new Response(404, {}, { error: "Usuário não encontrado." });
+        }
 
         return { data: user.attrs };
       });
 
       this.post("/auth/logout", (schema, request) => {
         const token = getTokenFromRequest(request);
-        const record = schema.tokens.find(token);
 
-        if (record) record.destroy();
-
-        // remover token do navegador também
-        window.localStorage.removeItem("token");
+        if (token) {
+          const record = schema.tokens.find(token);
+          if (record) record.destroy();
+        }
 
         return { success: true };
       });
 
-      // 📁 PROJECTS (CRUD + interest)
+      // PROJECTS
       this.get("/projects", (schema, request) => {
         const q = (request.queryParams.q || "").toLowerCase();
+
         let projects = schema.projects.all().models.map((m) => m.attrs);
 
-        if (q.length > 0) {
-          projects = projects.filter((p) =>
-            [p.title, p.description, p.tags?.join(" ")]
-              .filter(Boolean)
-              .some((val) => val.toLowerCase().includes(q))
+        if (q) {
+          projects = projects.filter(
+            (p) =>
+              p.title?.toLowerCase().includes(q) ||
+              p.description?.toLowerCase().includes(q) ||
+              p.tags?.join(" ").toLowerCase().includes(q)
           );
         }
 
@@ -194,17 +193,20 @@ export function makeServer({ environment = "development" } = {}) {
       });
 
       this.get("/projects/:id", (schema, request) => {
-        const project = schema.projects.find(request.params.id);
-        if (!project) return new Response(404, {}, { error: "Projeto não encontrado." });
+        const id = request.params.id;
+        const p = schema.projects.find(id);
 
-        return { data: project.attrs };
+        if (!p) return new Response(404, {}, { error: "Project não encontrado." });
+
+        return { data: p.attrs };
       });
 
       this.post("/projects", (schema, request) => {
         const token = getTokenFromRequest(request);
         const record = schema.tokens.find(token);
 
-        if (!record) return new Response(401, {}, { error: "Não autorizado." });
+        if (!record)
+          return new Response(401, {}, { error: "Não autorizado." });
 
         const attrs = JSON.parse(request.requestBody);
 
@@ -224,12 +226,19 @@ export function makeServer({ environment = "development" } = {}) {
         const token = getTokenFromRequest(request);
         const record = schema.tokens.find(token);
 
-        if (!record) return new Response(401, {}, { error: "Não autorizado." });
+        if (!record)
+          return new Response(401, {}, { error: "Não autorizado." });
 
-        const project = schema.projects.find(request.params.id);
-        if (!project) return new Response(404, {}, { error: "Projeto não encontrado." });
+        const id = request.params.id;
+        const attrs = JSON.parse(request.requestBody);
 
-        project.update(JSON.parse(request.requestBody));
+        const project = schema.projects.find(id);
+
+        if (!project)
+          return new Response(404, {}, { error: "Projeto não encontrado." });
+
+        project.update(attrs);
+
         return { data: project.attrs };
       });
 
@@ -237,30 +246,37 @@ export function makeServer({ environment = "development" } = {}) {
         const token = getTokenFromRequest(request);
         const record = schema.tokens.find(token);
 
-        if (!record) return new Response(401, {}, { error: "Não autorizado." });
+        if (!record)
+          return new Response(401, {}, { error: "Não autorizado." });
 
-        const project = schema.projects.find(request.params.id);
+        const id = request.params.id;
+        const project = schema.projects.find(id);
 
-        if (!project) return new Response(404, {}, { error: "Projeto não encontrado." });
+        if (!project)
+          return new Response(404, {}, { error: "Projeto não encontrado." });
 
         project.destroy();
+
         return new Response(204);
       });
 
-      // INTEREST
       this.post("/projects/:id/interest", (schema, request) => {
         const token = getTokenFromRequest(request);
         const record = schema.tokens.find(token);
 
-        if (!record) return new Response(401, {}, { error: "Não autorizado." });
+        if (!record)
+          return new Response(401, {}, { error: "Não autorizado." });
 
-        const project = schema.projects.find(request.params.id);
-        if (!project) return new Response(404, {}, { error: "Projeto não encontrado." });
-
+        const id = request.params.id;
         const { freelancerId } = JSON.parse(request.requestBody);
 
+        const project = schema.projects.find(id);
+
+        if (!project)
+          return new Response(404, {}, { error: "Projeto não encontrado." });
+
         project.update({
-          interested: [...project.attrs.interested, freelancerId],
+          interested: [...(project.attrs.interested ?? []), freelancerId],
         });
 
         return { data: project.attrs };
@@ -270,15 +286,18 @@ export function makeServer({ environment = "development" } = {}) {
         const token = getTokenFromRequest(request);
         const record = schema.tokens.find(token);
 
-        if (!record) return new Response(401, {}, { error: "Não autorizado." });
+        if (!record)
+          return new Response(401, {}, { error: "Não autorizado." });
 
         const { id, freelancerId } = request.params;
 
         const project = schema.projects.find(id);
-        if (!project) return new Response(404, {}, { error: "Projeto não encontrado." });
+
+        if (!project)
+          return new Response(404, {}, { error: "Projeto não encontrado." });
 
         project.update({
-          interested: project.attrs.interested.filter(
+          interested: (project.attrs.interested ?? []).filter(
             (f) => String(f) !== String(freelancerId)
           ),
         });
@@ -286,18 +305,18 @@ export function makeServer({ environment = "development" } = {}) {
         return { data: project.attrs };
       });
 
-      // 👤 FREELANCERS
+      // FREELANCERS
       this.get("/freelancers", (schema, request) => {
         const q = (request.queryParams.q || "").toLowerCase();
 
         let list = schema.freelancers.all().models.map((m) => m.attrs);
 
-        if (q.length > 0) {
+        if (q) {
           list = list.filter(
             (f) =>
-              f.name.toLowerCase().includes(q) ||
-              f.bio.toLowerCase().includes(q) ||
-              f.skills.join(" ").toLowerCase().includes(q)
+              f.name?.toLowerCase().includes(q) ||
+              f.bio?.toLowerCase().includes(q) ||
+              f.skills?.join(" ").toLowerCase().includes(q)
           );
         }
 
@@ -305,23 +324,27 @@ export function makeServer({ environment = "development" } = {}) {
       });
 
       this.get("/freelancers/:id", (schema, request) => {
-        const f = schema.freelancers.find(request.params.id);
-        if (!f) return new Response(404, {}, { error: "Freelancer não encontrado." });
+        const id = request.params.id;
+        const f = schema.freelancers.find(id);
+
+        if (!f)
+          return new Response(404, {}, { error: "Freelancer não encontrado." });
 
         return { data: f.attrs };
       });
 
-      this.get("/freelancers/:id/jobs", (schema, request) => {
-        const id = request.params.id;
+      this.get("/freelancers/:id/jobs", (schema) => {
+        const id = schema.requestParams?.id;
 
-        const jobs = schema.projects
+        const projects = schema.projects
           .all()
           .models.map((m) => m.attrs)
           .filter((p) => String(p.assignedFreelancer) === String(id));
 
-        return { data: jobs };
+        return { data: projects };
       });
 
+      // fallback
       this.passthrough();
     },
   });

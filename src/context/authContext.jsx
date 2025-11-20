@@ -90,12 +90,14 @@ export function AuthProvider({ children }) {
 
   // 🚪 LOGOUT
   async function handleLogout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setUser(null);
+
     try {
       await AuthRepository.logout(); // mesmo que Mirage não use
-    } finally {
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      setUser(null);
+    } catch (e) {
+      console.warn("Erro ao deslogar backend:", e);
     }
   }
 
