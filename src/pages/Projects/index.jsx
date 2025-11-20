@@ -1,5 +1,5 @@
 // src/pages/Projects/index.jsx
-import { Outlet, NavLink } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import styles from "./Projects.module.css";
 
 export default function Projects() {

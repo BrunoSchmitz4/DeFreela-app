@@ -6,11 +6,23 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000", // futuramente API
-  withCredentials: true, // Para uso de cookies (HTTPOnly)
+  baseURL: "/api",
   headers: {
-    "Content-Type": "application/json",
+    "Content-Type": "application/json"
   },
+});
+
+api.interceptors.request.use((config) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers = config.headers || {};
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+  } catch (e) {
+    // nada
+  }
+  return config;
 });
 
 export default api;

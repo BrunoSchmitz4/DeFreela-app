@@ -1,5 +1,3 @@
-import mockProjects from '../mocks/projects';
-
 export const contractService = {
   async markInterest(projectId, freelancerId) {
     return Promise.resolve({ projectId, freelancerId, interested: true });

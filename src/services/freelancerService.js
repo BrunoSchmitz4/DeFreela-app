@@ -1,17 +1,43 @@
-import mockFreelancers from '../mocks/freelancers';
+// src/services/freelancerService.js
+import api from "./api";
 
-export const freelancerService = {
-  async search(query) {
-    // Simula GET /freelancers?query=
-    return Promise.resolve(
-      mockFreelancers.filter(f =>
-        f.name.toLowerCase().includes(query.toLowerCase())
-      )
-    );
-  },
+// Versão MirageJS / API real (usando essa versão atualmente)
 
-  async getProfile(id) {
-    // Simula GET /freelancers/:id
-    return Promise.resolve(mockFreelancers.find(f => f.id === id));
-  },
-};
+export async function getFreelancers(search = "") {
+  const res = await api.get("/freelancers", {
+    params: search ? { q: search } : {}
+  });
+
+  return res.data; // { data: [...] }
+}
+
+export async function getFreelancerById(id) {
+  const res = await api.get(`/freelancers/${id}`);
+  return res.data;
+}
+
+export async function getFreelancerJobs(id) {
+  const res = await api.get(`/freelancers/${id}/jobs`);
+  return res.data;
+}
+
+// Versão Mock (Atualmente desativado para fins de teste com o Mirage)
+
+// import {
+//   mockSearchFreelancers,
+//   mockGetFreelancerProfile,
+//   mockGetFreelancerJobs
+// } from "../mocks/freelancers";
+
+// export async function getFreelancers(search) {
+//   return mockSearchFreelancers(search);
+// }
+
+// export async function getFreelancerById(id) {
+//   return mockGetFreelancerProfile(id);
+// }
+
+// export async function getFreelancerJobs(id) {
+//   return mockGetFreelancerJobs(id);
+// }
+
