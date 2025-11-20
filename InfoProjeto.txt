@@ -5,21 +5,17 @@ O projeto DeFreela é uma aplicação React estruturada com base em uma arquitet
 O foco atual é a simulação do front-end completo antes da integração real com a API (que virá de um back-end em Spring Boot).
 O ecossistema é voltado ao desenvolvimento limpo, componentizado e mobile-first, com foco em reutilização e clareza de responsabilidades.
 
-⚙️ Tecnologias e Ecossistema
+⚙️ Tecnologias e Ecossistema (atualizado)
 
-React JS (com Hooks e JSX) — base da aplicação.
-
-React Router DOM — controle de rotas e navegação.
-
-Axios — abstraído em /services/api.js para futuras chamadas HTTP.
-
-CSS Modules — utilizado para estilização isolada e responsiva.
-
-Arquitetura Component-Based (Atomic-like) — separação clara entre UI Components, Feature Components e Pages.
-
-Mock Data — usado em /mocks/ para simular retorno da API.
-
-Context API — base preparada em /context/authContext.jsx para autenticação global.
+React JS (Hooks + Context API)
+React Router DOM — navegação e rotas aninhadas (BasePage + Outlet)
+Axios — instância central em src/services/api.js com interceptor de token
+MirageJS — mock-backend com endpoints REST (/api)
+CSS Modules — para estilos de componentes e páginas
+Context API — AuthContext, ProjectsContext, FreelancersContext
+Arquitetura: component-based (UI primitives, feature components, pages)
+Mocks: /src/mocks/ (mantidos como referência, mas Mirage intercepta /api)
+Testes: scaffolding para testes unitários já criado (recomendado aumentar cobertura)
 
 Estrutura do projeto/
 src/
@@ -39,9 +35,10 @@ src/
 │       ├── Button/
 │       ├── Input/
 │       └── Modal/
+│       └── AuthLoadingScreen/
 │
 ├── context/
-│   ├── authContext         # Contexto de autenticação (login, logout, usuário)
+│   ├── authContext         # Contexto de autenticação (handleLogin, handleRegister, handleLogout, persistência)
 │   ├── freelancerContext   # Contexto de freelancers
 │   └── project             # Contexto de projetos
 │
@@ -50,12 +47,20 @@ src/
 │   ├── useFreelancers      # Hook de freelancers
 │   └── useProjects         # Hook de projetos
 │
+├── mirage/
+│   └── server.js           # MirageJS server (seeds, routes)
+│
 ├── mocks/
+│   ├── auth
+│   │   ├── index.js
+│   │   └── user.json
 │   ├── freelancers         # Mock de freelancers
 │   └── projects            # Mock de projetos
 │
 ├── pages/                  # Páginas principais (camada View)
 │   ├── Auth/               # Login e autenticação
+│   │   ├── Login.jsx
+│   │   └── Register.jsx     
 │   ├── BasePage/           # Layout base contendo Header e Outlet
 │   ├── Freelancer/         # Página de freelancers
 │       ├── MyJobs            # SubPágina de Trabalhos do usuário
@@ -67,6 +72,9 @@ src/
 │       ├── MyProjects        # SubPágina de Projetos do usuário
 │       ├── ProjectDetails    # SubPágina de detalhes do projeto
 │       └── SearchProjects    # Subpágina de busca de projetos
+│
+├── repositories/           # AuthRepository, ProjectRepository, FreelancerRepository
+│
 ├── services/
 │   ├── api                 # Instância Axios configurada
 │   ├── authService         # Servieec de autenticação (login, logout)
@@ -92,27 +100,35 @@ As rotas são controladas via react-router-dom e seguem um layout-base compartil
             <Routes>
                 {/* Rota de Layout base */}
                 <Route path="/" element={ <BasePage /> }>
+
                     {/* Rotas públicas */}
                     <Route index element={ <Home /> } />
 
-                    {/* Rotas privadas (Quando tivermos a API para fazer o auth do usuário logado, irei encapsular essas tags marotas*/}
-                    <Route path="/Profile" element={ <Profile /> } />
-                    <Route path="/profile/:id" element={<Profile />} />
+                    {/* Rotas privadas (lembrando que só funciona com autenticação de usuário, tá amor?*/}
+                    <Route element={<PrivateRoute />}>
+                        {/* Rota de Perfil */}
+                        <Route path="/Profile" element={ <Profile /> } />
+                        <Route path="/profile/:id" element={<Profile />} />
 
-                    <Route path="/freelancers" element={ <Freelancer /> } >
-                        <Route path="/freelancers/searchFreelancers" element={ <SearchFreelancer /> }/>
-                        <Route path="/freelancers/myJobs" element={ <MyJobs />  }/>
-                    </Route>
-                    <Route path="/projects" element={ <Projects /> } >
-                        <Route path="/projects/searchProjects" element={ <SearchProjects />  }/>
-                        <Route path="/projects/myProjects" element={ <MyProjects />  }/>
-                        <Route path="/projects/:id" element={<ProjectDetails />} />
+                        {/* Rota de Freelancer */}
+                        <Route path="/freelancers" element={ <Freelancer /> } >
+                            <Route path="/freelancers/searchFreelancers" element={ <SearchFreelancer /> }/>
+                            <Route path="/freelancers/myJobs" element={ <MyJobs />  }/>
+                        </Route>
+
+                        {/* Rota de Projetos */}
+                        <Route path="/projects" element={ <Projects /> } >
+                            <Route path="/projects/searchProjects" element={ <SearchProjects />  }/>
+                            <Route path="/projects/myProjects" element={ <MyProjects />  }/>
+                            <Route path="/projects/:id" element={<ProjectDetails />} />
+                        </Route>
                     </Route>
 
                     {/* Rota Fallback */}
                     <Route path="*" element={ <NotFound /> } />
                 </Route>
                     <Route path="/login" element={ <Login /> } />
+                    <Route path="/auth/register" element={<Register />} />
             </Routes>
         </BrowserRouter>
 
@@ -124,26 +140,63 @@ Página	Hook / Context	Casos de Uso
 /profile/:id	useAuth + useContexts	exibe visão geral completa
 
 Esse fluxo garante uma navegação fluida, com o Header fixo e renderização condicional do conteúdo conforme o Outlet do React Router.
-🧠 Estado Atual
+✅ Implementações-chave concluídas
 
-✅ Front-end pronto para integração real com a API
-✅ Componentes reutilizáveis e consistentes
-✅ Design responsivo e minimalista (mobile-first)
-✅ Simulação funcional com mocks e estados locais
-🔜 Próximos passos:
+AuthContext: login/register/logout, persistência em localStorage, authLoading, loading inicial, redirectAfterLogin.
+MirageJS: rotas /api/auth/*, /api/projects/*, /api/freelancers/* com seeds, delays, token persistente dev.
+API (Axios): src/services/api.js com interceptor que injeta Authorization header.
+Services: authService, projectService, freelancerService apontando para api.
+PrivateRoute: proteção de rotas com AuthLoadingScreen e redirect inteligente.
+Login/Register: integrados ao AuthContext; register faz auto-login.
+Header/BasePage: Header condicional por autenticação; BasePage exibe AuthLoadingScreen enquanto verifica sessão.
+UX: mensagens de erro padronizadas, modais unificados, empty states e skeletons a implementar (boilerplate criado).
 
-Integrar API real do Spring Boot com Axios.
+🔧 Scripts e instruções de dev (README quick commands)
 
-Implementar autenticação real (login/logout + PrivateRoute).
+Instalar dependências: npm install
+Instalar Mirage (dev): npm i -D miragejs (ou yarn add -D miragejs)
+Start em dev: npm start — Mirage é inicializado automaticamente em index.js (apenas em NODE_ENV=development)
+Axios baseURL: /api (Mirage intercepta /api/*)
+🧩 Pendências / Próximos pontos de trabalho (priorizados)
 
-Conectar dados dinâmicos (projetos, freelancers, perfil).
+(Alta) Resolver inconsistência final de persistência de sessão (token + Mirage) — debug final e verificação em diferentes navegadores.
+(Alta) Implementar camada Repository (AuthRepository, ProjectRepository, FreelancerRepository) e migrar hooks para chamá-las.
+(Média) Implementar skeletons e empty states em todas as listas de projeto/freelancer.
+(Média) Unificar e estilizar modais (error/success) com animação leve.
+(Média) Adicionar src/types/index.js com shapes e exemplos (ajuda a evitar bugs ao trocar back-end).
+(Média) Escrever README técnico com: como rodar Mirage, formato das respostas, contrato de API (paths e shapes), como trocar para back real.
+(Baixa) Escrever testes unitários e de integração (contexts/hooks).
+(Opcional) Melhorar Mirage para simular falhas aleatórias controláveis via flag.
 
-Refinar UI com paleta final e padronização de temas globais.
+Checklists de contrato (para quando o back chegar)
+Auth endpoints
+POST /auth/login → { data: user, token }
+POST /auth/register → { data: user, token }
+GET /auth/me → { data: user } (header Authorization: Bearer <token>)
+POST /auth/logout → { success: true }
 
-🧩 Observações Gerais
+Projects endpoints
+GET /projects → { data: [project] } (accepts q param)
+GET /projects/:id → { data: project }
+POST /projects → { data: project } (auth required)
+PATCH /projects/:id → { data: project } (auth required)
+DELETE /projects/:id → 204 (auth required)
+POST /projects/:id/interest → { data: project } (auth required)
+DELETE /projects/:id/interest/:freelancerId → { data: project } (auth required)
+Freelancers endpoints
+GET /freelancers → { data: [freelancer] } (accepts q)
+GET /freelancers/:id → { data: freelancer }
+GET /freelancers/:id/jobs → { data: [project] }
 
-A aplicação segue o princípio Container + Presentational Components, mantendo lógica separada da UI.
+Observações finais e recomendações rápidas
+Quando o back real chegar, preciso trocar apenas api.baseURL (ou remova Mirage inicialização). Services e Contexts não precisam refatoração significativa.
+Camada Repository é recomendada antes de adicionar muitos hooks novos — facilita swapping de implementação (mock → http).
 
-A estrutura atual já considera a escalabilidade futura (por exemplo, integração com Redux ou Zustand).
+Resumo do que ainda falta na sua lista original
 
-O objetivo principal é oferecer uma base sólida para a camada de consumo de dados do back-end, preservando modularidade e clareza.
+(3) RegisterPage 100% integrado: concluído (handleRegister no AuthContext + register page chamando handleRegister + retorno token).
+(4) Back-end Fake REAL: concluído via MirageJS (implementado).
+(5) Repository layer: pendente — recomendo que façamos agora (eu posso gerar os 3 repositórios + atualizar hooks).
+(6) Ajustar UX: parcialmente implementado (modais + mensagens); faltam skeletons, animações e empty states padronizados.
+(7) Arquivo de tipos: pendente (recomendo src/types/index.js).
+(8) README: pendente (aqui temos quick commands; posso gerar README detalhado).

@@ -1,7 +1,10 @@
 🧭 Fluxo e Estrutura das Páginas Principais (Atualizado)
 
 Este documento descreve como cada página do sistema se relaciona com os casos de uso e com os hooks/contexts criados.
-O DeFreela utiliza a lógica de que todo usuário é tanto contratante quanto freelancer, podendo criar projetos e trabalhar em projetos simultaneamente.
+O DeFreela utiliza a lógica de que todo usuário pode atuar tanto como contratante quanto como freelancer,
+podendo criar projetos e trabalhar em projetos simultaneamente.
+
+IMPORTANTE: documento sincronizado com a implementação atual do front-end (AuthContext, PrivateRoute, MirageJS, services API).
 
 📌 Casos de Uso — Atualizados
 
@@ -22,10 +25,10 @@ UC11 — Cancelar participação como freelancer em um projeto
 
 | Página                         | Hook / Context usado                       | Casos de Uso    |
 | ------------------------------ | -------------------------------------------| --------------- |
-| /projects/myProjects           | useProjects()                              | UC01–UC05       |
-| /projects/searchProjects       | useProjects()                              | UC08            |
-| /projects/:id (detalhes)       | useProjects()                              | UC02, UC09–UC11 |
-| /freelancers/searchFreelancers | useFreelancers()                           | UC06–UC07       |
+| /projects/myProjects           | useProjects() + ProjectContext             | UC01–UC05       |
+| /projects/searchProjects       | useProjects() + ProjectContext             | UC08            |
+| /projects/:id (detalhes)       | useProjects() + ProjectContext             | UC02, UC09–UC11 |
+| /freelancers/searchFreelancers | useFreelancers() + FreelancersContext      | UC06–UC07       |
 | /freelancers/myJobs            | useFreelancers() + useProjects()           | UC09–UC11       |
 | /profile/:id                   | useAuth(), useProjects(), useFreelancers() | UC07, UC11      |
 
@@ -34,125 +37,53 @@ UC11 — Cancelar participação como freelancer em um projeto
 
 Página inicial com navegação para as principais funcionalidades.
 
-🗂 1. Módulo Projetos — /projects
-
-O módulo de Projetos atende contratantes e freelancers.
-
+1. Módulo Projetos — /projects
+Atende contratantes e freelancers.
 Subpáginas:
+/projects/searchProjects
+Objetivo: Freelancers buscam projetos.
+Funcionalidades: busca (q), filtros por status/tags, skeletons, empty state, abrir ProjectDetails, marcar/desmarcar interesse (UC09–UC10), link para perfil do criador (UC07).
 
-✔ /projects/searchProjects
+/projects/myProjects
+Objetivo: Contratante gerencia seus projetos.
+Funcionalidades: criar projeto (UC01), editar (UC02), cancelar (UC04), excluir cancelado (UC05), abrir detalhes.
 
-Objetivo:
-Freelancers buscam projetos para trabalhar.
-
-Funcionalidades:
-
-Buscar por nome, skill ou tecnologia
-
-Filtrar por status
-
-Abrir ProjectDetails
-
-Marcar/desmarcar interesse (UC09–UC10)
-
-Ver perfil do criador (UC07)
-
-✔ /projects/myProjects
-
-Objetivo:
-Contratante gerencia os projetos criados.
-
-Funcionalidades:
-
-Criar projeto (UC01)
-
-Atualizar (UC02)
-
-Cancelar (UC04)
-
-Excluir cancelado (UC05)
-
-Abrir detalhes (ProjectDetails)
-
-✔ /projects/:id — ProjectDetails
-
-Página substituta do antigo módulo /contracts.
-
-Objetivo:
-Centralizar informações completas sobre um projeto.
-
-Funcionalidades:
-
-Mostrar descrição, valor, tags, status
-
-Editar projeto (UC02)
-
-Cancelar (UC04)
-
-Excluir (UC05)
-
-Mostrar freelancers interessados
-
-Permitir freelancer marcar/desmarcar interesse (UC09–UC10)
-
-Permitir freelancer cancelar trabalho (UC11)
-
-Link para perfil do contratante ou dos freelancers
+/projects/:id — ProjectDetails
+Objetivo: Centralizar todas as informações do projeto.
+Funcionalidades: descrição, valor, tags, status; editar; cancelar/excluir; lista de freelancers interessados; marcar/desmarcar interesse; cancelar participação; links para perfis.
 
 🧑‍💻 2. Módulo Freelancers — /freelancers
 ✔ /freelancers/searchFreelancers
-
 Objetivo:
 Contratante encontrar freelancers para contratar.
-
 Funcionalidades:
-
 Buscar freelancer
-
 Filtrar por skills
-
 Abrir perfil do freelancer (UC07)
 
 ✔ /freelancers/myJobs
-
 Objetivo:
 Freelancer vê os projetos em que está trabalhando.
-
 Funcionalidades:
-
 Listar trabalhos ativos
-
 Abrir detalhes do projeto
-
 Cancelar participação como freelancer (UC11)
 
 👤 3. Página de Perfil — /profile/:id
-
 É agora uma página unificada, usada para visualizar:
-
 o próprio usuário
-
 qualquer freelancer
-
 qualquer contratante
-
 A página possui abas internas:
 ✔ Sobre
 ✔ Projetos Criados
 ✔ Trabalhos como Freelancer
-
 Funcionalidades:
-
 Exibir nome, foto, bio, skills e rating
-
 Listar projetos criados
-
 Listar projetos como freelancer
-
 Ir para detalhes de qualquer projeto
-
 Botão Editar Perfil se for o próprio usuário
-
 Permitir acesso rápido ao histórico profissional
 
 | Origem                         | Ação                     | Destino       | Explicação                           |
@@ -163,3 +94,21 @@ Permitir acesso rápido ao histórico profissional
 | /freelancers/searchFreelancers | Clicar em FreelancerCard | /profile/:id  | Ver perfil                           |
 | /freelancers/myJobs            | Clicar em card           | /projects/:id | Ver projeto em andamento             |
 | /profile/:id                   | Clicar em projeto        | /projects/:id | Ver detalhes do projeto listado      |
+
+🔧 Integrações e comportamentos implementados (status atual)
+
+Auth: AuthContext centralizado com handleLogin, handleRegister, handleLogout, persistência em localStorage e verificação inicial (getProfile).
+PrivateRoute: componente robusto que controla loading, salva redirectAfterLogin e redireciona para /login quando necessário (usa useEffect para evitar setState em render).
+MirageJS: mock-backend embutido (/api) com endpoints auth, projects, freelancers (seed com token persistente para dev).
+Services: api.js (Axios) com interceptor que anexa Authorization: Bearer <token>; authService, projectService, freelancerService adaptados para usar o api.
+Pages: Login e Register integradas ao AuthContext (register faz auto-login). Header atualizado para render condicional (Entrar / Olá, <nome> / Sair). BasePage usa AuthLoadingScreen para evitar flicker.
+UX: empty states, modals unificados (padrão), loaders básicos e mensagens de erro padronizadas (ainda podemos polir visualmente).
+
+🔜 Próximos passos (prioridade)
+
+Finalizar JSON-Server / MirageJS (já feito com Mirage; podemos estender seeds).
+Implementar camada Repository (AuthRepository, ProjectRepository, FreelancerRepository).
+Melhorar UX: skeletons para listas, animações pequenas, modal unificado com foco.
+Criar src/types/index.js com shapes (User, Project, Freelancer).
+Escrever README técnico (setup, como ligar Mirage, scripts).
+Escrever testes para contextos e hooks (Jest + React Testing Library).
