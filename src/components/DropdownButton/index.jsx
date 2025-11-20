@@ -1,21 +1,28 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import styles from "./DropdownButton.module.css";
+import React, { useState } from 'react';
+import styles from './DropdownButton.module.css';
+import { Link } from 'react-router-dom';
 
 function DropdownButton({ routes }) {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleMouseEnter = () => setIsOpen(true);
+  const handleMouseLeave = () => setIsOpen(false);
+  const toggleDropdown = () => setIsOpen(prev => !prev);
 
   return (
-    <div className={styles.container}>
-      <button className={styles.trigger} onClick={() => setOpen(!open)}>
+    <div
+      className={styles.dropdownContainer}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <button className={styles.dropdownToggle} onClick={toggleDropdown}>
         Menu
       </button>
-
-      <ul className={`${styles.menu} ${open ? styles.open : ""}`}>
-        {routes.map((r, i) => (
-          <li key={i}>
-            <Link to={r.path} onClick={() => setOpen(false)}>
-              {r.label}
+      <ul className={`${styles.dropdownMenu} ${isOpen ? styles.open : ''}`}>
+        {routes.map((route, index) => (
+          <li key={index}>
+            <Link to={route.path} onClick={() => setIsOpen(false)}>
+              {route.label}
             </Link>
           </li>
         ))}

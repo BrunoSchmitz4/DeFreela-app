@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import styles from "./CreateProjectModal.module.css";
-import Modal from "../ui/Modal";
-import Button from "../ui/Button";
-import Input from "../ui/Input";
+import Modal from '../ui/Modal';
+import Button from '../ui/Button';
+import Input from '../ui/Input';
 
 function CreateProjectModal({ isOpen, onClose, onCreate }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
 
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
     if (!title.trim() || !description.trim() || !price.trim()) {
       alert("Preencha todos os campos.");
       return;
@@ -27,25 +26,24 @@ function CreateProjectModal({ isOpen, onClose, onCreate }) {
 
     onCreate(newProject);
     onClose();
-
     setTitle("");
     setDescription("");
     setPrice("");
-  }
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <form className={styles.form} onSubmit={handleSubmit}>
-        <h2 className={styles.title}>Criar novo projeto</h2>
+        <h2>Criar Novo Projeto</h2>
 
-        <label className="label">Título</label>
+        <label>Título</label>
         <Input
           placeholder="Ex: App de Controle Financeiro"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
 
-        <label className="label">Descrição</label>
+        <label>Descrição</label>
         <textarea
           className={styles.textarea}
           placeholder="Descreva brevemente o projeto..."
@@ -53,16 +51,16 @@ function CreateProjectModal({ isOpen, onClose, onCreate }) {
           onChange={(e) => setDescription(e.target.value)}
         />
 
-        <label className="label">Valor (R$)</label>
+        <label>Valor (R$)</label>
         <Input
           type="number"
-          placeholder="1500"
+          placeholder="Ex: 1500"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
         />
 
         <div className={styles.actions}>
-          <Button type="button" variant="outline" onClick={onClose}>
+          <Button type="button" variant="secondary" onClick={onClose}>
             Cancelar
           </Button>
           <Button type="submit" variant="primary">

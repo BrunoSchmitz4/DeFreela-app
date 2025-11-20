@@ -1,52 +1,97 @@
-.card {
-  background: var(--white);
-  border-radius: 12px;
-  padding: var(--spacing-md);
-  border: 1px solid var(--gray-200);
-  box-shadow: var(--shadow-sm);
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-sm);
-  text-decoration: none;
-  color: var(--dark-blue);
-  transition: var(--transition-md);
-  max-width: 350px;
+:root {
+  --white: #ffffff;
+  --dark-blue: #00171f;
+  --mid-blue: #003459;
+  --light-blue: #007ea7;
+  --aqua: #00a8e8;
+  --gray-text: #6c757d;
+  --gray-light: #f8f9fa;
 }
 
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
+.projectCardComponent {
+  background-color: var(--white);
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 23, 31, 0.08);
+  transition: all 0.3s ease;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  
+  text-decoration: none;
+  color: inherit;
+  max-width: 320px;
+  min-height: 160px;
+  /* width: 300px;
+  height: 360px; */
+}
+
+.projectCardComponent:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 23, 31, 0.15);
   border-color: var(--aqua);
 }
 
-.title {
+.projectCardTitle {
   font-size: 1.2rem;
-  font-weight: 600;
   color: var(--dark-blue);
+  margin: 0;
+  font-weight: 600;
 }
 
-.description {
-  color: var(--gray-text);
+.projectCardSubtitle {
+  font-size: 16px;
+  color: var(--mid-blue);
+  font-weight: 500;
 }
 
-.info {
+.projectCardInfos {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  align-items: flex-start;
+  align-content: center;
 }
 
-.tags {
+.projectCardStatus, .projectCardValue {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.projectCardTagList {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: var(--spacing-sm);
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
-.tag {
-  background: var(--gray-light);
+.projectCardTagListItem {
+  background-color: var(--gray-light);
+  padding: 4px 8px;
   border-radius: 6px;
-  padding: 4px 10px;
   font-size: 0.75rem;
-  border: 1px solid var(--gray-200);
   color: var(--mid-blue);
+  font-weight: 500;
+  border: 1px solid #e0e0e0;
+}
+
+.projectCardButton {
+  margin: auto;
+}
+
+@media (min-width: 768px) {
+  .projectCardComponent {
+    padding: 24px;
+    gap: 12px;
+  }
+
+  .list { 
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    display: grid;
+    gap: 30px;
+  }
 }

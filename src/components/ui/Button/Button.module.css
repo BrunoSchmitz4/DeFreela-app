@@ -1,32 +1,40 @@
 .button {
-  padding: var(--spacing-sm) var(--spacing-md);
-  border-radius: 10px;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
   font-weight: 600;
-  transition: var(--transition-md);
+  font-size: 0.95rem;
   cursor: pointer;
+  transition: all 0.2s ease;
   border: none;
+  width: 200px;
+  height: 60px;
 }
 
 .primary {
-  background: var(--aqua);
+  background-color: #3b82f6; /* azul moderno */
   color: white;
 }
 
 .primary:hover {
-  background: var(--light-blue);
+  background-color: #2563eb;
 }
 
 .secondary {
-  background: var(--white);
-  border: 2px solid var(--aqua);
-  color: var(--aqua);
+  background-color: transparent;
+  color: #3b82f6;
+  border: 2px solid #3b82f6;
 }
 
 .secondary:hover {
-  background: var(--aqua);
+  background-color: #3b82f6;
   color: white;
 }
 
 .fullWidth {
   width: 100%;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }

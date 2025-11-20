@@ -1,7 +1,15 @@
+:root {
+  --white: #ffffff;
+  --dark-blue: #00171f;
+  --mid-blue: #003459;
+  --light-blue: #007ea7;
+  --aqua: #00a8e8;
+}
+
 .headerContainer {
   width: 100%;
   background-color: var(--white);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 2px 8px rgba(0, 23, 31, 0.1);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -11,19 +19,46 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--spacing-md);
+  padding: 12px 20px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 .headerTitle {
-  font-size: 1.8rem;
-  font-weight: 700;
+  font-size: 2rem;
   color: var(--mid-blue);
+  font-weight: 700;
+  margin: 0;
 }
 
+.headerNavPages {
+  display: none;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: var(--white);
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  border-top: 1px solid #eee;
+  box-shadow: 0 4px 10px rgba(0, 23, 31, 0.1);
+}
+
+.headerNavPages a {
+  color: var(--dark-blue);
+  text-decoration: none;
+  padding: 14px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.headerNavPages a:hover {
+  color: var(--aqua);
+}
+
+
 .menuButton {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   background: none;
   border: none;
   color: var(--mid-blue);
@@ -35,47 +70,12 @@
   color: var(--aqua);
 }
 
-.headerNavPages {
-  display: none;
-  flex-direction: column;
-  background: var(--white);
-  width: 100%;
-  position: absolute;
-  top: 64px;
-  left: 0;
-  box-shadow: var(--shadow-lg);
-  border-top: 1px solid var(--gray-200);
-  padding: var(--spacing-sm) 0;
-}
-
-.headerNavPages a {
-  padding: 14px;
-  color: var(--dark-blue);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.headerNavPages a:hover {
-  color: var(--aqua);
-}
 
 .navOpen {
   display: flex;
 }
 
-.userSection {
-  display: flex;
-  flex-direction: column;
-  padding: var(--spacing-md);
-  gap: var(--spacing-sm);
-}
 
-.username {
-  font-weight: 600;
-  color: var(--mid-blue);
-}
-
-/* DESKTOP */
 @media (min-width: 768px) {
   .menuButton {
     display: none;
@@ -83,21 +83,15 @@
 
   .headerNavPages {
     display: flex !important;
-    position: static;
     flex-direction: row;
-    align-items: center;
-    gap: var(--spacing-lg);
+    gap: 20px;
+    position: static;
+    background: none;
     box-shadow: none;
     border-top: none;
   }
 
   .headerNavPages a {
-    padding: 6px 0;
-  }
-
-  .userSection {
-    flex-direction: row;
-    align-items: center;
-    gap: var(--spacing-md);
+    padding: 8px 0;
   }
 }

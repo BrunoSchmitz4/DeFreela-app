@@ -6,9 +6,7 @@ export default function Tabs({ tabs, activeTab, onChange }) {
       {tabs.map((tab) => (
         <button
           key={tab}
-          className={`${styles.tabButton} ${
-            activeTab === tab ? styles.active : ""
-          }`}
+          className={`${styles.tabButton} ${activeTab === tab ? styles.active : ""}`}
           onClick={() => onChange(tab)}
         >
           {tab}

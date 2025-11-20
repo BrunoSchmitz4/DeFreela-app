@@ -50,7 +50,7 @@ export default function MyJobs() {
         {interestCards.length === 0 ? (
           <p>Nenhum interesse registrado.</p>
         ) : (
-          <CardList items={interestCards} />
+          <CardList renderItem={interestCards} />
         )}
       </section>
 
@@ -59,7 +59,7 @@ export default function MyJobs() {
         {contractCards.length === 0 ? (
           <p>Nenhum contrato em andamento.</p>
         ) : (
-          <CardList items={contractCards} />
+          <CardList renderItem={contractCards} />
         )}
       </section>
     </div>
