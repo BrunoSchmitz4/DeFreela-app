@@ -1,6 +1,5 @@
-// src/hooks/useFreelancers.js
 import { useState } from "react";
-import { freelancerService } from "../services/freelancerService";
+import { FreelancerRepository } from "../repos/FreelancerRepository";
 
 export function useFreelancers() {
   const [freelancers, setFreelancers] = useState([]);
@@ -8,13 +7,13 @@ export function useFreelancers() {
 
   async function searchFreelancers(query) {
     setLoading(true);
-    const data = await freelancerService.search(query);
+    const data = await FreelancerRepository.search(query);
     setFreelancers(data);
     setLoading(false);
   }
 
   async function getFreelancerProfile(id) {
-    return await freelancerService.getProfile(id);
+    return await FreelancerRepository.getById(id);
   }
 
   return { freelancers, loading, searchFreelancers, getFreelancerProfile };

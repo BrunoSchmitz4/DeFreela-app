@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { projectService } from "../services/projectService";
+import { ProjectRepository } from "../repos/ProjectRepository";
 
 export function useProjects() {
   const [projects, setProjects] = useState([]);
@@ -7,33 +7,33 @@ export function useProjects() {
 
   async function fetchProjects() {
     setLoading(true);
-    const data = await projectService.getAll();
+    const data = await ProjectRepository.getAll();
     setProjects(data);
     setLoading(false);
   }
 
   async function createProject(projectData) {
-    const newProject = await projectService.create(projectData);
-    setProjects((prev) => [...prev, newProject]);
+    const newProject = await ProjectRepository.create(projectData);
+    setProjects(prev => [...prev, newProject]);
   }
 
   async function updateProject(id, updates) {
-    const updated = await projectService.update(id, updates);
-    setProjects((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, ...updated } : p))
+    const updated = await ProjectRepository.update(id, updates);
+    setProjects(prev =>
+      prev.map(p => (p.id === id ? { ...p, ...updated } : p))
     );
   }
 
   async function cancelProject(id) {
-    const canceled = await projectService.cancel(id);
-    setProjects((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, ...canceled } : p))
+    const canceled = await ProjectRepository.update(id, { status: "cancelado" });
+    setProjects(prev =>
+      prev.map(p => (p.id === id ? { ...p, ...canceled } : p))
     );
   }
 
   async function deleteProject(id) {
-    await projectService.remove(id);
-    setProjects((prev) => prev.filter((p) => p.id !== id));
+    await ProjectRepository.delete(id);
+    setProjects(prev => prev.filter(p => p.id !== id));
   }
 
   useEffect(() => {

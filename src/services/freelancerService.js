@@ -1,4 +1,3 @@
-// src/services/freelancerService.js
 import api from "./api";
 
 // Versão MirageJS / API real (usando essa versão atualmente)

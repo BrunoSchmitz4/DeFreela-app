@@ -1,10 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import {
-  login as serviceLogin,
-  logout as serviceLogout,
-  register as serviceRegister,
-  getProfile as serviceGetProfile
-} from "../services/authService";
+import { AuthRepository } from "../repos/AuthRepository";
 
 const AuthContext = createContext();
 
@@ -14,11 +9,12 @@ export function AuthProvider({ children }) {
     return stored ? JSON.parse(stored) : null;
   });
 
-  const [loading, setLoading] = useState(true);
-  const [authLoading, setAuthLoading] = useState(false);
+  const [loading, setLoading] = useState(true);      // Carregando sessão inicial
+  const [authLoading, setAuthLoading] = useState(false); // Carregando login/register
   const [error, setError] = useState(null);
   const [redirectAfterLogin, setRedirectAfterLogin] = useState("/");
 
+  // 🧭 Carregar sessão ao abrir a app
   useEffect(() => {
     async function loadSession() {
       const token = localStorage.getItem("token");
@@ -28,12 +24,9 @@ export function AuthProvider({ children }) {
       }
 
       try {
-        // NÃO PASSAR token aqui — interceptor do api.js já anexa o header
-        const res = await serviceGetProfile(); // { data }
-        const profile = res.data;
-
-        setUser(profile);
-        localStorage.setItem("user", JSON.stringify(profile));
+        const res = await AuthRepository.getProfile(); // { user }
+        setUser(res.user);
+        localStorage.setItem("user", JSON.stringify(res.user));
       } catch (err) {
         console.warn("Sessão inválida:", err?.response?.data || err.message);
         localStorage.removeItem("token");
@@ -47,45 +40,58 @@ export function AuthProvider({ children }) {
     loadSession();
   }, []);
 
+  // 🔐 LOGIN
   async function handleLogin(email, password) {
     setAuthLoading(true);
     setError(null);
+
     try {
-      const res = await serviceLogin(email, password); // returns { data, token }
-      const { token, data } = res;
+      const { user, token } = await AuthRepository.login(email, password);
+
       localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(data));
-      setUser(data);
-      return { error: null, data };
+      localStorage.setItem("user", JSON.stringify(user));
+      setUser(user);
+
+      return { error: null, user };
     } catch (err) {
-      setError(err?.response?.data?.error || err.message);
-      return { error: err?.response?.data?.error || err.message };
+      const msg = err?.response?.data?.error || err.message;
+      setError(msg);
+      return { error: msg };
     } finally {
       setAuthLoading(false);
     }
   }
 
+  // 📝 REGISTER
   async function handleRegister(name, email, password) {
     setAuthLoading(true);
     setError(null);
+
     try {
-      const res = await serviceRegister(name, email, password);
-      const { token, data } = res;
+      const { user, token } = await AuthRepository.register(
+        name,
+        email,
+        password
+      );
+
       localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(data));
-      setUser(data);
-      return { error: null, data };
+      localStorage.setItem("user", JSON.stringify(user));
+      setUser(user);
+
+      return { error: null, user };
     } catch (err) {
-      setError(err?.response?.data?.error || err.message);
-      return { error: err?.response?.data?.error || err.message };
+      const msg = err?.response?.data?.error || err.message;
+      setError(msg);
+      return { error: msg };
     } finally {
       setAuthLoading(false);
     }
   }
 
+  // 🚪 LOGOUT
   async function handleLogout() {
     try {
-      await serviceLogout();
+      await AuthRepository.logout(); // mesmo que Mirage não use
     } finally {
       localStorage.removeItem("token");
       localStorage.removeItem("user");

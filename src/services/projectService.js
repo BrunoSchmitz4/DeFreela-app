@@ -1,4 +1,3 @@
-// src/services/projectService.js
 import api from "./api";
 
 // Versão MirageJS / API real (usando essa versão atualmente)
