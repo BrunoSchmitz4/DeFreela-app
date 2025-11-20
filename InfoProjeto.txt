@@ -193,10 +193,3 @@ Quando o back real chegar, preciso trocar apenas api.baseURL (ou remova Mirage i
 Camada Repository é recomendada antes de adicionar muitos hooks novos — facilita swapping de implementação (mock → http).
 
 Resumo do que ainda falta na sua lista original
-
-(3) RegisterPage 100% integrado: concluído (handleRegister no AuthContext + register page chamando handleRegister + retorno token).
-(4) Back-end Fake REAL: concluído via MirageJS (implementado).
-(5) Repository layer: pendente — recomendo que façamos agora (eu posso gerar os 3 repositórios + atualizar hooks).
-(6) Ajustar UX: parcialmente implementado (modais + mensagens); faltam skeletons, animações e empty states padronizados.
-(7) Arquivo de tipos: pendente (recomendo src/types/index.js).
-(8) README: pendente (aqui temos quick commands; posso gerar README detalhado).

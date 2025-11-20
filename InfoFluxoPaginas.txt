@@ -103,12 +103,3 @@ MirageJS: mock-backend embutido (/api) com endpoints auth, projects, freelancers
 Services: api.js (Axios) com interceptor que anexa Authorization: Bearer <token>; authService, projectService, freelancerService adaptados para usar o api.
 Pages: Login e Register integradas ao AuthContext (register faz auto-login). Header atualizado para render condicional (Entrar / Olá, <nome> / Sair). BasePage usa AuthLoadingScreen para evitar flicker.
 UX: empty states, modals unificados (padrão), loaders básicos e mensagens de erro padronizadas (ainda podemos polir visualmente).
-
-🔜 Próximos passos (prioridade)
-
-Finalizar JSON-Server / MirageJS (já feito com Mirage; podemos estender seeds).
-Implementar camada Repository (AuthRepository, ProjectRepository, FreelancerRepository).
-Melhorar UX: skeletons para listas, animações pequenas, modal unificado com foco.
-Criar src/types/index.js com shapes (User, Project, Freelancer).
-Escrever README técnico (setup, como ligar Mirage, scripts).
-Escrever testes para contextos e hooks (Jest + React Testing Library).
