@@ -1,118 +1,157 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+
+import { useAuth } from "../../context/authContext";
+import { ProjectRepository } from "../../repos/ProjectRepository";
+import { FreelancerRepository } from "../../repos/FreelancerRepository";
+
 import styles from "./Profile.module.css";
-
-import UserInfo from "./UserInfo";
-import CardList from "../../components/CardList";
-import ProjectCard from "../../components/ProjectCard";
-import Tabs from "../../components/Tabs";
-
-import freelancers from "../../mocks/freelancers";
-import projects from "../../mocks/projects";
 
 export default function Profile() {
   const { id } = useParams();
-  const [activeTab, setActiveTab] = useState("Sobre");
+  const { user } = useAuth();
 
-  // Mock do usuário logado
-  const loggedUser = {
-    idUser: 1,
-    name: "Bruno Ferreira",
-    description:
-      "Apaixonado por tecnologia e desenvolvimento web, com foco em React e UI/UX.",
-    email: "bruno.ferreira@example.com",
-    photo: "https://avatars.githubusercontent.com/u/583231?v=4",
-    skills: ["React", "UI/UX", "Front-end"],
-    rating: 4.9
-  };
+  const [profileData, setProfileData] = useState(null);
+  const [projects, setProjects] = useState([]);
+  const [workHistory, setWorkHistory] = useState([]);
 
-  const isMyProfile = !id || Number(id) === loggedUser.idUser;
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Se for outro perfil, buscamos nos freelancers
-  const freelancerData = freelancers.find((f) => f.id === Number(id));
+  const isOwnProfile = !id || Number(id) === Number(user?.id);
 
-  // Normalizador universal
-  const normalizeUser = (user) => {
-    if (!user) return null;
+  useEffect(() => {
+    async function loadData() {
+      try {
+        setLoading(true);
 
-    return {
-      idUser: user.idUser ?? user.id,
-      name: user.name,
-      description: user.description ?? user.bio ?? "",
-      email: user.email ?? "email_indisponivel@example.com",
-      photo: user.photo ?? user.avatar,
-      skills: user.skills ?? [],
-      rating: user.rating ?? null,
-    };
-  };
+        // --- 1. Buscar perfil ---
+        let profile;
+        if (isOwnProfile) {
+          profile = user; // perfil próprio
+        } else {
+          profile = await FreelancerRepository.getById(id); // perfil externo
+        }
+        setProfileData(profile);
 
-  const rawUser = isMyProfile ? loggedUser : freelancerData;
-  const profileUser = normalizeUser(rawUser);
+        // --- 2. Buscar projetos do usuário ---
+        const allProjects = await ProjectRepository.getAll();
+        const owned = allProjects.filter((p) => p.ownerId === profile.id);
+        setProjects(owned);
 
-  if (!profileUser) return <p>Usuário não encontrado.</p>;
+        // --- 3. Buscar histórico do freelancer ---
+        const jobs = await FreelancerRepository.getJobs(profile.id);
+        setWorkHistory(jobs);
 
-  // Projetos criados
-  const ownedProjects = projects.filter(
-    (p) => p.ownerId === profileUser.idUser
-  );
+      } catch (err) {
+        console.error(err);
+        setError("Erro ao carregar perfil.");
+      } finally {
+        setLoading(false);
+      }
+    }
 
-  // Projetos como freelancer
-  const freelancerJobs = projects.filter(
-    (p) =>
-      p.freelancerId === profileUser.idUser ||
-      p.frelancerId === profileUser.idUser
-  );
+    loadData();
+  }, [id, user, isOwnProfile]);
+
+  if (loading) {
+    return <p style={{ padding: "1rem" }}>Carregando perfil...</p>;
+  }
+
+  if (error) {
+    return <p style={{ padding: "1rem", color: "red" }}>{error}</p>;
+  }
+
+  if (!profileData) {
+    return <p style={{ padding: "1rem" }}>Perfil não encontrado.</p>;
+  }
 
   return (
     <div className={styles.profileContainer}>
-      <UserInfo 
-        user={profileUser} 
-        isMyProfile={isMyProfile} 
-      />
+      {/* BLOCO PRINCIPAL DO PERFIL */}
+      <section className={styles.userInfo}>
+        <div className={styles.userPhotoContainer}>
+          <img
+            src={profileData.avatar || "https://i.pravatar.cc/150"}
+            alt={profileData.name}
+            className={styles.userPhoto}
+          />
+        </div>
 
-      <Tabs
-        tabs={["Sobre", "Projetos", "Trabalhos"]}
-        activeTab={activeTab}
-        onChange={setActiveTab}
-      />
+        <div>
+          <h2 className={styles.userName}>{profileData.name}</h2>
+          <p className={styles.userRole}>Freelancer</p>
 
-      {activeTab === "Sobre" && (
-        <section className={styles.profileSection}>
-          <p>{profileUser.description}</p>
-        </section>
-      )}
+          <p className={styles.userDescription}>
+            {profileData.bio || "Este usuário ainda não adicionou uma bio."}
+          </p>
 
-      {activeTab === "Projetos" && (
-        <section className={styles.profileSection}>
-          <h2>Projetos Criados</h2>
+          <p className={styles.userEmail}>{profileData.email}</p>
 
-          {ownedProjects.length === 0 ? (
-            <p>Este usuário ainda não criou projetos.</p>
-          ) : (
-            <CardList
-              renderItem={ownedProjects.map((p) => (
-                <ProjectCard key={p.id} project={p} />
-              ))}
-            />
+          {profileData.skills && (
+            <p style={{ marginTop: "1rem", color: "#00b7ff" }}>
+              <strong>Skills:</strong> {profileData.skills.join(", ")}
+            </p>
           )}
-        </section>
-      )}
+        </div>
+      </section>
 
-      {activeTab === "Trabalhos" && (
-        <section className={styles.profileSection}>
-          <h2>Trabalhos como Freelancer</h2>
+      {/* PROJETOS CRIADOS */}
+      <section>
+        <h3 style={{ color: "#00b7ff", marginBottom: "0.8rem" }}>
+          Projetos Criados
+        </h3>
 
-          {freelancerJobs.length === 0 ? (
-            <p>Este usuário ainda não está trabalhando em nenhum projeto.</p>
-          ) : (
-            <CardList
-              renderItem={freelancerJobs.map((p) => (
-                <ProjectCard key={p.id} project={p} />
-              ))}
-            />
-          )}
-        </section>
-      )}
+        {projects.length === 0 ? (
+          <p style={{ color: "#ccc" }}>Nenhum projeto criado.</p>
+        ) : (
+          <div className={styles.projectList}>
+            {projects.map((project) => (
+              <div
+                key={project.id}
+                style={{
+                  background: "#1e1e1e",
+                  padding: "1rem",
+                  borderRadius: "10px",
+                  border: "1px solid #333",
+                  width: "100%",
+                  maxWidth: "300px"
+                }}
+              >
+                <h4 style={{ color: "#00b7ff" }}>{project.title}</h4>
+                <p style={{ color: "#aaa", fontSize: "0.9rem" }}>
+                  {project.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* HISTÓRICO DE TRABALHOS */}
+      <section>
+        <h3 style={{ color: "#00b7ff", marginBottom: "0.8rem" }}>
+          Histórico de Trabalhos
+        </h3>
+
+        {workHistory.length === 0 ? (
+          <p style={{ color: "#ccc" }}>Nenhum trabalho finalizado.</p>
+        ) : (
+          <ul style={{ paddingLeft: "1rem" }}>
+            {workHistory.map((job) => (
+              <li
+                key={job.id}
+                style={{
+                  color: "#ccc",
+                  marginBottom: "0.6rem",
+                }}
+              >
+                {job.title} — Status: <strong>{job.status}</strong>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
     </div>
   );
 }
