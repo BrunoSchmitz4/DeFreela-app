@@ -6,6 +6,12 @@ import { FreelancersProvider } from './context/freelancerContext';
 import { ProjectsProvider } from './context/projectContext';
 import { AuthProvider } from './context/authContext';
 
+// Simulação do ambiente back-end com o server do MirageJS
+if (process.env.NODE_ENV === "development") {
+  // importa dinamicamente pra não aumentar bundle em produção
+  const { makeServer } = require("./mirage/server");
+  makeServer({ environment: "development" });
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
