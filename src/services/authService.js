@@ -22,18 +22,22 @@ import { mockLogin, mockGetProfile, mockLogout, mockRegister } from '../mocks/au
 //   return api.get("/auth/me"); // rota que valida usuário pelo JWT do cookie
 // }
 
+// login retorna { data, token }
 export async function login(email, password) {
   return await mockLogin(email, password);
 }
 
+// getProfile retorna { data }
 export async function getProfile(token) {
   return await mockGetProfile(token);
 }
 
-export async function logout() {
-  return await mockLogout();
+// logout aceita token opcional
+export async function logout(token) {
+  return await mockLogout(token);
 }
 
+// register retorna { data, token }
 export async function register(name, email, password) {
   return await mockRegister(name, email, password);
 }
