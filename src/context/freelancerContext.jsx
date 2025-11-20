@@ -1,21 +1,33 @@
-import { createContext, useContext, useState } from "react";
-
-// MOCKS (substituir pelo back futuramente)
-import freelancersMock from "../mocks/freelancers";
-
-// Substituir quando tivermos a API
-//import * as freelancerService from "../services/freelancerService";
+import { createContext, useContext, useEffect, useState } from "react";
+import { FreelancerRepository } from "../repos/FreelancerRepository";
 
 const FreelancersContext = createContext();
 
 export function FreelancersProvider({ children }) {
-  const [freelancers, setFreelancers] = useState(freelancersMock);
+  const [freelancers, setFreelancers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   function response(data = null, error = null) {
     return { data, error, loading: false };
   }
+
+  // ✔ Carrega todos os freelancers uma vez
+  useEffect(() => {
+    async function load() {
+      setLoading(true);
+      try {
+        const list = await FreelancerRepository.search("");
+        setFreelancers(list);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    load();
+  }, []);
+
 
   // UC06 — Buscar freelancers
   async function searchFreelancers(query = "", skillFilter = "") {
@@ -24,13 +36,7 @@ export function FreelancersProvider({ children }) {
       setError(null);
 
       const q = query.toLowerCase();
-
-      let results = freelancersMock.filter(
-        (f) =>
-          f.name.toLowerCase().includes(q) ||
-          f.bio.toLowerCase().includes(q) ||
-          f.skills.some((s) => s.toLowerCase().includes(q))
-      );
+      let results = await FreelancerRepository.search(q);
 
       if (skillFilter) {
         results = results.filter((f) =>
@@ -53,13 +59,7 @@ export function FreelancersProvider({ children }) {
       setLoading(true);
       setError(null);
 
-      const data = freelancersMock.find((f) => f.id === Number(id));
-
-      // API real:
-      // const { data } = await freelancerService.getFreelancer(id);
-
-      if (!data) throw new Error("Freelancer não encontrado.");
-
+      const data = await FreelancerRepository.getById(id);
       return response(data, null);
     } catch (err) {
       setError(err);
@@ -69,44 +69,14 @@ export function FreelancersProvider({ children }) {
     }
   }
 
-  // Lista de freelancers que trabalharam em projetos
-  // (funcionalidade interna ao perfil — opcional mas útil)
+  // Histórico (já que Mirage tem endpoint /freelancers/:id/jobs)
   async function getFreelancerWorkHistory(id) {
     try {
       setLoading(true);
       setError(null);
 
-      const profile = freelancersMock.find((f) => f.id === Number(id));
-
-      if (!profile) throw new Error("Freelancer não encontrado.");
-
-      // MOCK: histórico dentro do próprio objeto (opcional)
-      const data = profile.jobsHistory || [];
-
-      return response(data, null);
-    } catch (err) {
-      setError(err);
-      return response(null, err);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  // Atualizar freelancer (para edições futuras)
-  async function updateFreelancer(id, updates) {
-    try {
-      setLoading(true);
-      setError(null);
-
-      const updated = freelancers.map((f) =>
-        f.id === id ? { ...f, ...updates } : f
-      );
-
-      setFreelancers(updated);
-
-      const freelancerUpdated = updated.find((f) => f.id === id);
-
-      return response(freelancerUpdated, null);
+      const list = await FreelancerRepository.getJobs(id);
+      return response(list, null);
     } catch (err) {
       setError(err);
       return response(null, err);
@@ -124,7 +94,6 @@ export function FreelancersProvider({ children }) {
         searchFreelancers,
         getFreelancerProfile,
         getFreelancerWorkHistory,
-        updateFreelancer,
       }}
     >
       {children}

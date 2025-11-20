@@ -1,60 +1,46 @@
-import { createContext, useContext, useState } from "react";
-
-// IMPORTAÇÃO DOS MOCKS (simulação temporária)
-import projectsMock from "../mocks/projects";
-
-// Quando o back existir, só descomentar esse service:
-// import * as projectService from "../services/projectService";
+import { createContext, useContext, useEffect, useState } from "react";
+import { ProjectRepository } from "../repos/ProjectRepository";
 
 const ProjectsContext = createContext();
 
 export function ProjectsProvider({ children }) {
-  const [projects, setProjects] = useState(projectsMock);
+  const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Utilitário padrão para padronizar retorno
   function response(data = null, error = null) {
     return { data, error, loading: false };
   }
 
-  // UC03 — Listar projetos do usuário
-  async function getMyProjects(userId) {
-    try {
+  // ✔ Carrega todos os projetos ao iniciar
+  useEffect(() => {
+    async function load() {
       setLoading(true);
-      setError(null);
-
-      // MOCK (temporário)
-      const data = projectsMock.filter((p) => p.ownerId === userId);
-
-      // API REAL (futuro)
-      // const { data } = await projectService.getMyProjects(userId);
-
-      return response(data, null);
-    } catch (err) {
-      setError(err);
-      return response(null, err);
-    } finally {
-      setLoading(false);
+      try {
+        const list = await ProjectRepository.getAll();
+        setProjects(list);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
     }
+    load();
+  }, []);
+
+  // UC03 — Meus projetos
+  async function getMyProjects(userId) {
+    const list = projects.filter((p) => p.ownerId === userId);
+    return response(list, null);
   }
 
-  // UC08 — Buscar projetos disponíveis para freelancers
-  async function searchProjects(query = "") {
+  // UC08 — Buscar projetos
+  async function searchProjects(query) {
     try {
       setLoading(true);
-      setError(null);
-
-      const q = query.toLowerCase();
-
-      const data = projectsMock.filter((p) =>
-        p.title.toLowerCase().includes(q) ||
-        p.description.toLowerCase().includes(q)
-      );
-
-      return response(data, null);
+      const list = await ProjectRepository.getAll(query);
+      return response(list, null);
     } catch (err) {
-      setError(err);
       return response(null, err);
     } finally {
       setLoading(false);
@@ -64,173 +50,65 @@ export function ProjectsProvider({ children }) {
   // UC01 — Criar projeto
   async function createProject(newProject) {
     try {
-      setLoading(true);
-      setError(null);
-
-      const created = {
-        ...newProject,
-        id: Date.now(),
-        status: "active",
-      };
-
+      const created = await ProjectRepository.create(newProject);
       setProjects((prev) => [...prev, created]);
-
-      // API REAL
-      // const { data } = await projectService.createProject(newProject);
-
       return response(created, null);
     } catch (err) {
-      setError(err);
       return response(null, err);
-    } finally {
-      setLoading(false);
     }
   }
 
   // UC02 — Atualizar projeto
   async function updateProject(id, updates) {
     try {
-      setLoading(true);
-      setError(null);
-
-      const updated = projects.map((p) =>
-        p.id === id ? { ...p, ...updates } : p
+      const updated = await ProjectRepository.update(id, updates);
+      setProjects((prev) =>
+        prev.map((p) => (p.id === id ? updated : p))
       );
-
-      setProjects(updated);
-
-      // API REAL:
-      // const { data } = await projectService.updateProject(id, updates);
-
-      const projectUpdated = updated.find((p) => p.id === id);
-
-      return response(projectUpdated, null);
+      return response(updated, null);
     } catch (err) {
-      setError(err);
       return response(null, err);
-    } finally {
-      setLoading(false);
     }
   }
 
   // UC04 — Cancelar projeto
   async function cancelProject(id) {
-    try {
-      setLoading(true);
-      setError(null);
-
-      const updated = projects.map((p) =>
-        p.id === id ? { ...p, status: "cancelled" } : p
-      );
-
-      setProjects(updated);
-
-      return response(updated.find((p) => p.id === id), null);
-    } catch (err) {
-      setError(err);
-      return response(null, err);
-    } finally {
-      setLoading(false);
-    }
+    return updateProject(id, { status: "cancelled" });
   }
 
-  // UC05 — Excluir projeto cancelado
+  // UC05 — Deletar projeto
   async function deleteProject(id) {
     try {
-      setLoading(true);
-      setError(null);
-
-      const filtered = projects.filter((p) => p.id !== id);
-      setProjects(filtered);
-
+      await ProjectRepository.delete(id);
+      setProjects((prev) => prev.filter((p) => p.id !== id));
       return response(true, null);
     } catch (err) {
-      setError(err);
       return response(null, err);
-    } finally {
-      setLoading(false);
     }
   }
 
-  // UC09 — Marcar interesse em projeto
+  // UC09 — Marcar interesse
   async function markInterest(projectId, freelancerId) {
-    try {
-      setLoading(true);
-      setError(null);
-
-      const updated = projects.map((p) =>
-        p.id === projectId
-          ? {
-              ...p,
-              interested: [...(p.interested || []), freelancerId],
-            }
-          : p
-      );
-
-      setProjects(updated);
-
-      return response(updated.find((p) => p.id === projectId), null);
-    } catch (err) {
-      setError(err);
-      return response(null, err);
-    } finally {
-      setLoading(false);
-    }
+    const updated = await ProjectRepository.expressInterest(
+      projectId,
+      freelancerId
+    );
+    setProjects((prev) =>
+      prev.map((p) => (p.id === projectId ? updated : p))
+    );
+    return response(updated, null);
   }
 
   // UC10 — Retirar interesse
   async function removeInterest(projectId, freelancerId) {
-    try {
-      setLoading(true);
-      setError(null);
-
-      const updated = projects.map((p) =>
-        p.id === projectId
-          ? {
-              ...p,
-              interested: (p.interested || []).filter(
-                (id) => id !== freelancerId
-              ),
-            }
-          : p
-      );
-
-      setProjects(updated);
-
-      return response(updated.find((p) => p.id === projectId), null);
-    } catch (err) {
-      setError(err);
-      return response(null, err);
-    } finally {
-      setLoading(false);
-    }
-  }
-  
-  // UC11 — Freelancer cancelar participação em um projeto
-  async function freelancerCancelParticipation(projectId, freelancerId) {
-    try {
-      setLoading(true);
-      setError(null);
-
-      const updated = projects.map((p) =>
-        p.id === projectId
-          ? {
-              ...p,
-              assignedFreelancer:
-                p.assignedFreelancer === freelancerId ? null : p.assignedFreelancer,
-            }
-          : p
-      );
-
-      setProjects(updated);
-
-      return response(updated.find((p) => p.id === projectId), null);
-    } catch (err) {
-      setError(err);
-      return response(null, err);
-    } finally {
-      setLoading(false);
-    }
+    const updated = await ProjectRepository.cancelInterest(
+      projectId,
+      freelancerId
+    );
+    setProjects((prev) =>
+      prev.map((p) => (p.id === projectId ? updated : p))
+    );
+    return response(updated, null);
   }
 
   return (
@@ -247,7 +125,6 @@ export function ProjectsProvider({ children }) {
         deleteProject,
         markInterest,
         removeInterest,
-        freelancerCancelParticipation,
       }}
     >
       {children}
