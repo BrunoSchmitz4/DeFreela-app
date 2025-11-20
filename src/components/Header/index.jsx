@@ -26,30 +26,27 @@ function Header() {
             menuOpen ? styles.navOpen : ""
           }`}
         >
-          <RouterLink Route={"/"} Title={"Home"} />
-          <RouterLink Route={"/projects/searchProjects"} Title={"Buscar Projetos"} />
-          <RouterLink Route={"/projects/myProjects"} Title={"Meus Projetos"} />
-          <RouterLink Route={"/freelancers/searchFreelancers"} Title={"Buscar Freelancers"} />
-          <RouterLink Route={"/freelancers/myJobs"} Title={"Meus Trabalhos"} />
-          <RouterLink Route={"/profile"} Title={"Perfil"} />
+          <RouterLink Route="/" Title="Home" />
+          <RouterLink Route="/projects/searchProjects" Title="Buscar Projetos" />
+          <RouterLink Route="/projects/myProjects" Title="Meus Projetos" />
+          <RouterLink Route="/freelancers/searchFreelancers" Title="Buscar Freelancers" />
+          <RouterLink Route="/freelancers/myJobs" Title="Meus Trabalhos" />
+          <RouterLink Route="/profile" Title="Perfil" />
 
-          {/* ENTRAR só aparece se não estiver logado */}
           {!isAuthenticated && (
-            <RouterLink Route={"/login"} Title={"Entrar"} />
+            <RouterLink Route="/login" Title="Entrar" />
           )}
 
-          {/* BLOCO DO USUÁRIO LOGADO */}
           {isAuthenticated && (
-            <>
-              <div className={styles.userInfo}>
-                <span className={styles.username}>
-                  Olá, {user?.name?.split(" ")[0]}!
-                </span>
-              </div>
+            <div className={styles.userSection}>
+              <span className={styles.username}>
+                Olá, {user?.name?.split(" ")[0]}!
+              </span>
 
-              {/* O botão SAIR agora só aparece quando autenticado */}
-              <Button onClick={handleLogout}>Sair</Button>
-            </>
+              <Button onClick={handleLogout} variant="secondary" fullWidth>
+                Sair
+              </Button>
+            </div>
           )}
         </nav>
       </div>

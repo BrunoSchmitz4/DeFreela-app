@@ -19,24 +19,3 @@ export async function getFreelancerJobs(id) {
   const res = await api.get(`/freelancers/${id}/jobs`);
   return res.data;
 }
-
-// Versão Mock (Atualmente desativado para fins de teste com o Mirage)
-
-// import {
-//   mockSearchFreelancers,
-//   mockGetFreelancerProfile,
-//   mockGetFreelancerJobs
-// } from "../mocks/freelancers";
-
-// export async function getFreelancers(search) {
-//   return mockSearchFreelancers(search);
-// }
-
-// export async function getFreelancerById(id) {
-//   return mockGetFreelancerProfile(id);
-// }
-
-// export async function getFreelancerJobs(id) {
-//   return mockGetFreelancerJobs(id);
-// }
-

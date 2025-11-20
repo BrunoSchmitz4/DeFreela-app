@@ -1,37 +1,33 @@
-// src/components/FreelancerCard/index.jsx
 import styles from "./FreelancerCard.module.css";
 import Button from "../ui/Button";
-import { Link } from "react-router-dom";
+import RouterLink from "../RouterLink";
 
 export default function FreelancerCard({ freelancer, onAction, actionLabel }) {
   return (
     <div className={styles.card}>
-      <img src={freelancer.avatar} alt={freelancer.name} className={styles.avatar} />
+      <img
+        src={freelancer.avatar}
+        alt={freelancer.name}
+        className={styles.avatar}
+      />
 
       <div className={styles.info}>
-        <h3>{freelancer.name}</h3>
+        <h3 className={styles.name}>{freelancer.name}</h3>
         <p className={styles.bio}>{freelancer.bio}</p>
 
         <div className={styles.skills}>
-          {freelancer.skills.map((s, idx) => (
-            <span key={idx} className={styles.skill}>
-              {s}
-            </span>
+          {freelancer.skills.map((s, i) => (
+            <span key={i} className={styles.skill}>{s}</span>
           ))}
         </div>
-
-        <p><strong>Rating:</strong> ⭐ {freelancer.rating}</p>
-        <p><strong>Valor por hora:</strong> R$ {freelancer.hourlyRate}</p>
+        <p className={styles.detail}><strong>Valor/hora:</strong> R$ {freelancer.hourlyRate}</p>
       </div>
 
       <div className={styles.actions}>
-        {/* aponta para /profile/:id */}
-        <Link to={`/profile/${freelancer.id}`}>
-          <Button variant="secondary">Ver Perfil</Button>
-        </Link>
+        <RouterLink Route={`/profile/${freelancer.id}`} Title={"Ver perfil"} />
 
         {onAction && (
-          <Button onClick={onAction} variant="primary">
+          <Button variant="primary" onClick={onAction}>
             {actionLabel}
           </Button>
         )}

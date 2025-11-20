@@ -65,7 +65,7 @@ const { projects, loading, createProject, cancelProject, deleteProject } =
       {projects.length === 0 ? (
         <p>Nenhum projeto criado ainda.</p>
       ) : (
-        <CardList renderItem={projectCards} />
+        <CardList items={projectCards} />
       )}
 
       {showModal && (

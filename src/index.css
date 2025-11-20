@@ -1,46 +1,311 @@
+/* =========================================
+   VARIABLES (Theme)
+========================================= */
+
 :root {
+  /* Base Colors */
   --white: #ffffff;
+  --gray-50: #f8f9fa;
+  --gray-100: #eceff1;
+  --gray-200: #dde2e5;
+  --gray-300: #cfd4d7;
+  --gray-600: #6c757d;
+
+  /* Brand Colors */
   --dark-blue: #00171f;
   --mid-blue: #003459;
   --light-blue: #007ea7;
   --aqua: #00a8e8;
+
+  /* Feedback */
+  --success: #0f9d58;
+  --danger: #d9534f;
+  --warning: #f4b400;
+
+  /* Layout tokens */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  --shadow-sm: 0 1px 4px rgba(0, 23, 31, 0.08);
+  --shadow-md: 0 3px 10px rgba(0, 23, 31, 0.12);
+  --shadow-lg: 0 6px 20px rgba(0, 23, 31, 0.15);
+
+  --transition: 0.25s ease;
 }
 
-.pageContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 32px 20px;
-  background-color: var(--white);
-  min-height: calc(100vh - 80px);
+
+/* =========================================
+   BASE RESET
+========================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--white);
   color: var(--dark-blue);
-  text-align: center;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.pageTitle {
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+}
+
+
+/* =========================================
+   TYPOGRAPHY
+========================================= */
+
+.titleXL {
   font-size: 2rem;
   font-weight: 700;
   color: var(--mid-blue);
   margin-bottom: 12px;
 }
 
-.pageSubtitle {
-  font-size: 1rem;
+.titleLG {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--mid-blue);
+  margin-bottom: 8px;
+}
+
+.textMuted {
+  color: var(--gray-600);
+}
+
+.textPrimary {
   color: var(--light-blue);
+}
+
+/* =========================================
+   LAYOUT BASE
+========================================= */
+
+.pageContainer {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 24px 16px;
+
+  background-color: var(--white);
+}
+
+.section {
   margin-bottom: 32px;
 }
 
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* =========================================
+   GRID SYSTEM
+========================================= */
+
+.grid {
+  display: grid;
+  gap: 20px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+
+/* =========================================
+   CARD BASE
+========================================= */
+
+.card {
+  background-color: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+
+  transition: var(--transition);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.btn {
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.btnPrimary {
+  background-color: var(--light-blue);
+  color: var(--white);
+}
+
+.btnPrimary:hover {
+  background-color: var(--aqua);
+}
+
+.btnOutline {
+  background-color: transparent;
+  border: 2px solid var(--light-blue);
+  color: var(--light-blue);
+}
+
+.btnOutline:hover {
+  border-color: var(--aqua);
+  color: var(--aqua);
+}
+
+
+/* =========================================
+   INPUTS & FORMS
+========================================= */
+
+.input {
+  width: 100%;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--gray-200);
+  background: var(--gray-50);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--light-blue);
+  background: var(--white);
+  box-shadow: 0 0 0 3px rgba(0, 126, 167, 0.15);
+}
+
+.label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+  color: var(--mid-blue);
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.headerContainer {
+  width: 100%;
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.headerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px 20px;
+}
+
+.headerTitle {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--mid-blue);
+}
+
+.headerNavPages {
+  display: none;
+  flex-direction: column;
+  gap: 14px;
+
+  background-color: var(--white);
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+
+  border-top: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-md);
+}
+
+.headerNavPages a {
+  padding: 14px;
+  color: var(--dark-blue);
+  font-weight: 500;
+}
+
+.headerNavPages a:hover {
+  color: var(--aqua);
+}
+
+.menuButton {
+  background: none;
+  border: none;
+  color: var(--mid-blue);
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.menuButton:hover {
+  color: var(--aqua);
+}
+
+.navOpen {
+  display: flex;
+}
+
+@media (min-width: 768px) {
+  .menuButton {
+    display: none;
+  }
+
+  .headerNavPages {
+    display: flex !important;
+    flex-direction: row;
+    gap: 20px;
+    position: static;
+
+    box-shadow: none;
+    border-top: none;
+  }
+
+  .headerNavPages a {
+    padding: 0;
+  }
 }

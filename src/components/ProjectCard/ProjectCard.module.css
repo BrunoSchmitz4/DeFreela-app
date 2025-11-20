@@ -1,97 +1,52 @@
-:root {
-  --white: #ffffff;
-  --dark-blue: #00171f;
-  --mid-blue: #003459;
-  --light-blue: #007ea7;
-  --aqua: #00a8e8;
-  --gray-text: #6c757d;
-  --gray-light: #f8f9fa;
-}
-
-.projectCardComponent {
-  background-color: var(--white);
-  border: 1px solid #e5e5e5;
+.card {
+  background: var(--white);
   border-radius: 12px;
-  padding: 16px;
-  box-shadow: 0 2px 8px rgba(0, 23, 31, 0.08);
-  transition: all 0.3s ease;
-
+  padding: var(--spacing-md);
+  border: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  
+  gap: var(--spacing-sm);
   text-decoration: none;
-  color: inherit;
-  max-width: 320px;
-  min-height: 160px;
-  /* width: 300px;
-  height: 360px; */
+  color: var(--dark-blue);
+  transition: var(--transition-md);
+  max-width: 350px;
 }
 
-.projectCardComponent:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0, 23, 31, 0.15);
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
   border-color: var(--aqua);
 }
 
-.projectCardTitle {
+.title {
   font-size: 1.2rem;
-  color: var(--dark-blue);
-  margin: 0;
   font-weight: 600;
+  color: var(--dark-blue);
 }
 
-.projectCardSubtitle {
-  font-size: 16px;
-  color: var(--mid-blue);
-  font-weight: 500;
+.description {
+  color: var(--gray-text);
 }
 
-.projectCardInfos {
+.info {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  align-content: center;
+  gap: 4px;
 }
 
-.projectCardStatus, .projectCardValue {
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0;
-}
-
-.projectCardTagList {
+.tags {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+  margin-top: var(--spacing-sm);
 }
 
-.projectCardTagListItem {
-  background-color: var(--gray-light);
-  padding: 4px 8px;
+.tag {
+  background: var(--gray-light);
   border-radius: 6px;
+  padding: 4px 10px;
   font-size: 0.75rem;
+  border: 1px solid var(--gray-200);
   color: var(--mid-blue);
-  font-weight: 500;
-  border: 1px solid #e0e0e0;
-}
-
-.projectCardButton {
-  margin: auto;
-}
-
-@media (min-width: 768px) {
-  .projectCardComponent {
-    padding: 24px;
-    gap: 12px;
-  }
-
-  .list { 
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    display: grid;
-    gap: 30px;
-  }
 }

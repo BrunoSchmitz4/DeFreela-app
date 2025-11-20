@@ -79,7 +79,7 @@ const { projects, loading } = useProjectsContext();
       {filtered.length === 0 ? (
         <p>Nenhum projeto encontrado.</p>
       ) : (
-        <CardList renderItem={projectCards} />
+        <CardList items={projectCards} />
       )}
     </div>
   );

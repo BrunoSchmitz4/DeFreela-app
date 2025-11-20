@@ -1,11 +1,22 @@
-.dataListComponent {
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    align-content: center;
-    justify-content: space-around;
-    padding: 4px;
-    gap: 4px;
+.list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 8px;
+}
+
+/* Ajuste automático para cartões */
+@media (min-width: 768px) {
+  .list {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+}
+
+.empty {
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  color: var(--gray-600);
+  font-size: 0.95rem;
 }

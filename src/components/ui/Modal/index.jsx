@@ -8,9 +8,8 @@ function Modal({ isOpen, onClose, title, children }) {
       <div className={styles.modal}>
         <div className={styles.header}>
           <h2>{title}</h2>
-          <button onClick={() => {
-            return onClose;
-          }} className={styles.closeBtn}>×</button>
+          <button onClick={onClose} className={styles.closeBtn}>×</button>
+
         </div>
         <div className={styles.content}>{children}</div>
       </div>

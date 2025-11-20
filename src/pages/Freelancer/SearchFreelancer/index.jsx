@@ -37,7 +37,7 @@ export default function SearchFreelancers() {
       ) : freelancers.length === 0 ? (
         <p>Nenhum freelancer encontrado.</p>
       ) : (
-        <CardList renderItem={cards} />
+        <CardList items={cards} />
       )}
     </div>
   );
