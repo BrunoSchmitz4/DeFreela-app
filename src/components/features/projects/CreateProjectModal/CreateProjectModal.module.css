@@ -1,0 +1,123 @@
+/* src/components/features/projects/CreateProjectModal/CreateProjectModal.module.css */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 4px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldGroup label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #003459;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color 0.2s ease;
+}
+
+.textarea:focus {
+  border-color: #00a8e8;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 168, 232, 0.1);
+}
+
+.textarea.error {
+  border-color: #ef4444;
+}
+
+.errorText {
+  font-size: 0.85rem;
+  color: #ef4444;
+  margin-top: 4px;
+}
+
+.dateRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.infoBox {
+  padding: 12px 16px;
+  background: #e6f7ff;
+  border: 1px solid #91d5ff;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #003459;
+}
+
+.infoBox p {
+  margin: 0;
+}
+
+.infoBox strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.warningBox {
+  padding: 12px 16px;
+  background: #fff7e6;
+  border: 1px solid #ffc069;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #d46b08;
+}
+
+.warningBox strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+.warningBox p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e5e5;
+  margin-top: 8px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .form {
+    max-height: 60vh;
+  }
+
+  .dateRow {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .actions button {
+    width: 100%;
+  }
+}

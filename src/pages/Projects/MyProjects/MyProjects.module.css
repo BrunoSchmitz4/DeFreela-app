@@ -13,111 +13,173 @@
   padding: 32px 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 24px;
 }
 
+/* ==================== HEADER ==================== */
 .header {
   width: 100%;
-  max-width: 1000px;
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
+  gap: 20px;
+}
+
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
   gap: 16px;
-  text-align: center;
 }
 
 .header h1 {
   color: var(--mid-blue);
-  font-size: 1.8rem;
-  margin-bottom: 8px;
+  font-size: 2rem;
+  margin: 0;
 }
 
-.header button {
-  background-color: var(--light-blue);
-  color: var(--white);
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.header button:hover {
-  background-color: var(--aqua);
-}
-
-.projectList {
+/* ==================== ESTATÍSTICAS ==================== */
+.statsRow {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
-  width: 100%;
-  max-width: 1000px;
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 16px;
 }
 
-.projectCard {
-  background: var(--white);
+.statCard {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  text-align: center;
   border: 1px solid var(--gray-border);
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 23, 31, 0.1);
-  padding: 20px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.projectCard:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 12px rgba(0, 23, 31, 0.2);
+.statLabel {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-bottom: 6px;
+  font-weight: 500;
 }
 
-.projectCard h3 {
+.statValue {
+  font-size: 1.8rem;
+  font-weight: 700;
   color: var(--mid-blue);
-  margin-bottom: 8px;
-  font-size: 1.2rem;
 }
 
-.projectCard p {
-  color: var(--dark-blue);
-  font-size: 0.95rem;
-  margin-bottom: 10px;
+/* ==================== FILTROS ==================== */
+.filterRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid var(--gray-border);
 }
 
-.actions {
+.filterRow label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--mid-blue);
+}
+
+.filterSelect {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  flex: 1;
+  max-width: 300px;
+}
+
+.filterSelect:focus {
+  border-color: var(--aqua);
+  outline: none;
+}
+
+/* ==================== LISTA DE PROJETOS ==================== */
+.projectList {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.projectWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.projectActions {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
+  margin-top: -8px;
 }
 
-.actions button {
-  border: none;
-  border-radius: 6px;
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-  cursor: pointer;
+/* ==================== EMPTY STATE ==================== */
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6c757d;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
 }
 
-.actions .cancel {
-  background-color: var(--light-blue);
-  color: var(--white);
+.emptyState p {
+  margin: 0;
+  font-size: 1.1rem;
 }
 
-.actions .delete {
-  background-color: #ff5252;
-  color: var(--white);
-}
-
-.actions .cancel:hover {
-  background-color: var(--aqua);
-}
-
-.actions .delete:hover {
-  background-color: #ff6b6b;
-}
-
+/* ==================== RESPONSIVIDADE ==================== */
 @media (min-width: 768px) {
   .header {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    padding: 0 24px;
+  }
+
+  .projectList {
+    padding: 0 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .titleRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .titleRow button {
+    width: 100%;
+  }
+
+  .statsRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .filterRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filterSelect {
+    max-width: 100%;
+  }
+
+  .projectActions {
+    flex-direction: column;
+  }
+
+  .projectActions button {
+    width: 100%;
   }
 }

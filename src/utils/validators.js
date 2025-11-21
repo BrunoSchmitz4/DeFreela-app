@@ -347,7 +347,12 @@ export const validators = {
   }),
   
   futureDate: (value) => ({
-    valid: isFutureDate(value),
+    valid: !value || isFutureDate(value),
+    message: 'Data deve ser futura'
+  }),
+  
+  isFutureDate: (value) => ({
+    valid: !value || isFutureDate(value),
     message: 'Data deve ser futura'
   }),
   
