@@ -84,6 +84,339 @@ export function makeServer({ environment = "development" } = {}) {
         criado_em: "2025-01-08T11:00:00Z"
       });
 
+            // Freelancer 4 (ID 5)
+      server.create("user", {
+        id: 5,
+        email: "rafael.devops@teste.com",
+        tipo_usuario: "FREELANCER",
+        nome_completo: "Rafael Costa",
+        cpf_cnpj: "54321098765",
+        is_pj: true,
+        habilidades: "AWS, Docker, Kubernetes, CI/CD, Terraform",
+        valor_hora: 150.00,
+        portfolio_url: "https://linkedin.com/in/rafael-devops",
+        avatar: "https://i.pravatar.cc/150?img=9",
+        criado_em: "2025-01-08T11:00:00Z"
+      });
+
+      // Freelancer 5 (ID 6)
+      server.create("user", {
+        id: 6,
+        email: "ana.marketing@teste.com",
+        tipo_usuario: "FREELANCER",
+        nome_completo: "Ana Pereira",
+        cpf_cnpj: "10987654321",
+        is_pj: false,
+        habilidades: "Google Ads, SEO, Análise de Dados, Copywriting",
+        valor_hora: 75.00,
+        portfolio_url: "https://anaper.com/marketing",
+        avatar: "https://i.pravatar.cc/150?img=11",
+        criado_em: "2025-01-08T11:00:00Z"
+      });
+
+      // Freelancer 6 (ID 7)
+      server.create("user", {
+        id: 7,
+        email: "carlos.data@teste.com",
+        tipo_usuario: "FREELANCER",
+        nome_completo: "Carlos Ribeiro",
+        cpf_cnpj: "23456789012",
+        is_pj: true,
+        habilidades: "Python, Pandas, Machine Learning, SQL",
+        valor_hora: 160.00,
+        portfolio_url: "https://github.com/carlos-data",
+        avatar: "https://i.pravatar.cc/150?img=13",
+        criado_em: "2025-01-08T11:00:00Z"
+      });
+
+      // Freelancer 7 (ID 8)
+      server.create("user", {
+        id: 8,
+        email: "fernanda.qa@teste.com",
+        tipo_usuario: "FREELANCER",
+        nome_completo: "Fernanda Lima",
+        cpf_cnpj: "34567890123",
+        is_pj: false,
+        habilidades: "Testes Manuais, Selenium, Cypress, Testes de Integração",
+        valor_hora: 90.00,
+        portfolio_url: "https://qa-fernanda.com",
+        avatar: "https://i.pravatar.cc/150?img=15",
+        criado_em: "2025-01-08T11:00:00Z"
+      });
+
+      // Freelancer 8 (ID 9)
+      server.create("user", {
+        id: 9,
+        email: "guilherme.php@teste.com",
+        tipo_usuario: "FREELANCER",
+        nome_completo: "Guilherme Souza",
+        cpf_cnpj: "45678901234",
+        is_pj: true,
+        habilidades: "PHP, Laravel, MySQL, APIs REST",
+        valor_hora: 110.00,
+        portfolio_url: "https://guilherme-php.dev",
+        avatar: "https://i.pravatar.cc/150?img=17",
+        criado_em: "2025-01-08T11:00:00Z"
+      });
+
+      // Freelancer 9 (ID 10)
+      server.create("user", {
+        id: 10,
+        email: "helena.mobile@teste.com",
+        tipo_usuario: "FREELANCER",
+        nome_completo: "Helena Castro",
+        cpf_cnpj: "56789012345",
+        is_pj: false,
+        habilidades: "Flutter, Dart, Firebase, Desenvolvimento Android/iOS",
+        valor_hora: 130.00,
+        portfolio_url: "https://mobile-helena.com",
+        avatar: "https://i.pravatar.cc/150?img=19",
+        criado_em: "2025-01-08T11:00:00Z"
+      });
+
+      // Freelancer 10 (ID 11)
+      server.create("user", {
+        id: 11,
+        email: "igor.dba@teste.com",
+        tipo_usuario: "FREELANCER",
+        nome_completo: "Igor Mendes",
+        cpf_cnpj: "67890123456",
+        is_pj: true,
+        habilidades: "Oracle, SQL Server, Otimização de Banco de Dados",
+        valor_hora: 170.00,
+        portfolio_url: "https://db-igor.com",
+        avatar: "https://i.pravatar.cc/150?img=21",
+        criado_em: "2025-01-08T11:00:00Z"
+      });
+
+      // Freelancer 11 (ID 12)
+      server.create("user", {
+        id: 12,
+        email: "juliana.content@teste.com",
+        tipo_usuario: "FREELANCER",
+        nome_completo: "Juliana Rocha",
+        cpf_cnpj: "78901234567",
+        is_pj: false,
+        habilidades: "Estratégia de Conteúdo, Blog Posts, Revisão",
+        valor_hora: 65.00,
+        portfolio_url: "https://juliana-content.com",
+        avatar: "https://i.pravatar.cc/150?img=23",
+        criado_em: "2025-01-08T11:00:00Z"
+      });
+
+      // Freelancer 12 (ID 13)
+      server.create("user", {
+        id: 13,
+        email: "leo.security@teste.com",
+        tipo_usuario: "FREELANCER",
+        nome_completo: "Leonardo Dantas",
+        cpf_cnpj: "89012345678",
+        is_pj: true,
+        habilidades: "Cybersecurity, Ethical Hacking, Pentesting",
+        valor_hora: 180.00,
+        portfolio_url: "https://leo-sec.com",
+        avatar: "https://i.pravatar.cc/150?img=25",
+        criado_em: "2025-01-08T11:00:00Z"
+      });
+
+      // Freelancer 13 (ID 14)
+      server.create("user", {
+        id: 14,
+        email: "marta.java@teste.com",
+        tipo_usuario: "FREELANCER",
+        nome_completo: "Marta Fonseca",
+        cpf_cnpj: "90123456789",
+        is_pj: true,
+        habilidades: "Java, Spring Boot, Microsserviços, Kafka",
+        valor_hora: 140.00,
+        portfolio_url: "https://github.com/marta-java",
+        avatar: "https://i.pravatar.cc/150?img=27",
+        criado_em: "2025-01-08T11:00:00Z"
+      });
+
+      // Freelancer 14 (ID 15)
+      server.create("user", {
+        id: 15,
+        email: "nicolas.design@teste.com",
+        tipo_usuario: "FREELANCER",
+        nome_completo: "Nicolas Alves",
+        cpf_cnpj: "01234567890",
+        is_pj: false,
+        habilidades: "Motion Graphics, Ilustração, Animação 2D",
+        valor_hora: 95.00,
+        portfolio_url: "https://nicolas-motion.com",
+        avatar: "https://i.pravatar.cc/150?img=29",
+        criado_em: "2025-01-08T11:00:00Z"
+      });
+
+      // Freelancer 15 (ID 16)
+      server.create("user", {
+        id: 16,
+        email: "olivia.support@teste.com",
+        tipo_usuario: "FREELANCER",
+        nome_completo: "Olívia Mendes",
+        cpf_cnpj: "12301234567",
+        is_pj: false,
+        habilidades: "Suporte Técnico, Atendimento ao Cliente, Zendesk",
+        valor_hora: 50.00,
+        portfolio_url: "https://olivia-support.com",
+        avatar: "https://i.pravatar.cc/150?img=31",
+        criado_em: "2025-01-08T11:00:00Z"
+      });
+
+      // Freelancer 16 (ID 17)
+      server.create("user", {
+        id: 17,
+        email: "paulo.dotnet@teste.com",
+        tipo_usuario: "FREELANCER",
+        nome_completo: "Paulo Borges",
+        cpf_cnpj: "23412345678",
+        is_pj: true,
+        habilidades: "C#, .NET Core, Azure Functions",
+        valor_hora: 135.00,
+        portfolio_url: "https://paulo-dotnet.dev",
+        avatar: "https://i.pravatar.cc/150?img=33",
+        criado_em: "2025-01-08T11:00:00Z"
+      });
+
+      // Freelancer 17 (ID 18)
+      server.create("user", {
+        id: 18,
+        email: "quiteria.uxwriter@teste.com",
+        tipo_usuario: "FREELANCER",
+        nome_completo: "Quitéria Alves",
+        cpf_cnpj: "34523456789",
+        is_pj: false,
+        habilidades: "UX Writing, Microcopy, Guias de Estilo",
+        valor_hora: 85.00,
+        portfolio_url: "https://quiteria-uxw.com",
+        avatar: "https://i.pravatar.cc/150?img=35",
+        criado_em: "2025-01-08T11:00:00Z"
+      });
+
+      // Freelancer 18 (ID 19)
+      server.create("user", {
+        id: 19,
+        email: "roberto.rust@teste.com",
+        tipo_usuario: "FREELANCER",
+        nome_completo: "Roberto Silva",
+        cpf_cnpj: "45634567890",
+        is_pj: true,
+        habilidades: "Rust, Blockchain, WebAssembly",
+        valor_hora: 200.00,
+        portfolio_url: "https://github.com/roberto-rust",
+        avatar: "https://i.pravatar.cc/150?img=37",
+        criado_em: "2025-01-08T11:00:00Z"
+      });
+
+      // Freelancer 19 (ID 20)
+      server.create("user", {
+        id: 20,
+        email: "sofia.salesforce@teste.com",
+        tipo_usuario: "FREELANCER",
+        nome_completo: "Sofia Toledo",
+        cpf_cnpj: "56745678901",
+        is_pj: true,
+        habilidades: "Salesforce Admin, Apex, Lightning Web Components",
+        valor_hora: 165.00,
+        portfolio_url: "https://sf-sofia.com",
+        avatar: "https://i.pravatar.cc/150?img=39",
+        criado_em: "2025-01-08T11:00:00Z"
+      });
+
+      // Freelancer 20 (ID 21)
+      server.create("user", {
+        id: 21,
+        email: "thiago.go@teste.com",
+        tipo_usuario: "FREELANCER",
+        nome_completo: "Thiago Nunes",
+        cpf_cnpj: "67856789012",
+        is_pj: false,
+        habilidades: "Go (Golang), Microserviços, Redis",
+        valor_hora: 145.00,
+        portfolio_url: "https://github.com/thiago-go",
+        avatar: "https://i.pravatar.cc/150?img=41",
+        criado_em: "2025-01-08T11:00:00Z"
+      });
+
+      // Freelancer 21 (ID 22)
+      server.create("user", {
+        id: 22,
+        email: "ursula.erp@teste.com",
+        tipo_usuario: "FREELANCER",
+        nome_completo: "Úrsula Vaz",
+        cpf_cnpj: "78967890123",
+        is_pj: true,
+        habilidades: "SAP Consultoria, Integração ERP",
+        valor_hora: 190.00,
+        portfolio_url: "https://ursula-erp.com",
+        avatar: "https://i.pravatar.cc/150?img=43",
+        criado_em: "2025-01-08T11:00:00Z"
+      });
+
+      // Freelancer 22 (ID 23)
+      server.create("user", {
+        id: 23,
+        email: "victor.cplus@teste.com",
+        tipo_usuario: "FREELANCER",
+        nome_completo: "Victor Melo",
+        cpf_cnpj: "89078901234",
+        is_pj: false,
+        habilidades: "C++, Embedded Systems, IoT",
+        valor_hora: 155.00,
+        portfolio_url: "https://victor-embedded.com",
+        avatar: "https://i.pravatar.cc/150?img=45",
+        criado_em: "2025-01-08T11:00:00Z"
+      });
+
+      // Freelancer 23 (ID 24)
+      server.create("user", {
+        id: 24,
+        email: "wanessa.finance@teste.com",
+        tipo_usuario: "FREELANCER",
+        nome_completo: "Wanessa Rocha",
+        cpf_cnpj: "90189012345",
+        is_pj: true,
+        habilidades: "Contabilidade, Planejamento Financeiro, Power BI",
+        valor_hora: 105.00,
+        portfolio_url: "https://wanessa-finance.com",
+        avatar: "https://i.pravatar.cc/150?img=47",
+        criado_em: "2025-01-08T11:00:00Z"
+      });
+
+      server.create("user", {
+        id: 25,
+        email: "empresa2@teste.com",
+        tipo_usuario: "EMPRESA",
+        nome_empresa: "RIOT Games",
+        cnpj: "12345678000191",
+        telefone: "(11) 98765-4321",
+        endereco: "Av. Paulista, 1000 - São Paulo, SP",
+        criado_em: "2025-01-10T10:00:00Z"
+      });
+
+      server.create("user", {
+        id: 26,
+        email: "empresa3@teste.com",
+        tipo_usuario: "EMPRESA",
+        nome_empresa: "Sênior Sistemas",
+        cnpj: "12345678000192",
+        telefone: "(11) 98765-4321",
+        endereco: "Av. Paulista, 1000 - São Paulo, SP",
+        criado_em: "2025-01-10T10:00:00Z"
+      });
+
+      server.create("user", {
+        id: 27,
+        email: "empresa4@teste.com",
+        tipo_usuario: "EMPRESA",
+        nome_empresa: "Ambev Tech",
+        cnpj: "12345678000193",
+        telefone: "(11) 98765-4321",
+        endereco: "Av. Paulista, 1000 - São Paulo, SP",
+        criado_em: "2025-01-10T10:00:00Z"
+      });
+
       // ==========================================
       // PROJETOS
       // ==========================================
@@ -121,6 +454,8 @@ export function makeServer({ environment = "development" } = {}) {
           nome_empresa: "Tech Solutions Ltda"
         }
       });
+
+      
 
       // ==========================================
       // ATIVIDADES

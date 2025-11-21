@@ -18,8 +18,8 @@ const { projects, loading } = useProjectsContext();
   const filtered = projects.filter((p) => {
     const q = query.toLowerCase();
     const matchesQuery =
-      p.title.toLowerCase().includes(q) ||
-      p.description.toLowerCase().includes(q);
+      p.titulo.toLowerCase().includes(q) ||
+      p.descricao.toLowerCase().includes(q);
 
     const matchesStatus = statusFilter ? p.status === statusFilter : true;
 
@@ -27,7 +27,7 @@ const { projects, loading } = useProjectsContext();
   });
 
   const projectCards = filtered.map((p) => {
-    const isInterested = interests.some((i) => i.projectId === p.id);
+    const isInterested = interests.some((i) => i.id === p.id);
 
     return (
       <div key={p.id} className={styles.wrapperCardWithActions}>
