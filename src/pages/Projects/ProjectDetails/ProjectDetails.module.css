@@ -406,7 +406,367 @@
   color: var(--mid-blue);
 }
 
-/* ==================== RESPONSIVE ==================== */
+/* ==================== TASKS TAB EXTRAS ==================== */
+.tasksHeader {
+  margin-bottom: 24px;
+}
+
+.taskStats {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.taskStatItem {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  min-width: 100px;
+}
+
+.taskStatLabel {
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-bottom: 4px;
+}
+
+.taskStatValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--mid-blue);
+}
+
+.taskFilters {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filterGroup label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--mid-blue);
+}
+
+.filterSelect {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.filterInfo {
+  margin-left: auto;
+  font-size: 0.9rem;
+  color: #6c757d;
+  align-self: center;
+}
+
+.taskTitleGroup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.taskActivity {
+  font-size: 0.8rem;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.taskBadges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.taskPriority {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.taskInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.overdue {
+  color: #ef4444 !important;
+  font-weight: 600;
+}
+
+.nearDeadline {
+  color: #f59e0b !important;
+  font-weight: 600;
+}
+
+.taskCardOverdue {
+  border-color: #ef4444 !important;
+  background: #fef2f2;
+}
+
+/* ==================== ACTIVITIES TAB EXTRAS ==================== */
+.activityMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.activityTaskCount {
+  font-size: 0.85rem;
+  color: #6c757d;
+  padding: 4px 10px;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+.expandIcon {
+  font-size: 0.8rem;
+  color: var(--mid-blue);
+}
+
+.activityProgress {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.activityTasksSection {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 2px solid #e5e5e5;
+  background: #f8f9fa;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.tasksSectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.tasksSectionHeader h4 {
+  color: var(--mid-blue);
+  margin: 0;
+  font-size: 1rem;
+}
+
+.noTasks {
+  text-align: center;
+  padding: 20px;
+  color: #6c757d;
+  font-style: italic;
+}
+
+.tasksMiniList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.taskMiniCard {
+  background: white;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
+}
+
+.taskMiniHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.taskMiniTitle {
+  font-weight: 600;
+  color: var(--dark-blue);
+  font-size: 0.9rem;
+}
+
+.taskMiniStatus {
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.taskMiniDesc {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ==================== FREELANCERS TAB EXTRAS (UC01) ==================== */
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.freelancerCount {
+  font-size: 0.9rem;
+  color: #6c757d;
+  padding: 8px 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.assignmentInfo {
+  display: flex;
+  gap: 8px;
+  margin: 8px 0;
+  padding: 8px 12px;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+.roleLabel {
+  font-weight: 600;
+  color: var(--mid-blue);
+  font-size: 0.85rem;
+}
+
+.roleValue {
+  color: var(--dark-blue);
+  font-size: 0.85rem;
+}
+
+.assignedDate {
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin: 8px 0;
+  font-style: italic;
+}
+
+.editingFreelancer {
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+}
+
+.modalForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* ==================== FREELANCERS TAB EXTRAS ==================== */
+.freelancerCount {
+  font-size: 0.9rem;
+  color: #6c757d;
+  padding: 8px 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.freelancerEmail {
+  color: #6c757d;
+  font-size: 0.85rem;
+  margin: 4px 0 12px 0;
+}
+
+.skillsList {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 8px 0;
+}
+
+.skillBadge {
+  background: var(--aqua);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.skillMore {
+  background: #e5e5e5;
+  color: #6c757d;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.hourlyRate {
+  margin: 8px 0;
+  font-size: 0.9rem;
+  color: var(--dark-blue);
+}
+
+.freelancerType {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin: 4px 0 0 0;
+}
+
+.freelancerActions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.portfolioLink {
+  text-decoration: none;
+}
+
+.select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: white;
+  cursor: pointer;
+}
+
+.select:focus {
+  border-color: var(--aqua);
+  outline: none;
+}
+
 @media (max-width: 768px) {
   .titleRow {
     flex-direction: column;
@@ -420,5 +780,31 @@
   .freelancerCard {
     flex-direction: column;
     text-align: center;
+  }
+
+  .taskFilters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filterInfo {
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .taskStats {
+    justify-content: center;
+  }
+
+  .activityMeta {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+  }
+
+  .freelancerActions {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 12px;
   }
 }

@@ -1,0 +1,168 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.searchSection {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.freelancerList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 8px 4px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+}
+
+.loadingText,
+.emptyText {
+  text-align: center;
+  padding: 32px 16px;
+  color: #6c757d;
+  font-style: italic;
+}
+
+.freelancerCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 2px solid #e5e5e5;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.freelancerCard:hover {
+  border-color: #00a8e8;
+  background-color: #f8f9fa;
+}
+
+.freelancerCard.selected {
+  border-color: #00a8e8;
+  background-color: #e6f7ff;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.freelancerInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.freelancerInfo h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: #00171f;
+}
+
+.skills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.skillTag {
+  background: #00a8e8;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.hourlyRate {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #6c757d;
+  font-weight: 600;
+}
+
+.selectedIcon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  background: #00a8e8;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.assignmentSection {
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
+}
+
+.assignmentSection h3 {
+  margin: 0 0 16px 0;
+  font-size: 1.1rem;
+  color: #003459;
+}
+
+.error {
+  color: #ef4444;
+  font-size: 0.85rem;
+  margin: -12px 0 0 0;
+  padding: 8px 12px;
+  background: #fef2f2;
+  border-radius: 6px;
+  border: 1px solid #fecaca;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e5e5;
+}
+
+@media (max-width: 768px) {
+  .form {
+    max-height: 60vh;
+  }
+
+  .freelancerList {
+    max-height: 250px;
+  }
+
+  .freelancerCard {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .selectedIcon {
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+  }
+}

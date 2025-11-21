@@ -13,9 +13,9 @@ import { formatCurrency, formatDate } from "../../../utils/formatters";
 
 // Sub-componentes (abas)
 import OverviewTab from "./OverviewTab";
-// import ActivitiesTab from "./ActivitiesTab";
-// import TasksTab from "./TasksTab";
-// import FreelancersTab from "./FreelancersTab";
+import ActivitiesTab from "./ActivitiesTab";
+import TasksTab from "./TasksTab";
+import FreelancersTab from "./FreelancersTabs";
 
 function ProjectDetails() {
   const { id } = useParams();
@@ -118,17 +118,17 @@ function ProjectDetails() {
           <OverviewTab project={project} activities={activities} />
         )}
         
-        {/* {activeTab === "atividades" && (
+        {activeTab === "atividades" && (
           <ActivitiesTab projectId={project.id} activities={activities} setActivities={setActivities} />
-        )} */}
+        )}
         
-        {/* {activeTab === "tarefas" && (
+        {activeTab === "tarefas" && (
           <TasksTab projectId={project.id} activities={activities} />
-        )} */}
+        )}
         
-        {/* {activeTab === "freelancers" && (
+        {activeTab === "freelancers" && (
           <FreelancersTab project={project} />
-        )} */}
+        )}
       </div>
 
       {/* Ações */}

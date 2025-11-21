@@ -746,6 +746,119 @@ export function makeServer({ environment = "development" } = {}) {
       });
 
       // ==========================================
+      // PROJETO_FREELANCER (UC01)
+      // ==========================================
+      
+      this.get("/projects/:projectId/freelancers", (schema, request) => {
+        const projectId = request.params.projectId;
+        
+        // Retorna lista de atribuições
+        const project = schema.projects.find(projectId);
+        if (!project) {
+          return new Response(404, {}, { error: "Projeto não encontrado." });
+        }
+
+        const assignments = (project.attrs.freelancers_atribuidos || []).map(fId => ({
+          projeto_id: Number(projectId),
+          freelancer_id: fId,
+          papel: `Freelancer #${fId}`, // mock
+          valor_acordado: 5000.00,
+          atribuido_em: new Date().toISOString()
+        }));
+
+        return { data: assignments };
+      });
+
+      this.post("/projects/:projectId/freelancers", (schema, request) => {
+        const token = getTokenFromRequest(request);
+        const record = schema.tokens.find(token);
+
+        if (!record) {
+          return new Response(401, {}, { error: "Não autorizado." });
+        }
+
+        const projectId = request.params.projectId;
+        const { freelancer_id, papel, valor_acordado } = JSON.parse(request.requestBody);
+
+        const project = schema.projects.find(projectId);
+        if (!project) {
+          return new Response(404, {}, { error: "Projeto não encontrado." });
+        }
+
+        // Adiciona freelancer
+        const currentFreelancers = project.attrs.freelancers_atribuidos || [];
+        if (currentFreelancers.includes(freelancer_id)) {
+          return new Response(400, {}, { error: "Freelancer já atribuído ao projeto." });
+        }
+
+        project.update({
+          freelancers_atribuidos: [...currentFreelancers, freelancer_id]
+        });
+
+        const assignment = {
+          projeto_id: Number(projectId),
+          freelancer_id,
+          papel,
+          valor_acordado,
+          atribuido_em: new Date().toISOString()
+        };
+
+        return { data: assignment };
+      });
+
+      this.patch("/projects/:projectId/freelancers/:freelancerId", (schema, request) => {
+        const token = getTokenFromRequest(request);
+        const record = schema.tokens.find(token);
+
+        if (!record) {
+          return new Response(401, {}, { error: "Não autorizado." });
+        }
+
+        const { projectId, freelancerId } = request.params;
+        const { papel, valor_acordado } = JSON.parse(request.requestBody);
+
+        const project = schema.projects.find(projectId);
+        if (!project) {
+          return new Response(404, {}, { error: "Projeto não encontrado." });
+        }
+
+        const assignment = {
+          projeto_id: Number(projectId),
+          freelancer_id: Number(freelancerId),
+          papel,
+          valor_acordado,
+          atribuido_em: new Date().toISOString()
+        };
+
+        return { data: assignment };
+      });
+
+      this.delete("/projects/:projectId/freelancers/:freelancerId", (schema, request) => {
+        const token = getTokenFromRequest(request);
+        const record = schema.tokens.find(token);
+
+        if (!record) {
+          return new Response(401, {}, { error: "Não autorizado." });
+        }
+
+        const { projectId, freelancerId } = request.params;
+
+        const project = schema.projects.find(projectId);
+        if (!project) {
+          return new Response(404, {}, { error: "Projeto não encontrado." });
+        }
+
+        const currentFreelancers = project.attrs.freelancers_atribuidos || [];
+        project.update({
+          freelancers_atribuidos: currentFreelancers.filter(
+            id => String(id) !== String(freelancerId)
+          )
+        });
+
+        return new Response(204);
+      });
+
+      // ==========================================
       // FREELANCERS
       // ==========================================
       
