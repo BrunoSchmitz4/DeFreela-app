@@ -1,16 +1,56 @@
-// src/pages/Projects/ProjectDetails.jsx
+// src/pages/Projects/ProjectDetails/index.jsx
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useProjectsContext } from "../../../context/projectContext";
-import { useContracts } from "../../../hooks/useContracts";
+import { ProjectRepository } from "../../../repos/ProjectRepository";
+import { ActivityRepository } from "../../../repos/ActivityRepository";
 import Button from "../../../components/ui/Button";
+import Tabs from "../../../components/Tabs";
 import styles from "./ProjectDetails.module.css";
+
+// Importar constantes
+import { LABELS_STATUS_PROJETO, CORES_STATUS_PROJETO } from "../../../utils/constants";
+import { formatCurrency, formatDate } from "../../../utils/formatters";
+
+// Sub-componentes (abas)
+import OverviewTab from "./OverviewTab";
+// import ActivitiesTab from "./ActivitiesTab";
+// import TasksTab from "./TasksTab";
+// import FreelancersTab from "./FreelancersTab";
 
 function ProjectDetails() {
   const { id } = useParams();
-  const { projects } = useProjectsContext();
-  const { interests, markInterest, unmarkInterest } = useContracts();
+  
+  const [project, setProject] = useState(null);
+  const [activities, setActivities] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState("overview");
 
-  const project = projects.find((p) => p.id === Number(id));
+  useEffect(() => {
+    async function loadData() {
+      setLoading(true);
+      try {
+        const projectData = await ProjectRepository.getById(id);
+        setProject(projectData);
+
+        const activitiesData = await ActivityRepository.getByProject(id);
+        setActivities(activitiesData);
+      } catch (err) {
+        console.error("Erro ao carregar projeto:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadData();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className={styles.container}>
+        <p>Carregando projeto...</p>
+      </div>
+    );
+  }
 
   if (!project) {
     return (
@@ -23,52 +63,80 @@ function ProjectDetails() {
     );
   }
 
-  const isInterested = interests.some((i) => i.projectId === project.id);
+  const statusLabel = LABELS_STATUS_PROJETO[project.status] || project.status;
+  const statusColor = CORES_STATUS_PROJETO[project.status] || '#6b7280';
+
+  const tabs = ["overview", "atividades", "tarefas", "freelancers"];
 
   return (
     <div className={styles.container}>
+      {/* Header do Projeto */}
       <header className={styles.header}>
-        <h1>{project.title}</h1>
-        <p>{project.description}</p>
-
-        <div className={styles.tags}>
-          <h3>Tags:</h3>
-          {project.tags?.length > 0 ? (
-            <ul className={styles.tagList}>
-              {project.tags.map((tag, index) => (
-                <li key={index} className={styles.tagItem}>
-                  {tag}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>Sem tags</p>
-          )}
-        </div>
-
-        <div className={styles.infoBox}>
-          <p><strong>Status:</strong> {project.status}</p>
-          <p><strong>Valor:</strong> R$ {project.value ?? "—"}</p>
-          <p><strong>Prazo:</strong> {project.deadline ?? "—"}</p>
-        </div>
-
-        <div className={styles.actions}>
-          <Button variant="secondary" as={Link} to="/projects/searchProjects">
-            Voltar
-          </Button>
-
-          <Button
-            variant={isInterested ? "danger" : "primary"}
-            onClick={() =>
-              isInterested
-                ? unmarkInterest(project.id, 1)
-                : markInterest(project.id, 1)
-            }
+        <div className={styles.titleRow}>
+          <h1>{project.titulo}</h1>
+          
+          {/* Badge de Status */}
+          <span
+            className={styles.statusBadge}
+            style={{
+              backgroundColor: `${statusColor}15`,
+              color: statusColor,
+              border: `1px solid ${statusColor}30`
+            }}
           >
-            {isInterested ? "Remover Interesse" : "Tenho Interesse"}
-          </Button>
+            {statusLabel}
+          </span>
+        </div>
+
+        <p className={styles.description}>{project.descricao}</p>
+
+        {/* Info Box */}
+        <div className={styles.infoBox}>
+          <div className={styles.infoItem}>
+            <strong>Orçamento:</strong>
+            <span>{formatCurrency(project.orcamento_total)}</span>
+          </div>
+
+          <div className={styles.infoItem}>
+            <strong>Início:</strong>
+            <span>{formatDate(project.data_inicio)}</span>
+          </div>
+
+          <div className={styles.infoItem}>
+            <strong>Previsão de Término:</strong>
+            <span>{formatDate(project.data_fim_prevista)}</span>
+          </div>
         </div>
       </header>
+
+      {/* Navegação por Abas */}
+      <Tabs tabs={tabs} activeTab={activeTab} onChange={setActiveTab} />
+
+      {/* Conteúdo da Aba Ativa */}
+      <div className={styles.tabContent}>
+        {activeTab === "overview" && (
+          <OverviewTab project={project} activities={activities} />
+        )}
+        
+        {/* {activeTab === "atividades" && (
+          <ActivitiesTab projectId={project.id} activities={activities} setActivities={setActivities} />
+        )} */}
+        
+        {/* {activeTab === "tarefas" && (
+          <TasksTab projectId={project.id} activities={activities} />
+        )} */}
+        
+        {/* {activeTab === "freelancers" && (
+          <FreelancersTab project={project} />
+        )} */}
+      </div>
+
+      {/* Ações */}
+      <div className={styles.actions}>
+        <Link to="/projects/myProjects">
+          <Button variant="secondary">Voltar</Button>
+        </Link>
+      </div>
     </div>
   );
 }

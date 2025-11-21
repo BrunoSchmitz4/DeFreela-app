@@ -1,5 +1,3 @@
-// src/utils/formatters.js
-
 /**
  * Formata valor monetário para Real Brasileiro
  * @param {number} value - Valor numérico

@@ -1,4 +1,3 @@
-// src/types/index.js
 // ========================================
 // TYPES BASEADOS NO SCHEMA POSTGRESQL
 // ========================================

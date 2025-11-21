@@ -1,3 +1,5 @@
+/* src/pages/Projects/ProjectDetails/ProjectDetails.module.css */
+
 :root {
   --white: #ffffff;
   --dark-blue: #00171f;
@@ -8,69 +10,415 @@
 
 .container {
   padding: 32px 20px;
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
   background: var(--white);
-  border-radius: 12px;
-  margin-top: 32px;
   min-height: 70vh;
-  box-shadow: 0 2px 10px rgba(0, 23, 31, 0.2);
+}
+
+/* ==================== HEADER ==================== */
+.header {
+  margin-bottom: 32px;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
 }
 
 .header h1 {
   color: var(--mid-blue);
   font-size: 2rem;
-  margin-bottom: 8px;
+  margin: 0;
 }
 
-.header p {
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 16px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.description {
   color: var(--dark-blue);
   font-size: 1rem;
+  line-height: 1.6;
   margin-bottom: 20px;
 }
 
-.tags {
-  margin-top: 12px;
-}
-
-.tagList {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 6px;
-}
-
-.tagItem {
-  background: var(--aqua);
-  color: white;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 0.85rem;
-}
-
 .infoBox {
-  background: var(--mid-blue);
-  color: var(--white);
-  padding: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  padding: 20px;
+  background: #f8f9fa;
   border-radius: 12px;
-  margin-top: 20px;
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.infoItem strong {
+  color: var(--mid-blue);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.infoItem span {
+  color: var(--dark-blue);
+  font-size: 1rem;
+}
+
+/* ==================== TAB CONTENT ==================== */
+.tabContent {
+  margin-top: 24px;
+  min-height: 400px;
+}
+
+.tabHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.tabHeader h2 {
+  color: var(--mid-blue);
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6c757d;
+  font-size: 1rem;
+}
+
+/* ==================== OVERVIEW TAB ==================== */
+.overviewTab {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.section {
+  border-bottom: 1px solid #e5e5e5;
+  padding-bottom: 24px;
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+.section h2 {
+  color: var(--mid-blue);
+  font-size: 1.3rem;
+  margin-bottom: 16px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.statCard {
+  background: var(--white);
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
+.statLabel {
+  font-size: 0.85rem;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.statValue {
+  font-size: 2rem;
+  color: var(--mid-blue);
+  font-weight: 700;
+}
+
+.progressBar {
+  margin-top: 16px;
+}
+
+.progressLabel {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: var(--dark-blue);
+  font-weight: 600;
+}
+
+.progressTrack {
+  width: 100%;
+  height: 12px;
+  background: #e5e5e5;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--light-blue), var(--aqua));
+  transition: width 0.3s ease;
+}
+
+.fullDescription {
+  color: var(--dark-blue);
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+/* ==================== ACTIVITIES TAB ==================== */
+.activitiesList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.activityCard {
+  background: var(--white);
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.2s ease;
+}
+
+.activityCard:hover {
+  border-color: var(--aqua);
+  box-shadow: 0 4px 12px rgba(0, 23, 31, 0.1);
+}
+
+.activityHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.activityOrder {
+  background: var(--mid-blue);
+  color: var(--white);
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.activityHeader h3 {
+  flex: 1;
+  color: var(--dark-blue);
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.activityStatus {
+  padding: 4px 12px;
+  background: #e5e5e5;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.activityDesc {
+  color: #6c757d;
+  line-height: 1.5;
+}
+
+/* ==================== TASKS TAB ==================== */
+.tasksList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.taskCard {
+  background: var(--white);
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+
+.taskCard:hover {
+  border-color: var(--aqua);
+  box-shadow: 0 4px 12px rgba(0, 23, 31, 0.1);
+}
+
+.taskHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.taskHeader h3 {
+  color: var(--dark-blue);
+  font-size: 1.1rem;
+  margin: 0;
+  flex: 1;
+}
+
+.taskStatus {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.taskDesc {
+  color: #6c757d;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.taskFooter {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 12px;
+  border-top: 1px solid #e5e5e5;
+  font-size: 0.85rem;
+  color: var(--dark-blue);
+}
+
+.taskFooter span {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ==================== FREELANCERS TAB ==================== */
+.freelancersList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.freelancerCard {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--white);
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.freelancerAvatar img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.freelancerInfo {
+  flex: 1;
+}
+
+.freelancerInfo h3 {
+  color: var(--dark-blue);
+  margin: 0 0 6px 0;
+  font-size: 1.1rem;
+}
+
+.freelancerInfo p {
+  color: #6c757d;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* ==================== MODAL ==================== */
+.modalForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 100px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.textarea:focus {
+  border-color: var(--aqua);
+  outline: none;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* ==================== ACTIONS ==================== */
 .actions {
-  margin-top: 24px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #e5e5e5;
   display: flex;
   gap: 12px;
 }
 
+/* ==================== NOT FOUND ==================== */
 .notFound {
   text-align: center;
-  padding: 40px;
+  padding: 60px 20px;
 }
 
 .notFound h2 {
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   color: var(--mid-blue);
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+  .titleRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tasksList {
+    grid-template-columns: 1fr;
+  }
+
+  .freelancerCard {
+    flex-direction: column;
+    text-align: center;
+  }
 }

@@ -1,5 +1,3 @@
-// src/utils/validators.js
-
 /**
  * Valida email
  * @param {string} email 
