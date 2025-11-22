@@ -1,0 +1,117 @@
+.card {
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  border-color: var(--aqua);
+  box-shadow: 0 4px 12px rgba(0, 23, 31, 0.1);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.titleSection {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.titleSection h4 {
+  margin: 0;
+  color: var(--dark-blue);
+  font-size: 1.1rem;
+}
+
+.statusBadge {
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.fileSection {
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
+}
+
+.fileLink {
+  color: var(--aqua);
+  text-decoration: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s ease;
+}
+
+.fileLink:hover {
+  color: var(--light-blue);
+  text-decoration: underline;
+}
+
+.observations {
+  padding: 12px;
+  background: #fff7e6;
+  border: 1px solid #ffc069;
+  border-radius: 8px;
+}
+
+.observations strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--mid-blue);
+}
+
+.observations p {
+  margin: 0;
+  color: var(--dark-blue);
+  line-height: 1.5;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 12px;
+  border-top: 1px solid #e5e5e5;
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+.info strong {
+  color: var(--dark-blue);
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 12px;
+  border-top: 1px solid #e5e5e5;
+}
+
+@media (max-width: 768px) {
+  .actions {
+    flex-direction: column;
+  }
+
+  .actions button {
+    width: 100%;
+  }
+}

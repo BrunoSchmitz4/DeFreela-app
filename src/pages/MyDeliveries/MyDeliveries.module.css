@@ -1,0 +1,197 @@
+:root {
+  --white: #ffffff;
+  --dark-blue: #00171f;
+  --mid-blue: #003459;
+  --light-blue: #007ea7;
+  --aqua: #00a8e8;
+  --gray-border: #e0e0e0;
+}
+
+.container {
+  background: var(--white);
+  min-height: calc(100vh - 80px);
+  padding: 32px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ==================== HEADER ==================== */
+.header {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.header h1 {
+  color: var(--mid-blue);
+  font-size: 2rem;
+  margin: 0;
+  text-align: center;
+}
+
+/* ==================== ESTATÍSTICAS ==================== */
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 16px;
+}
+
+.statCard {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid var(--gray-border);
+}
+
+.statLabel {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.statValue {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--mid-blue);
+}
+
+/* ==================== FILTROS ==================== */
+.filterRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid var(--gray-border);
+}
+
+.filterRow label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--mid-blue);
+}
+
+.filterSelect {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  flex: 1;
+  max-width: 300px;
+}
+
+.filterSelect:focus {
+  border-color: var(--aqua);
+  outline: none;
+}
+
+/* ==================== LISTA DE ENTREGAS ==================== */
+.deliveriesList {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ==================== EMPTY STATE ==================== */
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6c757d;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.emptyState p {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+/* ==================== MODAL DE FEEDBACK ==================== */
+.feedbackForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.feedbackHint {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--dark-blue);
+  font-weight: 500;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 150px;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color 0.2s ease;
+}
+
+.textarea:focus {
+  border-color: var(--aqua);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 168, 232, 0.1);
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* ==================== RESPONSIVIDADE ==================== */
+@media (min-width: 768px) {
+  .header {
+    padding: 0 24px;
+  }
+
+  .deliveriesList {
+    padding: 0 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .statsRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .filterRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filterSelect {
+    max-width: 100%;
+  }
+
+  .modalActions {
+    flex-direction: column;
+  }
+
+  .modalActions button {
+    width: 100%;
+  }
+}
