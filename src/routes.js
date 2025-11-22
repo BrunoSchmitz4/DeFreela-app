@@ -4,17 +4,19 @@ import Home from "./pages/Home";
 import BasePage from "./pages/BasePage";
 import Profile from "./pages/Profile";
 import Login from "./pages/Auth/Login";
+import Register from "./pages/Auth/Register";
 
 import Projects from "./pages/Projects";
 import SearchProjects from "./pages/Projects/SearchProjects";
 import MyProjects from "./pages/Projects/MyProjects";
+import ProjectDetails from "./pages/Projects/ProjectDetails";
+
+import Freelancer from "./pages/Freelancer";
 import SearchFreelancer from "./pages/Freelancer/SearchFreelancer";
 import MyJobs from "./pages/Freelancer/MyJobs";
-import ProjectDetails from "./pages/Projects/ProjectDetails";
-import Freelancer from "./pages/Freelancer";
+import MyFreelancers from "./pages/Freelancer/MyFreelancers"; // NOVO - UC01
 
 import PrivateRoute from "./components/PrivateRoute";
-import Register from "./pages/Auth/Register";
 
 function AppRoutes() {
     return (
@@ -26,7 +28,7 @@ function AppRoutes() {
                     {/* Rotas públicas */}
                     <Route index element={ <Home /> } />
 
-                    {/* Rotas privadas (lembrando que só funciona com autenticação de usuário, tá amor?*/}
+                    {/* Rotas privadas */}
                     <Route element={<PrivateRoute />}>
                         {/* Rota de Perfil */}
                         <Route path="/Profile" element={ <Profile /> } />
@@ -36,6 +38,8 @@ function AppRoutes() {
                         <Route path="/freelancers" element={ <Freelancer /> } >
                             <Route path="/freelancers/searchFreelancers" element={ <SearchFreelancer /> }/>
                             <Route path="/freelancers/myJobs" element={ <MyJobs />  }/>
+                            {/* NOVO - UC01 - Página de Gestão de Freelancers para Empresa */}
+                            <Route path="/freelancers/myFreelancers" element={ <MyFreelancers />  }/>
                         </Route>
 
                         {/* Rota de Projetos */}
@@ -49,8 +53,10 @@ function AppRoutes() {
                     {/* Rota Fallback */}
                     <Route path="*" element={ <NotFound /> } />
                 </Route>
-                    <Route path="/login" element={ <Login /> } />
-                    <Route path="/auth/register" element={<Register />} />
+                
+                {/* Rotas de autenticação */}
+                <Route path="/login" element={ <Login /> } />
+                <Route path="/auth/register" element={<Register />} />
             </Routes>
         </BrowserRouter>
     )
