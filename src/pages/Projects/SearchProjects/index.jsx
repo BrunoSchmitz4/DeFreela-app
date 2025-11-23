@@ -1,5 +1,5 @@
-// src/pages/Projects/SearchProjects.jsx
-import { useState } from "react";
+// src/pages/Projects/SearchProjects/index.jsx - VERSÃO CORRIGIDA
+import { useState, useEffect } from "react";
 import { useProjectsContext } from "../../../context/projectContext";
 import { useContracts } from "../../../hooks/useContracts";
 import ProjectCard from "../../../components/ProjectCard";
@@ -7,19 +7,30 @@ import CardList from "../../../components/CardList";
 import styles from "./SearchProjects.module.css";
 
 export default function SearchProjects() {
-const { projects, loading } = useProjectsContext();
+  const { projects, loading } = useProjectsContext();
   const { interests, markInterest, unmarkInterest } = useContracts();
 
   const [query, setQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
 
-  if (loading) return <p>Carregando projetos...</p>;
+  // 🔧 CORREÇÃO: Adicionar verificação de loading e array vazio
+  if (loading) {
+    return (
+      <div className={styles.container}>
+        <p>Carregando projetos...</p>
+      </div>
+    );
+  }
 
-  const filtered = projects.filter((p) => {
+  // 🔧 CORREÇÃO: Garantir que projects é sempre um array
+  const projectsList = Array.isArray(projects) ? projects : [];
+
+  // 🔧 CORREÇÃO: Filtros agora são seguros
+  const filtered = projectsList.filter((p) => {
     const q = query.toLowerCase();
     const matchesQuery =
-      p.titulo.toLowerCase().includes(q) ||
-      p.descricao.toLowerCase().includes(q);
+      p.titulo?.toLowerCase().includes(q) ||
+      p.descricao?.toLowerCase().includes(q);
 
     const matchesStatus = statusFilter ? p.status === statusFilter : true;
 
@@ -70,8 +81,10 @@ const { projects, loading } = useProjectsContext();
             onChange={(e) => setStatusFilter(e.target.value)}
           >
             <option value="">Todos os status</option>
-            <option value="ativo">Ativos</option>
-            <option value="cancelado">Cancelados</option>
+            <option value="PLANEJAMENTO">Planejamento</option>
+            <option value="EM_ANDAMENTO">Em Andamento</option>
+            <option value="CONCLUIDO">Concluído</option>
+            <option value="CANCELADO">Cancelado</option>
           </select>
         </div>
       </header>

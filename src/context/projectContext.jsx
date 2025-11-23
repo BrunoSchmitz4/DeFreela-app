@@ -1,9 +1,11 @@
+// src/context/projectContext.jsx - VERSÃO CORRIGIDA
 import { createContext, useContext, useEffect, useState } from "react";
 import { ProjectRepository } from "../repos/ProjectRepository";
 
 const ProjectsContext = createContext();
 
 export function ProjectsProvider({ children }) {
+  // 🔧 CORREÇÃO: Inicializar sempre como array vazio
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -18,9 +20,13 @@ export function ProjectsProvider({ children }) {
       setLoading(true);
       try {
         const list = await ProjectRepository.getAll();
-        setProjects(list);
+        // 🔧 CORREÇÃO: Garantir que sempre é array
+        setProjects(Array.isArray(list) ? list : []);
       } catch (err) {
+        console.error("Erro ao carregar projetos:", err);
         setError(err);
+        // 🔧 CORREÇÃO: Mesmo com erro, manter array vazio
+        setProjects([]);
       } finally {
         setLoading(false);
       }
@@ -30,7 +36,7 @@ export function ProjectsProvider({ children }) {
 
   // UC03 — Meus projetos
   async function getMyProjects(userId) {
-    const list = projects.filter((p) => p.ownerId === userId);
+    const list = projects.filter((p) => p.empresa_id === userId);
     return response(list, null);
   }
 
@@ -39,9 +45,12 @@ export function ProjectsProvider({ children }) {
     try {
       setLoading(true);
       const list = await ProjectRepository.getAll(query);
-      return response(list, null);
+      // 🔧 CORREÇÃO: Garantir que sempre é array
+      const safeList = Array.isArray(list) ? list : [];
+      return response(safeList, null);
     } catch (err) {
-      return response(null, err);
+      console.error("Erro ao buscar projetos:", err);
+      return response([], err);
     } finally {
       setLoading(false);
     }
@@ -54,6 +63,7 @@ export function ProjectsProvider({ children }) {
       setProjects((prev) => [...prev, created]);
       return response(created, null);
     } catch (err) {
+      console.error("Erro ao criar projeto:", err);
       return response(null, err);
     }
   }
@@ -67,13 +77,14 @@ export function ProjectsProvider({ children }) {
       );
       return response(updated, null);
     } catch (err) {
+      console.error("Erro ao atualizar projeto:", err);
       return response(null, err);
     }
   }
 
   // UC04 — Cancelar projeto
   async function cancelProject(id) {
-    return updateProject(id, { status: "cancelled" });
+    return updateProject(id, { status: "CANCELADO" });
   }
 
   // UC05 — Deletar projeto
@@ -83,38 +94,49 @@ export function ProjectsProvider({ children }) {
       setProjects((prev) => prev.filter((p) => p.id !== id));
       return response(true, null);
     } catch (err) {
+      console.error("Erro ao deletar projeto:", err);
       return response(null, err);
     }
   }
 
   // UC09 — Marcar interesse
   async function markInterest(projectId, freelancerId) {
-    const updated = await ProjectRepository.expressInterest(
-      projectId,
-      freelancerId
-    );
-    setProjects((prev) =>
-      prev.map((p) => (p.id === projectId ? updated : p))
-    );
-    return response(updated, null);
+    try {
+      const updated = await ProjectRepository.expressInterest(
+        projectId,
+        freelancerId
+      );
+      setProjects((prev) =>
+        prev.map((p) => (p.id === projectId ? updated : p))
+      );
+      return response(updated, null);
+    } catch (err) {
+      console.error("Erro ao marcar interesse:", err);
+      return response(null, err);
+    }
   }
 
   // UC10 — Retirar interesse
   async function removeInterest(projectId, freelancerId) {
-    const updated = await ProjectRepository.cancelInterest(
-      projectId,
-      freelancerId
-    );
-    setProjects((prev) =>
-      prev.map((p) => (p.id === projectId ? updated : p))
-    );
-    return response(updated, null);
+    try {
+      const updated = await ProjectRepository.cancelInterest(
+        projectId,
+        freelancerId
+      );
+      setProjects((prev) =>
+        prev.map((p) => (p.id === projectId ? updated : p))
+      );
+      return response(updated, null);
+    } catch (err) {
+      console.error("Erro ao remover interesse:", err);
+      return response(null, err);
+    }
   }
 
   return (
     <ProjectsContext.Provider
       value={{
-        projects,
+        projects, // Sempre será array
         loading,
         error,
         getMyProjects,
@@ -133,5 +155,12 @@ export function ProjectsProvider({ children }) {
 }
 
 export function useProjectsContext() {
-  return useContext(ProjectsContext);
+  const context = useContext(ProjectsContext);
+  
+  // 🔧 CORREÇÃO: Verificar se contexto existe
+  if (!context) {
+    throw new Error('useProjectsContext must be used within ProjectsProvider');
+  }
+  
+  return context;
 }

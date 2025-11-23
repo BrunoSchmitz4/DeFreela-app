@@ -1,7 +1,7 @@
 // Adicionar ao server.js existente
 
 import { Response } from 'miragejs';
-import { generateContractTemplate } from '../../utils/contractTemplate';
+import { generateContractTemplate } from '../../utils/contracttemplate';
 
 export function contractRoutes(server) {
   
