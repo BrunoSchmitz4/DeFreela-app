@@ -14,7 +14,7 @@ import ProjectDetails from "./pages/Projects/ProjectDetails";
 import Freelancer from "./pages/Freelancer";
 import SearchFreelancer from "./pages/Freelancer/SearchFreelancer";
 import MyJobs from "./pages/Freelancer/MyJobs";
-import MyFreelancers from "./pages/Freelancer/MyFreelancers"; // NOVO - UC01
+import MyFreelancers from "./pages/MyFreelancers"; // NOVO - UC01
 
 import PrivateRoute from "./components/PrivateRoute";
 

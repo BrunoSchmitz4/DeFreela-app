@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { FreelancerRepository } from "../../../repos/FreelancerRepository";
-import Button from "../../../components/ui/Button";
-import Input from "../../../components/ui/Input";
-import AddFreelancerModal from "../../../components/features/freelancers/AddFreelancerModal";
-import EditFreelancerModal from "../../../components/features/freelancers/EditFreelancerModal";
+import { FreelancerRepository } from "../../repos/FreelancerRepository";
+import Button from "../../components/ui/Button";
+import Input from "../../components/ui/Input";
+// import AddFreelancerModal from "../components/features/freelancers/AddFreelancerModal";
+import EditFreelancerModal from "../../components/features/EditFreelancerModal";
 import styles from './MyFreelancers.module.css';
-import { formatCurrency } from "../../../utils/formatters";
+import { formatCurrency } from "../../utils/formatters";
 
 export default function MyFreelancers() {
   const [freelancers, setFreelancers] = useState([]);
@@ -226,14 +226,14 @@ export default function MyFreelancers() {
       )}
 
       {/* Modals */}
-      <AddFreelancerModal
+      {/* <AddFreelancerModal
         isOpen={showAddModal}
         onClose={() => setShowAddModal(false)}
         onSuccess={() => {
           setShowAddModal(false);
           loadFreelancers();
         }}
-      />
+      /> */}
 
       <EditFreelancerModal
         isOpen={showEditModal}

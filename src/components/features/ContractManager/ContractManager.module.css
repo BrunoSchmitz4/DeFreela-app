@@ -1,0 +1,380 @@
+.container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.header {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #1f2937;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* No Contract State */
+.noContract {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.noContractIcon {
+  font-size: 64px;
+  margin-bottom: 20px;
+}
+
+.noContract h3 {
+  font-size: 22px;
+  color: #1f2937;
+  margin-bottom: 10px;
+}
+
+.noContract p {
+  color: #6b7280;
+  margin-bottom: 30px;
+  font-size: 16px;
+}
+
+.btnGenerate {
+  padding: 12px 24px;
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btnGenerate:hover {
+  background: #059669;
+  transform: translateY(-2px);
+}
+
+.btnGenerate:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Status Card */
+.statusCard {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  background: #f9fafb;
+  border-radius: 8px;
+  border-left: 4px solid;
+}
+
+.statusIcon {
+  font-size: 32px;
+}
+
+.statusInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.statusLabel {
+  font-size: 13px;
+  color: #6b7280;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.statusValue {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* Signatures Card */
+.signaturesCard {
+  padding: 20px;
+  background: #f9fafb;
+  border-radius: 8px;
+}
+
+.signaturesCard h3 {
+  margin: 0 0 15px 0;
+  font-size: 18px;
+  color: #1f2937;
+}
+
+.signaturesList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.signatureItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background: white;
+  border-radius: 6px;
+}
+
+.signatureRole {
+  font-weight: 600;
+  color: #4b5563;
+}
+
+.signed {
+  color: #10b981;
+  font-weight: 700;
+}
+
+.pending {
+  color: #f59e0b;
+  font-weight: 700;
+}
+
+.allSignedBanner {
+  margin-top: 15px;
+  padding: 12px;
+  background: #d1fae5;
+  color: #065f46;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Contract Details */
+.contractDetails {
+  padding: 20px;
+  background: #f9fafb;
+  border-radius: 8px;
+}
+
+.contractDetails h3 {
+  margin: 0 0 15px 0;
+  font-size: 18px;
+  color: #1f2937;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.detailItem {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 12px;
+  background: white;
+  border-radius: 6px;
+}
+
+.detailLabel {
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.detailValue {
+  font-size: 16px;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btnView,
+.btnSign,
+.btnCancel {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btnView {
+  background: #3b82f6;
+  color: white;
+  flex: 1;
+}
+
+.btnView:hover {
+  background: #2563eb;
+}
+
+.btnSign {
+  background: #10b981;
+  color: white;
+  flex: 1;
+}
+
+.btnSign:hover {
+  background: #059669;
+}
+
+.btnSign:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.btnCancel {
+  background: #ef4444;
+  color: white;
+}
+
+.btnCancel:hover {
+  background: #dc2626;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 8px;
+  padding: 30px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.modalContentLarge {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 1000px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modalContent h3 {
+  margin: 0 0 15px 0;
+  font-size: 20px;
+  color: #1f2937;
+}
+
+.modalContent p {
+  margin: 0 0 15px 0;
+  color: #6b7280;
+}
+
+.textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  margin-bottom: 20px;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.modalActions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.btnModalCancel,
+.btnModalConfirm {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btnModalCancel {
+  background: #e5e7eb;
+  color: #4b5563;
+}
+
+.btnModalCancel:hover {
+  background: #d1d5db;
+}
+
+.btnModalConfirm {
+  background: #ef4444;
+  color: white;
+}
+
+.btnModalConfirm:hover {
+  background: #dc2626;
+}
+
+.btnModalConfirm:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Loading */
+.loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6b7280;
+  font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .detailsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .btnView,
+  .btnSign,
+  .btnCancel {
+    width: 100%;
+  }
+
+  .modalContentLarge {
+    max-height: 95vh;
+    padding: 10px;
+  }
+}

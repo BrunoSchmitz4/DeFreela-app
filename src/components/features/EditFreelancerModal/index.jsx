@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import Modal from "../../../ui/Modal";
-import Input from "../../../ui/Input";
-import Button from "../../../ui/Button";
-import { FreelancerRepository } from "../../../../repos/FreelancerRepository";
-import styles from "./FreelancerModals.module.css";
+import Modal from "../../ui/Modal";
+import Input from "../../ui/Input";
+import Button from "../../ui/Button";
+import { FreelancerRepository } from "../../../repos/FreelancerRepository";
+import styles from "./EditFreelancerModal.module.css"
 
 export default function EditFreelancerModal({ isOpen, freelancer, onClose, onSuccess }) {
   const [formData, setFormData] = useState({
