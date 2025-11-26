@@ -1,73 +1,92 @@
 import api from "./api";
 
 /**
- * UC06 - Listar/Buscar freelancers
+ * ========================================
+ * FREELANCER SERVICE - Alinhado com Spring Boot
+ * ========================================
+ * Controller: /api/freelancer
+ * Entity: Freelancer com relacionamento OneToOne com Pessoa
  */
-export async function getFreelancers(search = "") {
-  const res = await api.get("/freelancers", {
-    params: search ? { q: search } : {}
-  });
-  return res.data; // { data: [...] }
+
+/**
+ * Lista todos os freelancers
+ * GET /api/freelancer/freelancers
+ * 
+ * Retorno esperado:
+ * [
+ *   {
+ *     id: 2,
+ *     pessoa: { id: 2, email: "...", tipo: "FREELANCER", ... },
+ *     nomeCompleto: "João Silva",
+ *     cpfCnpj: "12345678901",
+ *     isPj: false,
+ *     habilidades: "React, Node.js, CSS",
+ *     valorHora: 80.00,
+ *     portfolioUrl: "https://portfolio-joao.com"
+ *   }
+ * ]
+ * 
+ * @returns {Promise<Array>}
+ */
+export async function getFreelancers() {
+  const res = await api.get("/freelancer/freelancers");
+  return res.data;
 }
 
 /**
- * UC07 - Buscar freelancer por ID
+ * Cria um novo freelancer
+ * POST /api/freelancer/freelancer
+ * 
+ * Payload esperado:
+ * {
+ *   pessoa: {
+ *     email: "freelancer@example.com",
+ *     senha: "senha123",
+ *     tipo: "FREELANCER"
+ *   },
+ *   nomeCompleto: "João Silva",
+ *   cpfCnpj: "12345678901",
+ *   isPj: false,
+ *   habilidades: "React, Node.js, CSS",
+ *   valorHora: 80.00,
+ *   portfolioUrl: "https://portfolio.com"
+ * }
+ * 
+ * @param {Object} freelancer - Objeto Freelancer com Pessoa aninhada
+ * @returns {Promise<Object>}
+ */
+export async function criarFreelancer(freelancer) {
+  const res = await api.post("/freelancer/freelancer", freelancer);
+  return res.data;
+}
+
+/**
+ * Busca freelancer por ID
+ * ⚠️ TODO: Endpoint ainda não existe no back-end
+ * 
+ * Quando implementado, será algo como:
+ * GET /api/freelancer/{id}
+ * 
+ * @param {number} id 
+ * @returns {Promise<Object>}
  */
 export async function getFreelancerById(id) {
-  const res = await api.get(`/freelancers/${id}`);
-  return res.data;
+  // Este endpoint ainda não foi fornecido
+  // Quando existir, será algo como: GET /api/freelancer/{id}
+  throw new Error("Endpoint GET /api/freelancer/{id} ainda não implementado no back-end");
 }
 
 /**
- * UC07 - Buscar projetos do freelancer
+ * Busca trabalhos do freelancer
+ * ⚠️ TODO: Endpoint ainda não existe no back-end
+ * 
+ * Quando implementado, será algo como:
+ * GET /api/freelancer/{id}/trabalhos
+ * 
+ * @param {number} id 
+ * @returns {Promise<Array>}
  */
 export async function getFreelancerJobs(id) {
-  const res = await api.get(`/freelancers/${id}/jobs`);
-  return res.data;
-}
-
-/**
- * UC01 - Criar novo freelancer
- * @param {object} payload - { nome_completo, cpf_cnpj, is_pj, habilidades, valor_hora, portfolio_url, email }
- * @returns {Promise}
- */
-export async function createFreelancer(payload) {
-  const res = await api.post("/freelancers", payload);
-  return res.data; // { data: freelancer }
-}
-
-/**
- * UC01 - Atualizar dados do freelancer
- * @param {number} id 
- * @param {object} payload 
- * @returns {Promise}
- */
-export async function updateFreelancer(id, payload) {
-  const res = await api.patch(`/freelancers/${id}`, payload);
-  return res.data; // { data: freelancer }
-}
-
-/**
- * UC01 - Desativar freelancer (soft delete)
- * @param {number} id 
- * @returns {Promise}
- */
-export async function deactivateFreelancer(id) {
-  const res = await api.patch(`/freelancers/${id}`, { ativo: false });
-  return res.data; // { data: freelancer }
-}
-
-/**
- * UC01 - Verificar se freelancer tem projetos ativos
- * @param {number} id 
- * @returns {Promise<boolean>}
- */
-export async function hasActiveProjects(id) {
-  try {
-    const res = await api.get(`/freelancers/${id}/active-projects`);
-    return res.data.data && res.data.data.length > 0;
-  } catch (err) {
-    // Se não houver endpoint, assume que não tem projetos ativos
-    return false;
-  }
+  // Este endpoint ainda não foi fornecido
+  throw new Error("Endpoint para buscar jobs do freelancer ainda não implementado no back-end");
 }
